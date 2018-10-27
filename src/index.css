@@ -38,11 +38,9 @@ main {
     width: calc(100% / 7);
     height: calc(100% / 7);
     image-rendering: pixelated;
-    opacity: .9;
     transition: transform 200ms, opacity 200ms;
     animation-duration: 500ms;
     animation-name: fadeIn;
-    transform: scale(1, 1);
 }
 
 .board__square_active {
@@ -69,13 +67,12 @@ main {
 .board__square_hidden {
     animation-duration: 500ms;
     animation-name: fadeOut;
-    opacity: 0;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: scale(0, 0);
+        transform: scale(.1, .1);
     }
 
     to {
@@ -91,7 +88,7 @@ main {
     }
 
     to {
-        opacity: .9;
-        transform: scale(0, 0);
+        opacity: 0;
+        transform: scale(.1, .1);
     }
 }
