@@ -4,6 +4,7 @@ import delay from 'delay';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {DraggingOverlay} from './DraggingOverlay';
+import _ from 'lodash';
 
 const BOARD_SIZE = 7;
 const COLORS = 3;
@@ -22,14 +23,17 @@ function Board(props) {
     const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * COLORS | 0));
 
     const squares = board.map((value, index) => {
+        const active = activeSquares.includes(index);
+
         return (
             <Square
                 key={index}
                 modifiers={{
                     type: value,
-                    active: activeSquares.includes(index),
-                    inactive: activeSquares.length > 0 && !activeSquares.includes(index),
+                    active,
+                    inactive: activeSquares.length > 0 && !active,
                     hidden: hiddenSquares.includes(index),
+                    ready: activeSquares.length === 4 && active,
                 }}
             />
         );
@@ -40,7 +44,7 @@ function Board(props) {
     }
 
     function getActiveSquares(start, end) {
-        if (board[start] !== board[end]) {
+        if (board[start] !== board[end] || start === end) {
             return [start];
         }
 
@@ -100,7 +104,11 @@ function Board(props) {
     }
 
     function handleDragMove({x, y}) {
-        setActiveSquares(getActiveSquares(activeSquares[0], getIndex(x, y)));
+        const newActiveSquares = getActiveSquares(activeSquares[0], getIndex(x, y));
+
+        if (!_.isEqual(activeSquares, newActiveSquares)) {
+            setActiveSquares(getActiveSquares(activeSquares[0], getIndex(x, y)));
+        }
     }
 
     function handleDragAbort() {
