@@ -38,10 +38,12 @@ main {
     width: calc(100% / 7);
     height: calc(100% / 7);
     image-rendering: pixelated;
+    opacity: .9;
     transition: transform 200ms, opacity 200ms;
 }
 
 .board__square_active {
+    opacity: 1;
     transform: scale(1.2, 1.2);
 }
 

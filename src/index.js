@@ -24,16 +24,13 @@ function Board(props) {
     const [activeSquares, setActiveSquares] = useState([]);
     const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * 3 | 0));
 
-    const dragging = activeSquares.length > 0;
-    const activeType = dragging ? 0 : board[dragStart];
-
     const squares = board.map((value, index) => {
         return (
             <Square
                 key={index}
                 value={value}
                 active={activeSquares.includes(index)}
-                inactive={dragging && !activeSquares.includes(index)}
+                inactive={activeSquares.length > 0 && !activeSquares.includes(index)}
             />
         );
     });
