@@ -23,7 +23,6 @@ function Square(props) {
 }
 
 function Board(props) {
-    const [dragStart, setDragStart] = useState(null);
     const [activeSquares, setActiveSquares] = useState([]);
     const [hiddenSquares, setHiddenSquares] = useState([]);
     const [isLocked, setLocked] = useState(false);
@@ -78,12 +77,10 @@ function Board(props) {
 
     function handleDragStart({x, y}) {
         const index = getIndex(x, y);
-        setDragStart(index);
         setActiveSquares([index]);
     }
 
     async function handleDragEnd({x, y}) {
-        setDragStart(null);
         setActiveSquares([]);
 
         if (activeSquares.length < 4) {
@@ -108,11 +105,10 @@ function Board(props) {
     }
 
     function handleDragMove({x, y}) {
-        setActiveSquares(getActiveSquares(dragStart, getIndex(x, y)));
+        setActiveSquares(getActiveSquares(activeSquares[0], getIndex(x, y)));
     }
 
     function handleDragAbort() {
-        setDragStart(null);
         setActiveSquares([]);
     }
 
