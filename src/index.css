@@ -54,15 +54,15 @@ main {
     opacity: .6;
 }
 
-.board__square_animal_0 {
+.board__square_type_0 {
     background-position-x: 0;
 }
 
-.board__square_animal_1 {
+.board__square_type_1 {
     background-position-x: 50%;
 }
 
-.board__square_animal_2 {
+.board__square_type_2 {
     background-position-x: 100%;
 }
 

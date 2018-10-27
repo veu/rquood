@@ -9,15 +9,8 @@ const BOARD_SIZE = 7;
 const COLORS = 3;
 
 function Square(props) {
-    const modifiers = {
-        animal: props.value,
-        active: props.active,
-        inactive: props.inactive,
-        hidden: props.hidden,
-    };
-
     return (
-        <div block="board" elem="square" mods={modifiers}>
+        <div block="board" elem="square" mods={props.modifiers}>
         </div>
     );
 }
@@ -32,10 +25,12 @@ function Board(props) {
         return (
             <Square
                 key={index}
-                value={value}
-                active={activeSquares.includes(index)}
-                inactive={activeSquares.length > 0 && !activeSquares.includes(index)}
-                hidden={hiddenSquares.includes(index)}
+                modifiers={{
+                    type: value,
+                    active: activeSquares.includes(index),
+                    inactive: activeSquares.length > 0 && !activeSquares.includes(index),
+                    hidden: hiddenSquares.includes(index),
+                }}
             />
         );
     });
