@@ -95,6 +95,9 @@ function Board(props) {
 
         await delay(500);
 
+        const a = {x: activeSquares[0] % BOARD_SIZE, y: activeSquares[0] / BOARD_SIZE | 0};
+        const b = {x: activeSquares[1] % BOARD_SIZE, y: activeSquares[1] / BOARD_SIZE | 0};
+        props.increaseScore(Math.hypot(a.x - b.x, a.y - b.y) | 0);
         setHiddenSquares([]);
         setBoard(newBoard);
 
@@ -133,7 +136,21 @@ function Board(props) {
     );
 }
 
-ReactDOM.render(<Board />, document.getElementById('root'));
+function Game(props) {
+    const [score, setScore] = useState(0);
+
+    return (
+        <div>
+            <Board increaseScore={(delta) => setScore(score + delta)} />
+            <div block="stat">
+                <div block="stat" elem="title">Score</div>
+                <div block="stat" elem="value">{score}</div>
+            </div>
+        </div>
+    );
+}
+
+ReactDOM.render(<Game />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
