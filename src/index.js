@@ -7,17 +7,14 @@ import {DraggingOverlay} from './DraggingOverlay';
 const BOARD_SIZE = 7;
 
 function Square(props) {
-    const classes = [
-        'board__square',
-        'board__square--animal-' + props.value,
-    ];
-
-    if (props.active) {
-        classes.push('board__square--active');
-    }
+    const modifiers = {
+        animal: props.value,
+        active: props.active,
+        inactive: props.inactive,
+    };
 
     return (
-        <div className={classes.join(' ')}>
+        <div block="board" elem="square" mods={modifiers}>
         </div>
     );
 }
@@ -25,7 +22,10 @@ function Square(props) {
 function Board(props) {
     const [dragStart, setDragStart] = useState(null);
     const [activeSquares, setActiveSquares] = useState([]);
-    const [board, setBoard] = useState([...Array(7 * 7)].map(() => Math.random() * 3 | 0));
+    const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * 3 | 0));
+
+    const dragging = activeSquares.length > 0;
+    const activeType = dragging ? 0 : board[dragStart];
 
     const squares = board.map((value, index) => {
         return (
@@ -33,6 +33,7 @@ function Board(props) {
                 key={index}
                 value={value}
                 active={activeSquares.includes(index)}
+                inactive={dragging && !activeSquares.includes(index)}
             />
         );
     });
@@ -71,14 +72,14 @@ function Board(props) {
 
     return (
         <div>
-            <div className="board">
+            <div block="board">
                 <DraggingOverlay
                     onDragStart={handleDragStart}
                     onDragEnd={handleDragEnd}
                     onDragMove={handleDragMove}
                     onDragAbort={handleDragAbort}
                 />
-                <div className="board__board">
+                <div block="board" elem="board">
                     {squares}
                 </div>
             </div>

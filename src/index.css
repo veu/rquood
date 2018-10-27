@@ -38,21 +38,25 @@ main {
     width: calc(100% / 7);
     height: calc(100% / 7);
     image-rendering: pixelated;
-    transition: transform 200ms;
+    transition: transform 200ms, opacity 200ms;
 }
 
-.board__square--active {
-    transform: scale(.8, .8);
+.board__square_active {
+    transform: scale(1.2, 1.2);
 }
 
-.board__square--animal-0 {
+.board__square_inactive {
+    opacity: .6;
+}
+
+.board__square_animal_0 {
     background-position-x: 0;
 }
 
-.board__square--animal-1 {
+.board__square_animal_1 {
     background-position-x: 50%;
 }
 
-.board__square--animal-2 {
+.board__square_animal_2 {
     background-position-x: 100%;
 }
