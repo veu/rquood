@@ -22,12 +22,16 @@ export function DraggingOverlay(props) {
     };
 
     function startDragging(event) {
+        if (props.isLocked) {
+            return;
+        }
+
         setPointerDown(true);
         props.onDragStart(getRelativePosition(event, ref));
     }
 
     function finishDragging(event) {
-        if (!pointerDown) {
+        if (props.isLocked || !pointerDown) {
             return;
         }
 
@@ -36,7 +40,7 @@ export function DraggingOverlay(props) {
     }
 
     function abortDragging() {
-        if (!pointerDown) {
+        if (props.isLocked || !pointerDown) {
             return;
         }
 

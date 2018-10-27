@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
+import delay from 'delay';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {DraggingOverlay} from './DraggingOverlay';
@@ -12,6 +13,7 @@ function Square(props) {
         animal: props.value,
         active: props.active,
         inactive: props.inactive,
+        hidden: props.hidden,
     };
 
     return (
@@ -23,6 +25,8 @@ function Square(props) {
 function Board(props) {
     const [dragStart, setDragStart] = useState(null);
     const [activeSquares, setActiveSquares] = useState([]);
+    const [hiddenSquares, setHiddenSquares] = useState([]);
+    const [isLocked, setLocked] = useState(false);
     const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * COLORS | 0));
 
     const squares = board.map((value, index) => {
@@ -32,6 +36,7 @@ function Board(props) {
                 value={value}
                 active={activeSquares.includes(index)}
                 inactive={activeSquares.length > 0 && !activeSquares.includes(index)}
+                hidden={hiddenSquares.includes(index)}
             />
         );
     });
@@ -77,17 +82,29 @@ function Board(props) {
         setActiveSquares([index]);
     }
 
-    function handleDragEnd({x, y}) {
-        if (activeSquares.length === 4) {
-            const newBoard = board.map((value, index) => {
-                return activeSquares.includes(index) ? Math.random() * COLORS | 0 : value;
-            });
-
-            setBoard(newBoard);
-        }
-
+    async function handleDragEnd({x, y}) {
         setDragStart(null);
         setActiveSquares([]);
+
+        if (activeSquares.length < 4) {
+            return;
+        }
+
+        const newBoard = board.map((value, index) => {
+            return activeSquares.includes(index) ? Math.random() * COLORS | 0 : value;
+        });
+
+        setHiddenSquares([...activeSquares]);
+        setLocked(true);
+
+        await delay(500);
+
+        setHiddenSquares([]);
+        setBoard(newBoard);
+
+        await delay(500);
+
+        setLocked(false);
     }
 
     function handleDragMove({x, y}) {
@@ -107,6 +124,7 @@ function Board(props) {
                     onDragEnd={handleDragEnd}
                     onDragMove={handleDragMove}
                     onDragAbort={handleDragAbort}
+                    isLocked={isLocked}
                 />
                 <div block="board" elem="board">
                     {squares}
