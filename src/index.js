@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import {DraggingOverlay} from './DraggingOverlay';
 
 const BOARD_SIZE = 7;
+const COLORS = 3;
 
 function Square(props) {
     const modifiers = {
@@ -22,7 +23,7 @@ function Square(props) {
 function Board(props) {
     const [dragStart, setDragStart] = useState(null);
     const [activeSquares, setActiveSquares] = useState([]);
-    const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * 3 | 0));
+    const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * COLORS | 0));
 
     const squares = board.map((value, index) => {
         return (
@@ -77,6 +78,14 @@ function Board(props) {
     }
 
     function handleDragEnd({x, y}) {
+        if (activeSquares.length === 4) {
+            const newBoard = board.map((value, index) => {
+                return activeSquares.includes(index) ? Math.random() * COLORS | 0 : value;
+            });
+
+            setBoard(newBoard);
+        }
+
         setDragStart(null);
         setActiveSquares([]);
     }
