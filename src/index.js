@@ -38,12 +38,35 @@ function Board(props) {
         );
     });
 
+    function isCoordinateValid(c) {
+        return 0 <= c && c < BOARD_SIZE && c % 1 === 0;
+    }
+
     function getActiveSquares(start, end) {
         if (board[start] !== board[end]) {
             return [start];
         }
 
-        return [start, end];
+        const a = {x: start % BOARD_SIZE, y: start / BOARD_SIZE | 0};
+        const b = {x: end % BOARD_SIZE, y: end / BOARD_SIZE | 0};
+        const center = {x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+        const diff = {x: center.x - a.x, y: center.y - a.y};
+        const c = {x: center.x + diff.y, y: center.y - diff.x};
+        const d = {x: center.x - diff.y, y: center.y + diff.x};
+        const cIndex = c.x + c.y * BOARD_SIZE;
+        const dIndex = d.x + d.y * BOARD_SIZE;
+
+        const active = [start, end];
+
+        if (isCoordinateValid(c.x) && isCoordinateValid(c.y) && board[cIndex] === board[start]) {
+            active.push(cIndex);
+        }
+
+        if (isCoordinateValid(d.x) && isCoordinateValid(d.y) && board[dIndex] === board[start]) {
+            active.push(dIndex);
+        }
+
+        return active;
     }
 
     function getIndex(x, y) {
