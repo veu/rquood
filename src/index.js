@@ -92,7 +92,7 @@ function Board(props) {
         setHiddenSquares([...selection.squares]);
         setLocked(true);
 
-        await delay(500);
+        await delay(490);
 
         props.increaseScore(selection.size | 0);
         setHiddenSquares([]);
