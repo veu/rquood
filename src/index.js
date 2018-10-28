@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import delay from 'delay';
 import './index.css';
@@ -22,7 +22,7 @@ function Board(props) {
     const [isLocked, setLocked] = useState(false);
     const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * COLORS | 0));
 
-    const selection = useMemo(() => getSelection(dragStart, dragEnd), [dragStart, dragEnd]);
+    const selection = getSelection(dragStart, dragEnd);
 
     const squares = board.map((value, index) => {
         const active = selection.squares.includes(index);
@@ -77,15 +77,7 @@ function Board(props) {
         return selection;
     }
 
-    function getIndex(x, y) {
-        return (x * BOARD_SIZE | 0) + (y * BOARD_SIZE | 0) * 7;
-    }
-
-    function handleDragStart({x, y}) {
-        setDragStart(getIndex(x, y));
-    }
-
-    async function handleDragEnd({x, y}) {
+    async function handleDragEnd() {
         setDragStart(null);
         setDragEnd(null);
 
@@ -111,23 +103,18 @@ function Board(props) {
         setLocked(false);
     }
 
-    function handleDragMove({x, y}) {
-        setDragEnd(getIndex(x, y));
-    }
-
-    function handleDragAbort() {
-        setDragStart(null);
-        setDragEnd(null);
+    function handleDragUpdate(start, end) {
+        setDragStart(start ? start.x + start.y * BOARD_SIZE : null);
+        setDragEnd(end ? end.x + end.y * BOARD_SIZE : null);
     }
 
     return (
         <div>
             <div block="board">
                 <DraggingOverlay
-                    onDragStart={handleDragStart}
+                    gridSize={BOARD_SIZE}
                     onDragEnd={handleDragEnd}
-                    onDragMove={handleDragMove}
-                    onDragAbort={handleDragAbort}
+                    onDragUpdate={handleDragUpdate}
                     isLocked={isLocked}
                 />
                 <div block="board" elem="board">
