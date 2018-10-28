@@ -68,7 +68,7 @@ main {
 }
 
 .board__square_ready {
-    animation: jump 500ms, fadeIn 500ms;
+    animation: jump 300ms infinite alternate-reverse, fadeIn 500ms;
 }
 
 .stat {
