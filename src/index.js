@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import ReactDOM from 'react-dom';
 import delay from 'delay';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {DraggingOverlay} from './DraggingOverlay';
-import _ from 'lodash';
 
 const BOARD_SIZE = 7;
 const COLORS = 3;
@@ -17,10 +16,13 @@ function Square(props) {
 }
 
 function Board(props) {
-    const [activeSquares, setActiveSquares] = useState([]);
+    const [dragStart, setDragStart] = useState(null);
+    const [dragEnd, setDragEnd] = useState(null);
     const [hiddenSquares, setHiddenSquares] = useState([]);
     const [isLocked, setLocked] = useState(false);
     const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * COLORS | 0));
+
+    const activeSquares = useMemo(() => getActiveSquares(dragStart, dragEnd), [dragStart, dragEnd]);
 
     const squares = board.map((value, index) => {
         const active = activeSquares.includes(index);
@@ -44,7 +46,11 @@ function Board(props) {
     }
 
     function getActiveSquares(start, end) {
-        if (board[start] !== board[end] || start === end) {
+        if (start === null) {
+            return [];
+        }
+
+        if (end === null || board[start] !== board[end] || start === end) {
             return [start];
         }
 
@@ -75,12 +81,12 @@ function Board(props) {
     }
 
     function handleDragStart({x, y}) {
-        const index = getIndex(x, y);
-        setActiveSquares([index]);
+        setDragStart(getIndex(x, y));
     }
 
     async function handleDragEnd({x, y}) {
-        setActiveSquares([]);
+        setDragStart(null);
+        setDragEnd(null);
 
         if (activeSquares.length < 4) {
             return;
@@ -95,8 +101,8 @@ function Board(props) {
 
         await delay(500);
 
-        const a = {x: activeSquares[0] % BOARD_SIZE, y: activeSquares[0] / BOARD_SIZE | 0};
-        const b = {x: activeSquares[1] % BOARD_SIZE, y: activeSquares[1] / BOARD_SIZE | 0};
+        const a = {x: dragStart % BOARD_SIZE, y: dragStart / BOARD_SIZE | 0};
+        const b = {x: dragEnd % BOARD_SIZE, y: dragEnd / BOARD_SIZE | 0};
         props.increaseScore(Math.hypot(a.x - b.x, a.y - b.y) | 0);
         setHiddenSquares([]);
         setBoard(newBoard);
@@ -107,15 +113,12 @@ function Board(props) {
     }
 
     function handleDragMove({x, y}) {
-        const newActiveSquares = getActiveSquares(activeSquares[0], getIndex(x, y));
-
-        if (!_.isEqual(activeSquares, newActiveSquares)) {
-            setActiveSquares(getActiveSquares(activeSquares[0], getIndex(x, y)));
-        }
+        setDragEnd(getIndex(x, y));
     }
 
     function handleDragAbort() {
-        setActiveSquares([]);
+        setDragStart(null);
+        setDragEnd(null);
     }
 
     return (
