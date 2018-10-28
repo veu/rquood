@@ -22,10 +22,10 @@ function Board(props) {
     const [isLocked, setLocked] = useState(false);
     const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * COLORS | 0));
 
-    const activeSquares = useMemo(() => getActiveSquares(dragStart, dragEnd), [dragStart, dragEnd]);
+    const selection = useMemo(() => getSelection(dragStart, dragEnd), [dragStart, dragEnd]);
 
     const squares = board.map((value, index) => {
-        const active = activeSquares.includes(index);
+        const active = selection.squares.includes(index);
 
         return (
             <Square
@@ -33,9 +33,9 @@ function Board(props) {
                 modifiers={{
                     type: value,
                     active,
-                    inactive: activeSquares.length > 0 && !active,
+                    inactive: selection.squares.length > 0 && !active,
                     hidden: hiddenSquares.includes(index),
-                    ready: activeSquares.length === 4 && active,
+                    ready: selection.squares.length === 4 && active,
                 }}
             />
         );
@@ -45,35 +45,36 @@ function Board(props) {
         return 0 <= c && c < BOARD_SIZE && c % 1 === 0;
     }
 
-    function getActiveSquares(start, end) {
+    function getSelection(start, end) {
         if (start === null) {
-            return [];
+            return {squares: [], size: 0};
         }
 
         if (end === null || board[start] !== board[end] || start === end) {
-            return [start];
+            return {squares: [start], size: 0};
         }
 
         const a = {x: start % BOARD_SIZE, y: start / BOARD_SIZE | 0};
         const b = {x: end % BOARD_SIZE, y: end / BOARD_SIZE | 0};
         const center = {x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
         const diff = {x: center.x - a.x, y: center.y - a.y};
-        const c = {x: center.x + diff.y, y: center.y - diff.x};
-        const d = {x: center.x - diff.y, y: center.y + diff.x};
-        const cIndex = c.x + c.y * BOARD_SIZE;
-        const dIndex = d.x + d.y * BOARD_SIZE;
+        const selection = {squares: [start, end], size: 2 * Math.hypot(diff.x, diff.y)};
 
-        const active = [start, end];
+        const c = {x: center.x + diff.y, y: center.y - diff.x};
+        const cIndex = c.x + c.y * BOARD_SIZE;
 
         if (isCoordinateValid(c.x) && isCoordinateValid(c.y) && board[cIndex] === board[start]) {
-            active.push(cIndex);
+            selection.squares.push(cIndex);
         }
+
+        const d = {x: center.x - diff.y, y: center.y + diff.x};
+        const dIndex = d.x + d.y * BOARD_SIZE;
 
         if (isCoordinateValid(d.x) && isCoordinateValid(d.y) && board[dIndex] === board[start]) {
-            active.push(dIndex);
+            selection.squares.push(dIndex);
         }
 
-        return active;
+        return selection;
     }
 
     function getIndex(x, y) {
@@ -88,22 +89,20 @@ function Board(props) {
         setDragStart(null);
         setDragEnd(null);
 
-        if (activeSquares.length < 4) {
+        if (selection.squares.length < 4) {
             return;
         }
 
         const newBoard = board.map((value, index) => {
-            return activeSquares.includes(index) ? Math.random() * COLORS | 0 : value;
+            return selection.squares.includes(index) ? Math.random() * COLORS | 0 : value;
         });
 
-        setHiddenSquares([...activeSquares]);
+        setHiddenSquares([...selection.squares]);
         setLocked(true);
 
         await delay(500);
 
-        const a = {x: dragStart % BOARD_SIZE, y: dragStart / BOARD_SIZE | 0};
-        const b = {x: dragEnd % BOARD_SIZE, y: dragEnd / BOARD_SIZE | 0};
-        props.increaseScore(Math.hypot(a.x - b.x, a.y - b.y) | 0);
+        props.increaseScore(selection.size | 0);
         setHiddenSquares([]);
         setBoard(newBoard);
 
