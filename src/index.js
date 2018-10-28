@@ -16,13 +16,12 @@ function Square(props) {
 }
 
 function Board(props) {
-    const [dragStart, setDragStart] = useState(null);
-    const [dragEnd, setDragEnd] = useState(null);
+    const [drag, setDrag] = useState(null);
     const [hiddenSquares, setHiddenSquares] = useState([]);
     const [isLocked, setLocked] = useState(false);
     const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * COLORS | 0));
 
-    const selection = getSelection(dragStart, dragEnd);
+    const selection = getSelection(drag);
 
     const squares = board.map((value, index) => {
         const active = selection.squares.includes(index);
@@ -45,10 +44,12 @@ function Board(props) {
         return 0 <= c && c < BOARD_SIZE && c % 1 === 0;
     }
 
-    function getSelection(start, end) {
-        if (start === null) {
+    function getSelection(drag) {
+        if (drag === null) {
             return {squares: [], size: 0};
         }
+
+        const {start, end} = drag;
 
         if (end === null || board[start] !== board[end] || start === end) {
             return {squares: [start], size: 0};
@@ -78,8 +79,7 @@ function Board(props) {
     }
 
     async function handleDragEnd() {
-        setDragStart(null);
-        setDragEnd(null);
+        setDrag(null);
 
         if (selection.squares.length < 4) {
             return;
@@ -104,8 +104,10 @@ function Board(props) {
     }
 
     function handleDragUpdate(start, end) {
-        setDragStart(start ? start.x + start.y * BOARD_SIZE : null);
-        setDragEnd(end ? end.x + end.y * BOARD_SIZE : null);
+        setDrag({
+            start: start ? start.x + start.y * BOARD_SIZE : null,
+            end: end ? end.x + end.y * BOARD_SIZE : null,
+        });
     }
 
     return (
