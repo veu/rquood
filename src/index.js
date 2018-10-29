@@ -4,6 +4,7 @@ import delay from 'delay';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {DraggingOverlay} from './DraggingOverlay';
+import { useRandomBucket } from './hooks/useRandomBucket';
 
 const BOARD_SIZE = 7;
 const COLORS = 3;
@@ -12,7 +13,8 @@ function Board(props) {
     const [drag, setDrag] = useState(null);
     const [hiddenSquares, setHiddenSquares] = useState([]);
     const [isLocked, setLocked] = useState(false);
-    const [board, setBoard] = useState([...Array(BOARD_SIZE ** 2)].map(() => Math.random() * COLORS | 0));
+    const [getRandomType, getRandomTypes] = useRandomBucket(0, COLORS);
+    const [board, setBoard] = useState(getRandomTypes(BOARD_SIZE ** 2));
 
     const selection = getSelection(drag);
 
@@ -81,7 +83,7 @@ function Board(props) {
         }
 
         const newBoard = board.map((value, index) => {
-            return selection.squares.includes(index) ? Math.random() * COLORS | 0 : value;
+            return selection.squares.includes(index) ? getRandomType() : value;
         });
 
         setHiddenSquares([...selection.squares]);
