@@ -8,13 +8,6 @@ import {DraggingOverlay} from './DraggingOverlay';
 const BOARD_SIZE = 7;
 const COLORS = 3;
 
-function Square(props) {
-    return (
-        <div block="board" elem="square" mods={props.modifiers}>
-        </div>
-    );
-}
-
 function Board(props) {
     const [drag, setDrag] = useState(null);
     const [hiddenSquares, setHiddenSquares] = useState([]);
@@ -27,16 +20,18 @@ function Board(props) {
         const active = selection.squares.includes(index);
 
         return (
-            <Square
+            <div
                 key={index}
-                modifiers={{
+                block="board"
+                elem="square"
+                mods={{
                     type: value,
                     active,
                     inactive: selection.squares.length > 0 && !active,
                     hidden: hiddenSquares.includes(index),
                     ready: selection.squares.length === 4 && active,
-                }}
-            />
+                }}>
+            </div>
         );
     });
 
