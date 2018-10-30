@@ -5,6 +5,10 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {DraggingOverlay} from './DraggingOverlay';
 import { useRandomBucket } from './hooks/useRandomBucket';
+import { createStore } from 'redux';
+import { connect, Provider } from 'react-redux'
+import reducers from './reducers'
+import { increaseScore } from './actions';
 
 const BOARD_SIZE = 7;
 const COLORS = 3;
@@ -125,20 +129,39 @@ function Board(props) {
 }
 
 function Game(props) {
-    const [score, setScore] = useState(0);
-
     return (
         <div>
-            <Board increaseScore={(delta) => setScore(score + delta)} />
+            <Board increaseScore={props.increaseScore} />
             <div block="stat">
                 <div block="stat" elem="title">Score</div>
-                <div block="stat" elem="value">{score}</div>
+                <div block="stat" elem="value">{props.score}</div>
             </div>
         </div>
     );
 }
 
-ReactDOM.render(<Game />, document.getElementById('root'));
+const TheGame = connect(
+    (state) => {
+        return {
+            score: state.score,
+        };
+    },
+    (dispatch) => {
+        return {
+            increaseScore: (delta) => {
+                dispatch(increaseScore(delta));
+            },
+        }
+    }
+)(Game);
+
+const store = createStore(reducers);
+
+ReactDOM.render((
+    <Provider store={store}>
+        <TheGame />
+    </Provider>
+), document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
