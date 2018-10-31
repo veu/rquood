@@ -8,7 +8,7 @@ import { useRandomBucket } from './hooks/useRandomBucket';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux'
 import reducers from './reducers'
-import { increaseScore } from './actions';
+import { replaceSquares } from './actions';
 
 const BOARD_SIZE = 7;
 const COLORS = 3;
@@ -17,12 +17,11 @@ function Board(props) {
     const [drag, setDrag] = useState(null);
     const [hiddenSquares, setHiddenSquares] = useState([]);
     const [isLocked, setLocked] = useState(false);
-    const [getRandomType, getRandomTypes] = useRandomBucket(0, COLORS);
-    const [board, setBoard] = useState(getRandomTypes(BOARD_SIZE ** 2));
+    const [getRandomType] = useRandomBucket(0, COLORS);
 
     const selection = getSelection(drag);
 
-    const squares = board.map((value, index) => {
+    const squares = props.board.map((value, index) => {
         const active = selection.squares.includes(index);
 
         return (
@@ -52,7 +51,7 @@ function Board(props) {
 
         const {start, end} = drag;
 
-        if (end === null || board[start] !== board[end] || start === end) {
+        if (end === null || props.board[start] !== props.board[end] || start === end) {
             return {squares: [start], size: 0};
         }
 
@@ -65,14 +64,14 @@ function Board(props) {
         const c = {x: center.x + diff.y, y: center.y - diff.x};
         const cIndex = c.x + c.y * BOARD_SIZE;
 
-        if (isCoordinateValid(c.x) && isCoordinateValid(c.y) && board[cIndex] === board[start]) {
+        if (isCoordinateValid(c.x) && isCoordinateValid(c.y) && props.board[cIndex] === props.board[start]) {
             selection.squares.push(cIndex);
         }
 
         const d = {x: center.x - diff.y, y: center.y + diff.x};
         const dIndex = d.x + d.y * BOARD_SIZE;
 
-        if (isCoordinateValid(d.x) && isCoordinateValid(d.y) && board[dIndex] === board[start]) {
+        if (isCoordinateValid(d.x) && isCoordinateValid(d.y) && props.board[dIndex] === props.board[start]) {
             selection.squares.push(dIndex);
         }
 
@@ -86,8 +85,10 @@ function Board(props) {
             return;
         }
 
-        const newBoard = board.map((value, index) => {
-            return selection.squares.includes(index) ? getRandomType() : value;
+
+        const newSquares = {};
+        selection.squares.forEach((index) => {
+            newSquares[index] = getRandomType();
         });
 
         setHiddenSquares([...selection.squares]);
@@ -95,9 +96,8 @@ function Board(props) {
 
         await delay(490);
 
-        props.increaseScore(selection.size | 0);
         setHiddenSquares([]);
-        setBoard(newBoard);
+        props.replaceSquares(newSquares, selection.size | 0);
 
         await delay(500);
 
@@ -131,7 +131,7 @@ function Board(props) {
 function Game(props) {
     return (
         <div>
-            <Board increaseScore={props.increaseScore} />
+            <Board board={props.board} replaceSquares={props.replaceSquares} />
             <div block="stat">
                 <div block="stat" elem="title">Score</div>
                 <div block="stat" elem="value">{props.score}</div>
@@ -143,19 +143,36 @@ function Game(props) {
 const TheGame = connect(
     (state) => {
         return {
+            board: state.board,
             score: state.score,
         };
     },
     (dispatch) => {
         return {
-            increaseScore: (delta) => {
-                dispatch(increaseScore(delta));
+            replaceSquares: (squares, size) => {
+                dispatch(replaceSquares(squares, size));
             },
         }
     }
 )(Game);
 
-const store = createStore(reducers);
+function createBoard() {
+    let bucket = [];
+
+    return [...Array(BOARD_SIZE ** 2)].map(() => {
+        if (bucket.length === 0) {
+            bucket = [...Array(COLORS * 2)].map((value, index) => {
+                return index % 3;
+            });
+        }
+
+        const index = Math.random() * bucket.length | 0;
+
+        return bucket.splice(index, 1)[0];
+    });
+}
+
+const store = createStore(reducers, {board: createBoard()});
 
 ReactDOM.render((
     <Provider store={store}>

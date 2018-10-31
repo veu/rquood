@@ -1,15 +1,27 @@
 import { combineReducers } from 'redux';
-import { INCREASE_SCORE } from './actions';
+import { REPLACE_SQUARES } from './actions';
 
-function score(score = 0, action) {
-    if (action.type === INCREASE_SCORE) {
-        return score + action.delta;
+function board(board = null, action) {
+    if (action.type === REPLACE_SQUARES) {
+        board = [...board];
+        for (const index in action.squares) {
+            board[index] = action.squares[index];
+        }
+    }
+
+    return board;
+}
+
+function score(score = null, action) {
+    if (action.type === REPLACE_SQUARES) {
+        return score + action.size;
     }
 
     return score;
 }
 
 const reducers = combineReducers({
+    board,
     score,
 });
 

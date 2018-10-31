@@ -1,6 +1,7 @@
-export const INCREASE_SCORE = 'INCREASE_SCORE';
+export const REPLACE_SQUARES = 'REPLACE_SQUARES';
 
-export const increaseScore = (delta) => ({
-    type: INCREASE_SCORE,
-    delta,
+export const replaceSquares = (squares, size) => ({
+    type: REPLACE_SQUARES,
+    squares,
+    size
 });
