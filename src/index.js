@@ -6,8 +6,9 @@ import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux'
 import reducers from './reducers'
 import { replaceSquares, startGame } from './actions';
-import Board from './components/board';
+import Board from './components/Board';
 import { useRandomBucket } from './hooks/useRandomBucket';
+import Title from './components/Title';
 
 const BOARD_SIZE = 7;
 const COLORS = 3;
@@ -15,18 +16,29 @@ const COLORS = 3;
 function Game(props) {
     const [getRandomType, getRandomTypes] = useRandomBucket(0, COLORS);
 
-    return (
-        <div>
+    let top = (() => {
+        if (props.board === null) {
+            return <Title />;
+        }
+
+        return (
             <Board
                 board={props.board}
                 replaceSquares={(indexes, size) => {
                     props.replaceSquares(indexes.map((index) => ({index, value: getRandomType()})), size);
                 }}
             />
+        );
+    })();
+
+    return (
+        <div>
+            {top}
             <div block="actions">
                 <div
                     block="actions"
                     elem="start"
+                    mods={{highlight: !props.board}}
                     onClick={() => props.startGame(getRandomTypes(BOARD_SIZE ** 2))}
                 >
                     New Game
@@ -40,7 +52,7 @@ function Game(props) {
     );
 }
 
-const TheGame = connect(
+const ConnectedGame = connect(
     (state) => {
         return {
             board: state.board,
@@ -59,27 +71,9 @@ const TheGame = connect(
     }
 )(Game);
 
-function createBoard() {
-    let bucket = [];
-
-    return [...Array(BOARD_SIZE ** 2)].map(() => {
-        if (bucket.length === 0) {
-            bucket = [...Array(COLORS * 2)].map((value, index) => {
-                return index % 3;
-            });
-        }
-
-        const index = Math.random() * bucket.length | 0;
-
-        return bucket.splice(index, 1)[0];
-    });
-}
-
-const store = createStore(reducers, {board: createBoard()});
-
 ReactDOM.render((
-    <Provider store={store}>
-        <TheGame />
+    <Provider store={createStore(reducers)}>
+        <ConnectedGame />
     </Provider>
 ), document.getElementById('root'));
 

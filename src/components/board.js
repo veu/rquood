@@ -4,7 +4,7 @@ import {DraggingOverlay} from './DraggingOverlay';
 
 const BOARD_SIZE = 7;
 
-export default function Board(props) {
+export default function Board(props) {
     const [drag, setDrag] = useState(null);
     const [hiddenSquares, setHiddenSquares] = useState([]);
     const [isLocked, setLocked] = useState(false);
@@ -41,7 +41,7 @@ export default function Board(props) {
 
         const {start, end} = drag;
 
-        if (end === null || props.board[start] !== props.board[end] || start === end) {
+        if (end === null || props.board[start] !== props.board[end] || start === end) {
             return {squares: [start], size: 0};
         }
 
@@ -68,7 +68,7 @@ export default function Board(props) {
         return selection;
     }
 
-    async function handleDragEnd() {
+    async function handleDragEnd() {
         setDrag(null);
 
         if (selection.squares.length < 4) {
@@ -88,7 +88,7 @@ export default function Board(props) {
         setLocked(false);
     }
 
-    function handleDragUpdate(start, end) {
+    function handleDragUpdate(start, end) {
         setDrag({
             start: start ? start.x + start.y * BOARD_SIZE : null,
             end: end ? end.x + end.y * BOARD_SIZE : null,
@@ -96,17 +96,15 @@ export default function Board(props) {
     }
 
     return (
-        <div>
-            <div block="board">
-                <DraggingOverlay
-                    gridSize={BOARD_SIZE}
-                    onDragEnd={handleDragEnd}
-                    onDragUpdate={handleDragUpdate}
-                    isLocked={isLocked}
-                />
-                <div block="board" elem="board">
-                    {squares}
-                </div>
+        <div block="board">
+            <DraggingOverlay
+                gridSize={BOARD_SIZE}
+                onDragEnd={handleDragEnd}
+                onDragUpdate={handleDragUpdate}
+                isLocked={isLocked}
+            />
+            <div block="board" elem="board">
+                {squares}
             </div>
         </div>
     );
