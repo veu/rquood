@@ -89,9 +89,9 @@ export default function Board(props) {
     }
 
     function handleDragUpdate(start, end) {
-        setDrag({
-            start: start ? start.x + start.y * BOARD_SIZE : null,
-            end: end ? end.x + end.y * BOARD_SIZE : null,
+        setDrag(start && {
+            start: start.x + start.y * BOARD_SIZE,
+            end: end.x + end.y * BOARD_SIZE,
         });
     }
 

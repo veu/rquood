@@ -29,7 +29,7 @@ export function DraggingOverlay(props) {
         const position = getGridPosition(event, ref);
 
         setDrag({start: position});
-        props.onDragUpdate(position, null);
+        props.onDragUpdate(position, position);
     }
 
     function finishDragging(event) {
