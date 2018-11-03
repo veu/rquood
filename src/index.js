@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
-import { connect, Provider } from 'react-redux'
+import { connect, Provider } from 'react-redux';
+import persistState from 'redux-localstorage';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import reducers from './reducers'
@@ -28,7 +29,7 @@ const ConnectedGame = connect(
 )(Game);
 
 ReactDOM.render((
-    <Provider store={createStore(reducers)}>
+    <Provider store={createStore(reducers, persistState())}>
         <ConnectedGame />
     </Provider>
 ), document.getElementById('root'));
