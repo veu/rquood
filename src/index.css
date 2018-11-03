@@ -93,7 +93,7 @@ main {
 .actions__start {
     color: #ccc;
     cursor: pointer;
-    font-size: 1.2em;
+    font-size: 1.4em;
     margin-top: 0;
     text-transform: uppercase;
     user-select: none;
@@ -111,7 +111,7 @@ main {
 .stat__title {
     color: #ccc;
     text-transform: uppercase;
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 
 .stat__value {
