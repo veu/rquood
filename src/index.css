@@ -52,6 +52,7 @@ main {
     image-rendering: pixelated;
     transition: transform 200ms, opacity 200ms;
     animation: fadeIn 500ms;
+    padding-bottom: 100%;
 }
 
 .board__square_active {
