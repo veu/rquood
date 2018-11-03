@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
 import delay from 'delay';
 import {DraggingOverlay} from '../DraggingOverlay';
-import { useRandomBucket } from '../hooks/useRandomBucket';
 
 const BOARD_SIZE = 7;
-const COLORS = 3;
 
 export default function Board(props) {
     const [drag, setDrag] = useState(null);
     const [hiddenSquares, setHiddenSquares] = useState([]);
     const [isLocked, setLocked] = useState(false);
-    const [getRandomType] = useRandomBucket(0, COLORS);
 
     const selection = getSelection(drag);
 
@@ -78,19 +75,13 @@ export default function Board(props) {
             return;
         }
 
-
-        const newSquares = {};
-        selection.squares.forEach((index) => {
-            newSquares[index] = getRandomType();
-        });
-
         setHiddenSquares([...selection.squares]);
         setLocked(true);
 
         await delay(490);
 
         setHiddenSquares([]);
-        props.replaceSquares(newSquares, selection.size | 0);
+        props.replaceSquares(selection.squares, selection.size | 0);
 
         await delay(500);
 
