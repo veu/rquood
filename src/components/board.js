@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import delay from 'delay';
-import {DraggingOverlay} from '../DraggingOverlay';
+import {DraggingOverlay} from './DraggingOverlay';
 
 const BOARD_SIZE = 7;
 
