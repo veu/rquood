@@ -41,7 +41,7 @@ export default function Board(props) {
 
         const {start, end} = drag;
 
-        if (end === null || props.board[start] !== props.board[end] || start === end) {
+        if (end === null || start === end) {
             return {squares: [start], size: 0};
         }
 
@@ -49,7 +49,11 @@ export default function Board(props) {
         const b = {x: end % BOARD_SIZE, y: end / BOARD_SIZE | 0};
         const center = {x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
         const diff = {x: center.x - a.x, y: center.y - a.y};
-        const selection = {squares: [start, end], size: 2 * Math.hypot(diff.x, diff.y)};
+        const selection = {squares: [start], size: 2 * Math.hypot(diff.x, diff.y)};
+
+        if (props.board[start] === props.board[end]) {
+            selection.squares.push(end);
+        }
 
         const c = {x: center.x + diff.y, y: center.y - diff.x};
         const cIndex = c.x + c.y * BOARD_SIZE;
