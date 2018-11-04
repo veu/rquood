@@ -49,10 +49,9 @@ main {
 .board__square {
     background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
     image-rendering: pixelated;
-    transition: transform 500ms, opacity 500ms;
-    animation: fadeIn 500ms;
     opacity: .9;
     padding-bottom: 100%;
+    transition: transform 500ms, opacity 500ms;
 }
 
 .board__square_active {
@@ -77,12 +76,11 @@ main {
 }
 
 .board__square_hidden {
-    animation: fadeOut 500ms;
     opacity: 0;
 }
 
 .board__square_ready {
-    animation: jump 300ms infinite alternate-reverse, fadeIn 500ms;
+    animation: jump 300ms infinite alternate-reverse;
 }
 
 .actions {
@@ -152,30 +150,6 @@ main {
 
     .actions, .stats {
         margin: 8px;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(.1, .1);
-    }
-
-    to {
-        opacity: .9;
-        transform: scale(1, 1);
-    }
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: .9;
-        transform: scale(1, 1);
-    }
-
-    to {
-        opacity: 0;
-        transform: scale(.1, .1);
     }
 }
 
