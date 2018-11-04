@@ -87,14 +87,13 @@ main {
 }
 
 .actions {
-    float: left;
     margin: 1.6vw;
 }
 
 .actions__start {
     color: #ccc;
     cursor: pointer;
-    font-size: 1.4em;
+    font-size: 2em;
     margin-top: 0;
     text-transform: uppercase;
     user-select: none;
@@ -104,22 +103,46 @@ main {
     animation: jump 300ms infinite ease-in 2s alternate;
 }
 
-.stat {
-    text-align: right;
+.stats {
+    display: flex;
+    justify-content: space-between;
     margin: 1.6vw;
 }
 
 .stat__title {
     color: #ccc;
+    text-align: left;
     text-transform: uppercase;
-    font-size: 1.4em;
+    font-size: 1.8em;
 }
 
 .stat__value {
     color: white;
-    font-weight: bold;
-    font-size: 2em;
+    font-size: 2.6em;
     text-align: right;
+}
+
+.stat__square {
+    background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
+    background-position-x: 150%;
+    float: right;
+    height: 2.6em;
+    image-rendering: pixelated;
+    margin-right: -.25em;
+    margin-top: .2em;
+    width: 2.6em;
+}
+
+.stat__square_type_0 {
+    background-position-x: 0;
+}
+
+.stat__square_type_1 {
+    background-position-x: 50%;
+}
+
+.stat__square_type_2 {
+    background-position-x: 100%;
 }
 
 @media (min-width: 500px) {
@@ -128,7 +151,7 @@ main {
         margin: 10px;
     }
 
-    .actions, .stat {
+    .actions, .stats {
         margin: 8px;
     }
 }

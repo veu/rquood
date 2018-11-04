@@ -18,7 +18,14 @@ export default function Game(props) {
             <Board
                 board={props.board}
                 replaceSquares={(indexes, size) => {
-                    props.replaceSquares(indexes.map((index) => ({index, value: getRandomType()})), size);
+                    props.replaceSquares(
+                        indexes.map((index) => ({
+                            index,
+                            value: getRandomType(),
+                        })),
+                        size,
+                        props.board[indexes[0]]
+                    );
                 }}
             />
         );
@@ -27,6 +34,21 @@ export default function Game(props) {
     return (
         <div>
             {top}
+            <div block="stats">
+                <div block="stat">
+                    <div block="stat" elem="title">Score</div>
+                    <div block="stat" elem="value">{props.score}</div>
+                </div>
+                <div block="stat">
+                    <div block="stat" elem="title">Streak</div>
+                    <div block="stat" elem="square" mods={{type: !!props.streak && props.streak.type}}></div>
+                    <div block="stat" elem="value">{props.streak && props.streak.count}</div>
+                </div>
+                <div block="stat">
+                    <div block="stat" elem="title">Highscore</div>
+                    <div block="stat" elem="value">{props.highscore}</div>
+                </div>
+            </div>
             <div block="actions">
                 <div
                     block="actions"
@@ -36,10 +58,6 @@ export default function Game(props) {
                 >
                     New Game
                 </div>
-            </div>
-            <div block="stat">
-                <div block="stat" elem="title">Score</div>
-                <div block="stat" elem="value">{props.score}</div>
             </div>
         </div>
     );

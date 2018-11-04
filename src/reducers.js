@@ -1,38 +1,53 @@
-import { combineReducers } from 'redux';
-import { REPLACE_SQUARES, START_GAME } from './actions';
+import { createActions, handleActions } from 'redux-actions';
 
-function board(board = null, action) {
-    if (action.type === REPLACE_SQUARES) {
-        const updatedBoard = [...board];
-        for (const {index, value} of action.squares) {
-            updatedBoard[index] = value;
+const defaultState = {
+    board: null,
+    score: 0,
+    highscore: 0,
+    streak: null,
+};
+
+export const {startGame, replaceSquares} = createActions({
+    START_GAME: (board) => ({
+        board,
+    }),
+    REPLACE_SQUARES: (squares, size, type) => ({
+        squares,
+        size,
+        type
+    }),
+});
+
+const reducers = handleActions({
+    START_GAME: (state, {payload: {board}}) => {
+        return {
+            ...state,
+            score: 0,
+            board,
+            streak: null,
+        };
+    },
+    REPLACE_SQUARES: (state, {payload: {squares, size, type}}) => {
+        const board = [...state.board];
+        for (const {index, value} of squares) {
+            board[index] = value;
         }
 
-        return updatedBoard;
+        const streakCount = state.streak && state.streak.type === type ? state.streak.count + 1 : 1;
+        const score = state.score + size * streakCount;
+        const streak = {
+            count: streakCount,
+            type,
+        };
+
+        return {
+            ...state,
+            score,
+            highscore: Math.max(state.highscore, score),
+            board,
+            streak,
+        }
     }
-
-    if (action.type === START_GAME) {
-        return action.board;
-    }
-
-    return board;
-}
-
-function score(score = 0, action) {
-    if (action.type === REPLACE_SQUARES) {
-        return score + action.size;
-    }
-
-    if (action.type === START_GAME) {
-        return 0;
-    }
-
-    return score;
-}
-
-const reducers = combineReducers({
-    board,
-    score,
-});
+}, defaultState);
 
 export default reducers;

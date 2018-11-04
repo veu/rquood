@@ -5,21 +5,15 @@ import { connect, Provider } from 'react-redux';
 import persistState from 'redux-localstorage';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import reducers from './reducers'
-import { replaceSquares, startGame } from './actions';
+import reducers, { replaceSquares, startGame } from './reducers'
 import Game from './components/Game';
 
 const ConnectedGame = connect(
-    (state) => {
-        return {
-            board: state.board,
-            score: state.score,
-        };
-    },
+    (state) => state,
     (dispatch) => {
         return {
-            replaceSquares: (squares, size) => {
-                dispatch(replaceSquares(squares, size));
+            replaceSquares: (squares, size, type) => {
+                dispatch(replaceSquares(squares, size, type));
             },
             startGame: (board) => {
                 dispatch(startGame(board));
