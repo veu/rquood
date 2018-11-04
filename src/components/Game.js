@@ -63,6 +63,7 @@ export default function Game(props) {
                 board={props.board}
                 selection={props.selection}
                 gridSize={BOARD_SIZE}
+                hideSelection={props.hideSelection}
                 replaceSquares={() => {
                     props.replaceSquares(
                         [...Array(4)].map(() => getRandomType())

@@ -5,13 +5,16 @@ import { connect, Provider } from 'react-redux';
 import persistState from 'redux-localstorage';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import reducers, { replaceSquares, startGame, updateSelection } from './reducers'
+import reducers, { replaceSquares, startGame, updateSelection, hideSelection } from './reducers'
 import Game from './components/Game';
 
 const ConnectedGame = connect(
     (state) => state,
     (dispatch) => {
         return {
+            hideSelection: () => {
+                dispatch(hideSelection());
+            },
             replaceSquares: (values) => {
                 dispatch(replaceSquares(values));
             },

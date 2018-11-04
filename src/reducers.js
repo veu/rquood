@@ -3,7 +3,8 @@ import reduceReducers from 'reduce-reducers';
 
 const defaultSelection = {
     squares: [],
-    size: 0
+    size: 0,
+    hidden: false,
 };
 
 const defaultState = {
@@ -14,7 +15,7 @@ const defaultState = {
     selection: defaultSelection,
 };
 
-export const {startGame, replaceSquares, updateSelection} = createActions({
+export const {startGame, replaceSquares, updateSelection, hideSelection} = createActions({
     START_GAME: (board) => ({
         board,
     }),
@@ -24,6 +25,7 @@ export const {startGame, replaceSquares, updateSelection} = createActions({
     UPDATE_SELECTION: (indexes) => ({
         indexes,
     }),
+    HIDE_SELECTION: () => ({}),
 });
 
 const actionReducers = handleActions({
@@ -64,6 +66,15 @@ const actionReducers = handleActions({
         return {
             ...state,
             selection: indexes || defaultSelection,
+        };
+    },
+    HIDE_SELECTION: (state) => {
+        return {
+            ...state,
+            selection: {
+                ...state.selection,
+                hidden: true,
+            }
         };
     },
 }, defaultState);

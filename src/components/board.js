@@ -1,50 +1,33 @@
-import React, {useState} from 'react';
+import React from 'react';
 import delay from 'delay';
 import {DraggingOverlay} from './DraggingOverlay';
+import Square from './Square';
 
 export default function Board(props) {
-    const [hiddenSquares, setHiddenSquares] = useState([]);
-    const [isLocked, setLocked] = useState(false);
-
-    const selection = props.selection;
-
     const squares = props.board.map((value, index) => {
-        const active = selection.squares.includes(index);
 
         return (
-            <div
+            <Square
                 key={index}
-                block="board"
-                elem="square"
-                mods={{
-                    type: value,
-                    active,
-                    inactive: selection.squares.length > 0 && !active,
-                    hidden: hiddenSquares.includes(index),
-                    ready: selection.squares.length === 4 && active,
-                }}>
-            </div>
+                index={index}
+                value={value}
+                selection={props.selection}
+            />
         );
     });
 
     async function handleDragEnd() {
-        if (selection.squares.length < 4) {
+        if (props.selection.squares.length < 4) {
             props.updateSelection(null);
 
             return;
         }
 
-        setHiddenSquares([...selection.squares]);
-        setLocked(true);
+        props.hideSelection();
 
         await delay(490);
 
-        setHiddenSquares([]);
         props.replaceSquares();
-
-        await delay(500);
-
-        setLocked(false);
     }
 
     function handleDragUpdate(start, end) {
@@ -60,7 +43,7 @@ export default function Board(props) {
                 gridSize={props.gridSize}
                 onDragEnd={handleDragEnd}
                 onDragUpdate={handleDragUpdate}
-                isLocked={isLocked}
+                isLocked={props.selection.hidden}
             />
             <div block="board" elem="board">
                 {squares}
