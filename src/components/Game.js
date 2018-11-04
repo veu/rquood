@@ -61,17 +61,16 @@ export default function Game(props) {
         return (
             <Board
                 board={props.board}
+                selection={props.selection}
                 gridSize={BOARD_SIZE}
-                getSelection={(diagonal) => getSelection(props.board, diagonal)}
-                replaceSquares={(indexes, size) => {
+                replaceSquares={() => {
                     props.replaceSquares(
-                        indexes.map((index) => ({
-                            index,
-                            value: getRandomType(),
-                        })),
-                        size,
-                        props.board[indexes[0]]
+                        [...Array(4)].map(() => getRandomType())
                     );
+                }}
+                updateSelection={(diagonal) => {
+                    const selection = getSelection(props.board, diagonal);
+                    props.updateSelection(selection);
                 }}
             />
         );

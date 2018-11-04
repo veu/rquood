@@ -5,25 +5,37 @@ import { connect, Provider } from 'react-redux';
 import persistState from 'redux-localstorage';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import reducers, { replaceSquares, startGame } from './reducers'
+import reducers, { replaceSquares, startGame, updateSelection } from './reducers'
 import Game from './components/Game';
 
 const ConnectedGame = connect(
     (state) => state,
     (dispatch) => {
         return {
-            replaceSquares: (squares, size, type) => {
-                dispatch(replaceSquares(squares, size, type));
+            replaceSquares: (values) => {
+                dispatch(replaceSquares(values));
             },
             startGame: (board) => {
                 dispatch(startGame(board));
+            },
+            updateSelection: (indexes) => {
+                dispatch(updateSelection(indexes));
             }
         }
     }
 )(Game);
 
+function slicePersistedState(paths) {
+    return (state) => {
+        const persist = {...state};
+        delete persist.selection;
+
+        return persist;
+    };
+}
+
 ReactDOM.render((
-    <Provider store={createStore(reducers, persistState())}>
+    <Provider store={createStore(reducers, persistState('', {slicer: slicePersistedState}))}>
         <ConnectedGame />
     </Provider>
 ), document.getElementById('root'));

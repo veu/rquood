@@ -32,7 +32,7 @@ export function DraggingOverlay(props) {
         props.onDragUpdate(position, position);
     }
 
-    function finishDragging(event) {
+    function finishDragging() {
         if (props.isLocked || !drag.start) {
             return;
         }

@@ -3,11 +3,10 @@ import delay from 'delay';
 import {DraggingOverlay} from './DraggingOverlay';
 
 export default function Board(props) {
-    const [drag, setDrag] = useState(null);
     const [hiddenSquares, setHiddenSquares] = useState([]);
     const [isLocked, setLocked] = useState(false);
 
-    const selection = props.getSelection(drag);
+    const selection = props.selection;
 
     const squares = props.board.map((value, index) => {
         const active = selection.squares.includes(index);
@@ -29,9 +28,9 @@ export default function Board(props) {
     });
 
     async function handleDragEnd() {
-        setDrag(null);
-
         if (selection.squares.length < 4) {
+            props.updateSelection(null);
+
             return;
         }
 
@@ -41,7 +40,7 @@ export default function Board(props) {
         await delay(490);
 
         setHiddenSquares([]);
-        props.replaceSquares(selection.squares, selection.size | 0);
+        props.replaceSquares();
 
         await delay(500);
 
@@ -49,7 +48,7 @@ export default function Board(props) {
     }
 
     function handleDragUpdate(start, end) {
-        setDrag(start && {
+        props.updateSelection(start && {
             start,
             end,
         });

@@ -130,6 +130,7 @@ main {
     image-rendering: pixelated;
     margin-right: -.25em;
     margin-top: .2em;
+    opacity: .9;
     width: 2.6em;
 }
 
