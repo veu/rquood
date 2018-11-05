@@ -21,8 +21,8 @@ const ConnectedGame = connect(
             startGame: (board) => {
                 dispatch(startGame(board));
             },
-            updateSelection: (indexes) => {
-                dispatch(updateSelection(indexes));
+            updateSelection: (diagonal) => {
+                dispatch(updateSelection(diagonal));
             }
         }
     }
