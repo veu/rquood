@@ -16,9 +16,9 @@ export function useRandomBucket(min, max, size=2) {
         return bucket.current.splice(index, 1)[0];
     }
 
-    function getMultiple(count) {
+    function getMultiple(count) {
         return [...Array(count)].map(() => getSingle());
     }
 
-    return [getSingle, getMultiple];
+    return getMultiple;
 }

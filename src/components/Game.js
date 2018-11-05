@@ -5,7 +5,7 @@ import Title from './Title';
 import { BOARD_SIZE, SQUARE_TYPES } from '../config';
 
 export default function Game(props) {
-    const [getRandomType, getRandomTypes] = useRandomBucket(0, SQUARE_TYPES);
+    const getRandomTypes = useRandomBucket(0, SQUARE_TYPES);
 
     let top = (() => {
         if (props.board === null) {
@@ -19,9 +19,7 @@ export default function Game(props) {
                 gridSize={BOARD_SIZE}
                 hideSelection={props.hideSelection}
                 replaceSquares={() => {
-                    props.replaceSquares(
-                        [...Array(4)].map(() => getRandomType())
-                    );
+                    props.replaceSquares(getRandomTypes(4));
                 }}
                 updateSelection={props.updateSelection}
             />
