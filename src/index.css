@@ -2,11 +2,21 @@
     box-sizing: border-box;
 }
 
+:root {
+    --px-scaled: .2vw;
+}
+
+@media (min-width: 500px) {
+    :root {
+        --px-scaled: 1px;
+    }
+}
+
 body {
     background: black;
-    font-size: 3.2vw;
+    font-size: calc(16 * var(--px-scaled));
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    margin: 2vw;
+    margin: calc(10 * var(--px-scaled));
     padding: 0;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -84,7 +94,7 @@ main {
 }
 
 .actions {
-    margin: 1.6vw;
+    margin: calc(8 * var(--px-scaled));
 }
 
 .actions__start {
@@ -103,7 +113,7 @@ main {
 .stats {
     display: flex;
     justify-content: space-between;
-    margin: 1.6vw;
+    margin: calc(8 * var(--px-scaled));
 }
 
 .stat__title {
@@ -125,8 +135,8 @@ main {
     float: right;
     height: 2.6em;
     image-rendering: pixelated;
-    margin-right: -.25em;
-    margin-top: .2em;
+    margin-right: calc(-4 * var(--px-scaled));
+    margin-top: calc(4 * var(--px-scaled));
     width: 2.6em;
 }
 
@@ -140,17 +150,6 @@ main {
 
 .stat__square_type_2 {
     background-position-x: 100%;
-}
-
-@media (min-width: 500px) {
-    body {
-        font-size: 16px;
-        margin: 10px;
-    }
-
-    .actions, .stats {
-        margin: 8px;
-    }
 }
 
 @keyframes jump {
