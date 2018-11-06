@@ -112,7 +112,11 @@ function getSelection(board, diagonal) {
     const b = {x: end % BOARD_SIZE, y: end / BOARD_SIZE | 0};
     const center = {x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
     const diff = {x: center.x - a.x, y: center.y - a.y};
-    const selection = {squares: [start], size: 2 * Math.hypot(diff.x, diff.y)};
+    const selection = {
+        ...defaultSelection,
+        squares: [start],
+        size: 2 * Math.hypot(diff.x, diff.y),
+    };
 
     if (board[start] === board[end]) {
         selection.squares.push(end);
