@@ -3,6 +3,7 @@ import { useRandomBucket } from '../hooks/useRandomBucket';
 import Board from './Board';
 import Title from './Title';
 import { BOARD_SIZE, SQUARE_TYPES } from '../config';
+import Menu from './Menu';
 
 export default function Game(props) {
     const getRandomTypes = useRandomBucket(0, SQUARE_TYPES);
@@ -29,31 +30,13 @@ export default function Game(props) {
     return (
         <div>
             {top}
-            <div block="stats">
-                <div block="stat">
-                    <div block="stat" elem="title">Score</div>
-                    <div block="stat" elem="value">{props.score}</div>
-                </div>
-                <div block="stat">
-                    <div block="stat" elem="title">Streak</div>
-                    <div block="stat" elem="square" mods={{type: !!props.streak && props.streak.type}}></div>
-                    <div block="stat" elem="value">{props.streak && props.streak.count}</div>
-                </div>
-                <div block="stat">
-                    <div block="stat" elem="title">Highscore</div>
-                    <div block="stat" elem="value">{props.highscore}</div>
-                </div>
-            </div>
-            <div block="actions">
-                <div
-                    block="actions"
-                    elem="start"
-                    mods={{highlight: !props.board}}
-                    onClick={() => props.startGame(getRandomTypes(BOARD_SIZE ** 2))}
-                >
-                    New Game
-                </div>
-            </div>
+            <Menu
+                score={props.score}
+                streak={props.streak}
+                highscore={props.highscore}
+                isGameActive={!!props.board}
+                startGame={() => props.startGame(getRandomTypes(BOARD_SIZE ** 2))}
+            />
         </div>
     );
 }
