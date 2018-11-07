@@ -57,11 +57,17 @@ main {
 }
 
 .board__square {
-    background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
     image-rendering: pixelated;
     opacity: .9;
-    padding-bottom: 100%;
     transition: transform 500ms, opacity 500ms;
+}
+
+.board__square::before {
+    animation: zoomIn 500ms;
+    background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
+    content: '';
+    display: block;
+    padding-bottom: 100%;
 }
 
 .board__square_active {
@@ -73,23 +79,24 @@ main {
     opacity: .6;
 }
 
-.board__square_type_0 {
+.board__square_type_0::before {
     background-position-x: 0;
 }
 
-.board__square_type_1 {
+.board__square_type_1::before {
     background-position-x: 50%;
 }
 
-.board__square_type_2 {
+.board__square_type_2::before {
     background-position-x: 100%;
 }
 
 .board__square_hidden {
     opacity: 0;
+    transform: scale(0, 0);
 }
 
-.board__square_ready {
+.board__square_ready::before {
     animation: jump 300ms infinite alternate-reverse;
 }
 
@@ -159,5 +166,15 @@ main {
 
     to {
         transform: translateY(-2px);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
     }
 }

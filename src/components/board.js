@@ -25,7 +25,7 @@ export default function Board(props) {
 
         props.hideSelection();
 
-        await delay(490);
+        await delay(500);
 
         props.replaceSquares();
     }
