@@ -13,10 +13,9 @@ export default function Title(props) {
 
     return (
         <div block="board">
-            <div block="board" elem="board">
-                <div block="board" elem="title">Quood</div>
-                {squares}
-            </div>
+            <div block="board" elem="title">Quood</div>
+
+            {squares}
         </div>
     );
 }

@@ -28,8 +28,9 @@ export default function Game(props) {
     })();
 
     return (
-        <div>
+        <React.Fragment>
             {top}
+
             <Menu
                 score={props.score}
                 streak={props.streak}
@@ -37,6 +38,6 @@ export default function Game(props) {
                 isGameActive={!!props.board}
                 startGame={() => props.startGame(getRandomTypes(BOARD_SIZE ** 2))}
             />
-        </div>
+        </React.Fragment>
     );
 }

@@ -45,9 +45,9 @@ export default function Board(props) {
                 onDragUpdate={handleDragUpdate}
                 isLocked={props.selection.hidden}
             />
-            <div block="board" elem="board">
-                {squares}
-            </div>
+
+            {squares}
+
         </div>
     );
 }

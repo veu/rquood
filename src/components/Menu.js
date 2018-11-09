@@ -7,7 +7,7 @@ export default function Menu(props) {
         }
 
         return (
-            <div block="stats">
+            <React.Fragment>
                 <div block="stat">
                     <div block="stat" elem="title">Score</div>
                     <div block="stat" elem="value">{props.score}</div>
@@ -21,22 +21,20 @@ export default function Menu(props) {
                     <div block="stat" elem="title">Highscore</div>
                     <div block="stat" elem="value">{props.highscore}</div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 
     return (
-        <div>
+        <div block="menu">
             {getStats()}
-            <div block="actions">
-                <div
-                    block="actions"
-                    elem="start"
-                    mods={{highlight: !props.isGameActive}}
-                    onClick={props.startGame}
-                >
-                    New Game
-                </div>
+
+            <div
+                block="action"
+                mods={{highlight: !props.isGameActive}}
+                onClick={props.startGame}
+            >
+                New Game
             </div>
         </div>
     );
