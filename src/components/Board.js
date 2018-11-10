@@ -1,5 +1,4 @@
 import React from 'react';
-import delay from 'delay';
 import {DraggingOverlay} from './DraggingOverlay';
 import Square from './Square';
 
@@ -24,10 +23,6 @@ export default function Board(props) {
         }
 
         props.hideSelection();
-
-        await delay(500);
-
-        props.replaceSquares();
     }
 
     function handleDragUpdate(start, end) {

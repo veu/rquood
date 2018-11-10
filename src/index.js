@@ -1,25 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import { connect, Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
 import persistState from 'redux-localstorage';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import reducers, { replaceSquares, startGame, updateSelection, hideSelection } from './reducers'
+import reducers, { requestStartGame, updateSelection, hideSelection } from './reducers'
+import saga from './sagas';
 import Game from './components/Game';
 
 const ConnectedGame = connect(
     (state) => state,
     (dispatch) => {
         return {
+            requestStartGame: () => {
+                dispatch(requestStartGame());
+            },
             hideSelection: () => {
                 dispatch(hideSelection());
-            },
-            replaceSquares: (values) => {
-                dispatch(replaceSquares(values));
-            },
-            startGame: (board) => {
-                dispatch(startGame(board));
             },
             updateSelection: (diagonal) => {
                 dispatch(updateSelection(diagonal));
@@ -37,8 +36,20 @@ function slicePersistedState(paths) {
     };
 }
 
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(
+    reducers,
+    compose(
+        persistState('', {slicer: slicePersistedState}),
+        applyMiddleware(sagaMiddleware)
+    )
+);
+
+sagaMiddleware.run(saga);
+
 ReactDOM.render((
-    <Provider store={createStore(reducers, persistState('', {slicer: slicePersistedState}))}>
+    <Provider store={store}>
         <ConnectedGame />
     </Provider>
 ), document.getElementById('root'));

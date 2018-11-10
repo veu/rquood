@@ -10,18 +10,22 @@ const defaultSelection = {
 
 const defaultState = {
     board: null,
+    bucket: null,
     score: 0,
     highscore: 0,
     streak: null,
     selection: defaultSelection,
 };
 
-export const {startGame, replaceSquares, updateSelection, hideSelection} = createActions({
+export const {requestStartGame, startGame, replaceSquares, updateSelection, hideSelection} = createActions({
+    REQUEST_START_GAME: () => ({
+    }),
     START_GAME: (board) => ({
         board,
     }),
-    REPLACE_SQUARES: (values) => ({
+    REPLACE_SQUARES: (values, bucket) => ({
         values,
+        bucket,
     }),
     UPDATE_SELECTION: (diagonal) => ({
         diagonal,
@@ -35,11 +39,12 @@ const actionReducers = handleActions({
             ...state,
             score: 0,
             board,
+            bucket: [],
             streak: null,
             selection: defaultSelection,
         };
     },
-    REPLACE_SQUARES: (state, {payload: {values}}) => {
+    REPLACE_SQUARES: (state, {payload: {values, bucket}}) => {
         const board = [...state.board];
         const type = board[state.selection.squares[0]];
 
@@ -59,6 +64,7 @@ const actionReducers = handleActions({
             score,
             highscore: Math.max(state.highscore, score),
             board,
+            bucket,
             streak,
             selection: defaultSelection,
         }
@@ -83,11 +89,10 @@ const actionReducers = handleActions({
 }, defaultState);
 
 function patchReducer(state) {
-    if (state.selection === undefined) {
-        return {...state, selection: defaultSelection};
-    }
-
-    return state;
+    return {
+        ...defaultState,
+        ...state,
+    };
 }
 
 export default reduceReducers(actionReducers, patchReducer);
