@@ -78,6 +78,13 @@ const actionReducers = handleActions({
         };
     },
     HIDE_SELECTION: (state) => {
+        if (state.selection.squares.length < 4) {
+            return {
+                ...state,
+                selection: defaultSelection,
+            };
+        }
+
         return {
             ...state,
             selection: {

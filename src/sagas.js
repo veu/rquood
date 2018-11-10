@@ -21,9 +21,14 @@ function getRandom(bucket, count, min=0, max=3, size=2) {
 }
 
 function* onHideSelection() {
+    const state = yield select();
+
+    if (!state.selection.hidden) {
+        return;
+    }
+
     yield call(delay, 500);
 
-    const state = yield select();
     const [values, bucket] = getRandom(state.bucket, 4);
 
     yield put(replaceSquares(values, bucket));

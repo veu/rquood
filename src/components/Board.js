@@ -15,16 +15,6 @@ export default function Board(props) {
         );
     });
 
-    async function handleDragEnd() {
-        if (props.selection.squares.length < 4) {
-            props.updateSelection(null);
-
-            return;
-        }
-
-        props.hideSelection();
-    }
-
     function handleDragUpdate(start, end) {
         props.updateSelection(start && {
             start,
@@ -36,7 +26,7 @@ export default function Board(props) {
         <div block="board">
             <DraggingOverlay
                 gridSize={props.gridSize}
-                onDragEnd={handleDragEnd}
+                onDragEnd={props.hideSelection}
                 onDragUpdate={handleDragUpdate}
                 isLocked={props.selection.hidden}
             />
