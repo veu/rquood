@@ -60,7 +60,6 @@ main {
 }
 
 .board__square::before {
-    animation: zoomIn 500ms;
     background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
     content: '';
     display: block;
@@ -164,15 +163,5 @@ main {
 
     to {
         transform: translateY(-.1em);
-    }
-}
-
-@keyframes zoomIn {
-    from {
-        transform: scale(0);
-    }
-
-    to {
-        transform: scale(1);
     }
 }
