@@ -2,21 +2,21 @@
     box-sizing: border-box;
 }
 
-:root {
-    --px-scaled: .2vw;
+html {
+    font-size: .2vw;
 }
 
 @media (min-width: 500px) {
-    :root {
-        --px-scaled: 1px;
+    html {
+        font-size: 1px;
     }
 }
 
 body {
     background: black;
-    font-size: calc(16 * var(--px-scaled));
+    font-size: 16rem;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    margin: calc(10 * var(--px-scaled));
+    margin: 10rem;
     padding: 0;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -25,15 +25,15 @@ body {
 main {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 20 * var(--px-scaled));
-    width: calc((500 - 20) * var(--px-scaled));
+    height: calc(100vh - 20rem);
+    width: 480rem;
     margin: 0 auto;
 }
 
 .board {
     display: grid;
     grid-template: repeat(7, 1fr) / repeat(7, 1fr);
-    height: calc((500 - 20) * var(--px-scaled));
+    height: 480rem;
     padding-bottom: 100%;
     position: relative;
 }
@@ -102,15 +102,16 @@ main {
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
+    font-size: 1rem;
     justify-content: space-between;
-    margin: calc(8 * var(--px-scaled));
-    max-height: calc(200 * var(--px-scaled));
+    margin: 8rem;
+    max-height: 200rem;
 }
 
 .action {
     color: #ccc;
     cursor: pointer;
-    font-size: 2em;
+    font-size: 35rem;
     margin-top: 0;
     text-transform: uppercase;
     user-select: none;
@@ -124,12 +125,12 @@ main {
     color: #ccc;
     text-align: left;
     text-transform: uppercase;
-    font-size: 1.8em;
+    font-size: 30rem;
 }
 
 .stat__value {
     color: white;
-    font-size: 2.6em;
+    font-size: 42rem;
     text-align: right;
 }
 
@@ -137,11 +138,11 @@ main {
     background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
     background-position-x: 150%;
     float: right;
-    height: 2.6em;
+    height: 42rem;
     image-rendering: pixelated;
-    margin-right: calc(-4 * var(--px-scaled));
-    margin-top: calc(4 * var(--px-scaled));
-    width: 2.6em;
+    margin-right: -4rem;
+    margin-top: 4rem;
+    width: 42rem;
 }
 
 .stat__square_type_0 {
@@ -158,11 +159,11 @@ main {
 
 @keyframes jump {
     from {
-        transform: translateY(calc(2 * var(--px-scaled)));
+        transform: translateY(.1em);
     }
 
     to {
-        transform: translateY(calc(-2 * var(--px-scaled)));
+        transform: translateY(-.1em);
     }
 }
 
