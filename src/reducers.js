@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import reduceReducers from 'reduce-reducers';
 import { BOARD_SIZE } from './config';
+import { isEqual } from 'lodash-es';
 
 const defaultSelection = {
     squares: [],
@@ -71,6 +72,10 @@ const actionReducers = handleActions({
     },
     UPDATE_SELECTION: (state, {payload: {diagonal}}) => {
         const selection = getSelection(state.board, diagonal);
+
+        if (isEqual(selection.squares, state.selection.squares)) {
+            return state;
+        }
 
         return {
             ...state,

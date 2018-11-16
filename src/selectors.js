@@ -28,6 +28,11 @@ export const getStreakCount = createSelector(
 
 // board
 
+const getSelectedSquares = createSelector(
+    getSelection,
+    (selection) => selection.squares
+);
+
 const isSelectionHidden = createSelector(
     getSelection,
     (selection) => selection.hidden,
@@ -36,4 +41,22 @@ const isSelectionHidden = createSelector(
 export const isBoardLocked = createSelector(
     isSelectionHidden,
     (hidden) => hidden
+);
+
+export const makeGetSquare = (i) => createSelector(
+    (_, props) => props.index,
+    getBoard,
+    getSelectedSquares,
+    isSelectionHidden,
+    (index, board, squares, hidden) => {
+        const active = squares.includes(index);
+
+        return {
+            type: board && board[index],
+            active,
+            inactive: squares.length > 0 && !active,
+            hidden: hidden && active,
+            ready: squares.length === 4 && active,
+        };
+    }
 );
