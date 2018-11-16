@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { requestStartGame } from '../reducers';
 
-export default function Menu(props) {
+function Menu(props) {
+    const isGameActive = !!props.board;
+
     function getStats() {
-        if (!props.isGameActive) {
+        if (!isGameActive) {
             return null;
         }
 
@@ -31,11 +35,22 @@ export default function Menu(props) {
 
             <div
                 block="action"
-                mods={{highlight: !props.isGameActive}}
-                onClick={props.startGame}
+                mods={{highlight: !isGameActive}}
+                onClick={props.requestStartGame}
             >
                 New Game
             </div>
         </div>
     );
 }
+
+export default connect(
+    (state) => state,
+    (dispatch) => {
+        return {
+            requestStartGame: () => {
+                dispatch(requestStartGame());
+            }
+        }
+    }
+)(Menu);

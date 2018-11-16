@@ -1,31 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, compose, applyMiddleware } from 'redux';
-import { connect, Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import persistState from 'redux-localstorage';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import reducers, { requestStartGame, updateSelection, hideSelection } from './reducers'
+import reducers from './reducers';
 import saga from './sagas';
 import Game from './components/Game';
-
-const ConnectedGame = connect(
-    (state) => state,
-    (dispatch) => {
-        return {
-            requestStartGame: () => {
-                dispatch(requestStartGame());
-            },
-            hideSelection: () => {
-                dispatch(hideSelection());
-            },
-            updateSelection: (diagonal) => {
-                dispatch(updateSelection(diagonal));
-            }
-        }
-    }
-)(Game);
 
 function slicePersistedState(paths) {
     return (state) => {
@@ -50,7 +33,7 @@ sagaMiddleware.run(saga);
 
 ReactDOM.render((
     <Provider store={store}>
-        <ConnectedGame />
+        <Game />
     </Provider>
 ), document.getElementById('root'));
 

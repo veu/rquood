@@ -1,37 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Board from './Board';
 import Title from './Title';
-import { BOARD_SIZE } from '../config';
 import Menu from './Menu';
 
-export default function Game(props) {
-    let top = (() => {
-        if (props.board === null) {
-            return <Title />;
-        }
-
-        return (
-            <Board
-                board={props.board}
-                selection={props.selection}
-                gridSize={BOARD_SIZE}
-                hideSelection={props.hideSelection}
-                updateSelection={props.updateSelection}
-            />
-        );
-    })();
-
+function Game(props) {
     return (
         <React.Fragment>
-            {top}
+            {props.board ? <Board /> : <Title />}
 
-            <Menu
-                score={props.score}
-                streak={props.streak}
-                highscore={props.highscore}
-                isGameActive={!!props.board}
-                startGame={props.requestStartGame}
-            />
+            <Menu />
         </React.Fragment>
     );
 }
+
+export default connect(
+    (state) => state
+)(Game);
