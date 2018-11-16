@@ -4,10 +4,11 @@ import { updateSelection, hideSelection } from '../reducers';
 import { BOARD_SIZE } from '../config';
 import {DraggingOverlay} from './DraggingOverlay';
 import Square from './Square';
+import { range } from 'lodash-es';
+import { isBoardLocked } from '../selectors';
 
 function Board(props) {
-    const squares = props.board.map((value, index) => {
-
+    const squares = range(BOARD_SIZE ** 2).map((index) => {
         return (
             <Square
                 key={index}
@@ -29,7 +30,7 @@ function Board(props) {
                 gridSize={BOARD_SIZE}
                 onDragEnd={props.hideSelection}
                 onDragUpdate={handleDragUpdate}
-                isLocked={props.selection.hidden}
+                isLocked={props.isBoardLocked}
             />
 
             {squares}
@@ -39,7 +40,9 @@ function Board(props) {
 }
 
 export default connect(
-    (state) => state,
+    (state) => ({
+        isBoardLocked: isBoardLocked(state)
+    }),
     (dispatch) => {
         return {
             hideSelection: () => {
