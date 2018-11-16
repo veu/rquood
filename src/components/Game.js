@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import Board from './Board';
 import Title from './Title';
 import Menu from './Menu';
+import { isGameActive } from '../selectors';
 
 function Game(props) {
     return (
         <React.Fragment>
-            {props.board ? <Board /> : <Title />}
+            {props.isGameActive ? <Board /> : <Title />}
 
             <Menu />
         </React.Fragment>
@@ -15,5 +16,7 @@ function Game(props) {
 }
 
 export default connect(
-    (state) => state
+    (state) => ({
+        isGameActive: isGameActive(state),
+    })
 )(Game);

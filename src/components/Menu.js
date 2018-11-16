@@ -1,12 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { requestStartGame } from '../reducers';
+import {
+    isGameActive,
+    getScore,
+    getHighscore,
+    getStreakType,
+    getStreakCount
+} from '../selectors';
 
 function Menu(props) {
-    const isGameActive = !!props.board;
-
     function getStats() {
-        if (!isGameActive) {
+        if (!props.isGameActive) {
             return null;
         }
 
@@ -18,8 +23,8 @@ function Menu(props) {
                 </div>
                 <div block="stat">
                     <div block="stat" elem="title">Streak</div>
-                    <div block="stat" elem="square" mods={{type: !!props.streak && props.streak.type}}></div>
-                    <div block="stat" elem="value">{props.streak && props.streak.count}</div>
+                    <div block="stat" elem="square" mods={{type: props.streakType}}></div>
+                    <div block="stat" elem="value">{props.streakType}</div>
                 </div>
                 <div block="stat">
                     <div block="stat" elem="title">Highscore</div>
@@ -35,7 +40,7 @@ function Menu(props) {
 
             <div
                 block="action"
-                mods={{highlight: !isGameActive}}
+                mods={{highlight: !props.isGameActive}}
                 onClick={props.requestStartGame}
             >
                 New Game
@@ -45,7 +50,13 @@ function Menu(props) {
 }
 
 export default connect(
-    (state) => state,
+    (state) => ({
+        highscore: getHighscore(state),
+        isGameActive: isGameActive(state),
+        score: getScore(state),
+        streakCount: getStreakCount(state),
+        streakType: getStreakType(state),
+    }),
     (dispatch) => {
         return {
             requestStartGame: () => {
