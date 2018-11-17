@@ -10,11 +10,11 @@ import {
 } from '../selectors';
 
 function Menu(props) {
-    function getStats() {
-        if (!props.isGameActive) {
-            return null;
-        }
+    if (!props.isGameActive) {
+        return null;
+    }
 
+    function getStats() {
         return (
             <React.Fragment>
                 <div block="stat">
@@ -40,7 +40,6 @@ function Menu(props) {
 
             <div
                 block="action"
-                mods={{highlight: !props.isGameActive}}
                 onClick={props.requestStartGame}
             >
                 New Game

@@ -1,6 +1,7 @@
 import { createActions } from 'redux-actions';
 
 export const {
+    requestAssureGame,
     requestStartGame,
     startGame,
     replaceSquares,
@@ -8,6 +9,8 @@ export const {
     hideSelection,
     updateHighscore,
 } = createActions({
+    REQUEST_ASSURE_GAME: () => ({
+    }),
     REQUEST_START_GAME: () => ({
     }),
     START_GAME: (board) => ({

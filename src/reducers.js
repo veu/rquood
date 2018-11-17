@@ -3,6 +3,7 @@ import reduceReducers from 'reduce-reducers';
 import { BOARD_SIZE } from './config';
 import { isEqual } from 'lodash-es';
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 
 const defaultSelection = {
     squares: [],
@@ -93,8 +94,9 @@ function patchReducer(state) {
     return state;
 }
 
-export default reduceReducers(
+export default (history) => reduceReducers(
     combineReducers({
+        router: connectRouter(history),
         game: gameReducers,
         highscore: highscoreReducers,
         selection: selectionReducers,

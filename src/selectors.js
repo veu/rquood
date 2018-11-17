@@ -1,9 +1,9 @@
 import { createSelector } from "reselect";
 
-const getGame = (state) => state.game;
 const getSelection = (state) => state.selection;
 const getStreak = (state) => state.game && state.game.streak;
 
+export const getGame = (state) => state.game;
 export const getBoard = (state) => state.game && state.game.board;
 export const getBucket = (state) => state.game && state.game.bucket;
 export const getScore = (state) => state.game && state.game.score;

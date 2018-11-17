@@ -2,7 +2,7 @@ import delay from 'delay';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { replaceSquares, startGame, updateHighscore } from './actions';
 import { BOARD_SIZE } from './config';
-import { isSelectionHidden, getBucket, getScore, getSelectionSize, getSelectedSquares } from './selectors';
+import { isSelectionHidden, getBucket, getScore, getSelectionSize, getSelectedSquares, isGameActive } from './selectors';
 
 function getRandom(bucket, count, min=0, max=3, size=2) {
     return [...Array(count)].reduce(([values, bucket]) => {
@@ -47,8 +47,19 @@ function* onRequestStartGame() {
     yield put(startGame(values));
 }
 
+function* onRequestAssureGame() {
+    const state = yield select();
+
+    if (!isGameActive(state)) {
+        const [values] = getRandom([], BOARD_SIZE ** 2);
+
+        yield put(startGame(values));
+    }
+}
+
 export default function* () {
     yield takeEvery('HIDE_SELECTION', onHideSelection);
     yield takeEvery('REPLACE_SQUARES', onReplaceSquares);
+    yield takeEvery('REQUEST_ASSURE_GAME', onRequestAssureGame);
     yield takeEvery('REQUEST_START_GAME', onRequestStartGame);
 };

@@ -4,11 +4,15 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import persistState from 'redux-localstorage';
+import { Switch, Route } from 'react-router';
+import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import reducers from './reducers';
+import createReducers from './reducers';
 import saga from './sagas';
 import Game from './components/Game';
+import Title from './components/Title';
 
 function slicePersistedState(paths) {
     return (state) => {
@@ -20,12 +24,16 @@ function slicePersistedState(paths) {
 }
 
 const sagaMiddleware = createSagaMiddleware();
+const history = createBrowserHistory();
 
 const store = createStore(
-    reducers,
+    createReducers(history),
     compose(
         persistState('', {slicer: slicePersistedState, key: 'quood'}),
-        applyMiddleware(sagaMiddleware)
+        applyMiddleware(
+            routerMiddleware(history),
+            sagaMiddleware
+        )
     )
 );
 
@@ -33,7 +41,12 @@ sagaMiddleware.run(saga);
 
 ReactDOM.render((
     <Provider store={store}>
-        <Game />
+        <ConnectedRouter history={history}>
+            <Switch>
+                <Route exact path="/" render={() => <Title />} />
+                <Route exact path="/play" render={() => <Game />} />
+            </Switch>
+        </ConnectedRouter>
     </Provider>
 ), document.getElementById('root'));
 

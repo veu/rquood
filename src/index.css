@@ -116,8 +116,9 @@ main {
     user-select: none;
 }
 
-.action_highlight {
-    animation: jump 300ms infinite ease-in 2s alternate;
+.action a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .stat__title {
