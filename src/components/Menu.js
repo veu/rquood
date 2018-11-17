@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { requestStartGame } from '../reducers';
+import { requestStartGame } from '../actions';
 import {
     isGameActive,
     getScore,

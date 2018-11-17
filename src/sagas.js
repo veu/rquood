@@ -1,6 +1,6 @@
 import delay from 'delay';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { replaceSquares, startGame } from './reducers';
+import { replaceSquares, startGame } from './actions';
 import { BOARD_SIZE } from './config';
 
 function getRandom(bucket, count, min=0, max=3, size=2) {

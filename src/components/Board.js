@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateSelection, hideSelection } from '../reducers';
+import { updateSelection, hideSelection } from '../actions';
 import { BOARD_SIZE } from '../config';
 import {DraggingOverlay} from './DraggingOverlay';
 import Square from './Square';

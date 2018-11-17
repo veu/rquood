@@ -1,4 +1,4 @@
-import { createActions, handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
 import reduceReducers from 'reduce-reducers';
 import { BOARD_SIZE } from './config';
 import { isEqual } from 'lodash-es';
@@ -11,38 +11,19 @@ const defaultSelection = {
 
 const defaultState = {
     board: null,
-    bucket: null,
+    bucket: [],
     score: 0,
     highscore: 0,
     streak: null,
     selection: defaultSelection,
 };
 
-export const {requestStartGame, startGame, replaceSquares, updateSelection, hideSelection} = createActions({
-    REQUEST_START_GAME: () => ({
-    }),
-    START_GAME: (board) => ({
-        board,
-    }),
-    REPLACE_SQUARES: (values, bucket) => ({
-        values,
-        bucket,
-    }),
-    UPDATE_SELECTION: (diagonal) => ({
-        diagonal,
-    }),
-    HIDE_SELECTION: () => ({}),
-});
-
 const actionReducers = handleActions({
     START_GAME: (state, {payload: {board}}) => {
         return {
-            ...state,
-            score: 0,
+            ...defaultState,
             board,
-            bucket: [],
-            streak: null,
-            selection: defaultSelection,
+            highscore: state.highscore,
         };
     },
     REPLACE_SQUARES: (state, {payload: {values, bucket}}) => {
@@ -59,15 +40,15 @@ const actionReducers = handleActions({
             count: streakCount,
             type,
         };
+        const highscore = Math.max(state.highscore, score);
 
         return {
-            ...state,
-            score,
-            highscore: Math.max(state.highscore, score),
             board,
             bucket,
-            streak,
+            highscore,
+            score,
             selection: defaultSelection,
+            streak,
         }
     },
     UPDATE_SELECTION: (state, {payload: {diagonal}}) => {
