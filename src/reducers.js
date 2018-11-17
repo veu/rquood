@@ -2,6 +2,7 @@ import { handleActions } from 'redux-actions';
 import reduceReducers from 'reduce-reducers';
 import { BOARD_SIZE } from './config';
 import { isEqual } from 'lodash-es';
+import { combineReducers } from 'redux';
 
 const defaultSelection = {
     squares: [],
@@ -9,86 +10,97 @@ const defaultSelection = {
     hidden: false,
 };
 
-const defaultState = {
+const defaultGame = {
     board: null,
     bucket: [],
     score: 0,
-    highscore: 0,
     streak: null,
-    selection: defaultSelection,
 };
 
-const actionReducers = handleActions({
-    START_GAME: (state, {payload: {board}}) => {
+const highscoreReducers = handleActions({
+    UPDATE_HIGHSCORE: (highscore, {payload: {score}}) => {
+        return Math.max(highscore, score);
+    }
+ }, 0);
+
+const selectionReducers = handleActions({
+    START_GAME: () => {
+        return defaultSelection;
+    },
+    UPDATE_SELECTION: (selection, {payload: {board, diagonal}}) => {
+        const newSelection = getSelection(board, diagonal);
+
+        if (isEqual(newSelection.squares, selection.squares)) {
+            return selection;
+        }
+
+        return newSelection;
+    },
+    HIDE_SELECTION: (selection) => {
+        if (selection.squares.length < 4) {
+            return defaultSelection;
+        }
+
         return {
-            ...defaultState,
-            board,
-            highscore: state.highscore,
+            ...selection,
+            hidden: true,
         };
     },
-    REPLACE_SQUARES: (state, {payload: {values, bucket}}) => {
-        const board = [...state.board];
-        const type = board[state.selection.squares[0]];
+    REPLACE_SQUARES: () => {
+        return defaultSelection;
+    },
+}, defaultSelection);
 
-        for (const index of state.selection.squares) {
+const gameReducers = handleActions({
+    START_GAME: (game, {payload: {board}}) => {
+        return {
+            ...defaultGame,
+            board,
+        };
+    },
+    REPLACE_SQUARES: (game, {payload: {selection, values, bucket}}) => {
+        const board = [...game.board];
+        const type = board[selection.squares[0]];
+
+        for (const index of selection.squares) {
             board[index] = values.pop();
         }
 
-        const streakCount = state.streak && state.streak.type === type ? state.streak.count + 1 : 1;
-        const score = state.score + (state.selection.size | 0) * streakCount;
+        const streakCount = game.streak && game.streak.type === type ? game.streak.count + 1 : 1;
+        const score = game.score + (selection.size | 0) * streakCount;
         const streak = {
             count: streakCount,
             type,
         };
-        const highscore = Math.max(state.highscore, score);
 
         return {
             board,
             bucket,
-            highscore,
             score,
-            selection: defaultSelection,
             streak,
         }
-    },
-    UPDATE_SELECTION: (state, {payload: {diagonal}}) => {
-        const selection = getSelection(state.board, diagonal);
-
-        if (isEqual(selection.squares, state.selection.squares)) {
-            return state;
-        }
-
-        return {
-            ...state,
-            selection: selection || defaultSelection,
-        };
-    },
-    HIDE_SELECTION: (state) => {
-        if (state.selection.squares.length < 4) {
-            return {
-                ...state,
-                selection: defaultSelection,
-            };
-        }
-
-        return {
-            ...state,
-            selection: {
-                ...state.selection,
-                hidden: true,
-            }
-        };
-    },
-}, defaultState);
+    }
+}, null);
 
 function patchReducer(state) {
-    return {
-        ...defaultState,
-        ...state,
-    };
+    if (!state.selection) {
+        state = {
+            ...state,
+            selection: defaultSelection
+        }
+    }
+
+    return state;
 }
 
-export default reduceReducers(actionReducers, patchReducer);
+export default reduceReducers(
+    combineReducers({
+        game: gameReducers,
+        highscore: highscoreReducers,
+        selection: selectionReducers,
+    }),
+    patchReducer,
+);
 
 function isCoordinateValid(c) {
     return 0 <= c && c < BOARD_SIZE && c % 1 === 0;

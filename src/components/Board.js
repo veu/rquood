@@ -5,7 +5,7 @@ import { BOARD_SIZE } from '../config';
 import {DraggingOverlay} from './DraggingOverlay';
 import Square from './Square';
 import { range } from 'lodash-es';
-import { isBoardLocked } from '../selectors';
+import { isBoardLocked, getBoard } from '../selectors';
 
 function Board(props) {
     const squares = range(BOARD_SIZE ** 2).map((index) => {
@@ -18,7 +18,7 @@ function Board(props) {
     });
 
     function handleDragUpdate(start, end) {
-        props.updateSelection(start && {
+        props.updateSelection(props.board, start && {
             start,
             end,
         });
@@ -41,6 +41,7 @@ function Board(props) {
 
 export default connect(
     (state) => ({
+        board: getBoard(state),
         isBoardLocked: isBoardLocked(state)
     }),
     (dispatch) => {
@@ -48,8 +49,8 @@ export default connect(
             hideSelection: () => {
                 dispatch(hideSelection());
             },
-            updateSelection: (diagonal) => {
-                dispatch(updateSelection(diagonal));
+            updateSelection: (board, diagonal) => {
+                dispatch(updateSelection(board, diagonal));
             }
         }
     }

@@ -24,7 +24,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
     reducers,
     compose(
-        persistState('', {slicer: slicePersistedState}),
+        persistState('', {slicer: slicePersistedState, key: 'quood'}),
         applyMiddleware(sagaMiddleware)
     )
 );

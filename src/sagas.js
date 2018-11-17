@@ -1,6 +1,6 @@
 import delay from 'delay';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { replaceSquares, startGame } from './actions';
+import { replaceSquares, startGame, updateHighscore } from './actions';
 import { BOARD_SIZE } from './config';
 
 function getRandom(bucket, count, min=0, max=3, size=2) {
@@ -29,9 +29,15 @@ function* onHideSelection() {
 
     yield call(delay, 500);
 
-    const [values, bucket] = getRandom(state.bucket, 4);
+    const [values, bucket] = getRandom(state.game.bucket, 4);
 
-    yield put(replaceSquares(values, bucket));
+    yield put(replaceSquares(state.selection, values, bucket));
+}
+
+function* onReplaceSquares() {
+    const state = yield select();
+
+    yield put(updateHighscore(state.game.score));
 }
 
 function* onRequestStartGame() {
@@ -42,5 +48,6 @@ function* onRequestStartGame() {
 
 export default function* () {
     yield takeEvery('HIDE_SELECTION', onHideSelection);
+    yield takeEvery('REPLACE_SQUARES', onReplaceSquares);
     yield takeEvery('REQUEST_START_GAME', onRequestStartGame);
 };

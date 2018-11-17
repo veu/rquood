@@ -1,16 +1,17 @@
 import { createSelector } from "reselect";
 
-const getBoard = (state) => state.board;
+const getGame = (state) => state.game;
 const getSelection = (state) => state.selection;
-const getStreak = (state) => state.streak;
+const getStreak = (state) => state.game && state.game.streak;
 
-export const getScore = (state) => state.score;
+export const getBoard = (state) => state.game && state.game.board;
+export const getScore = (state) => state.game && state.game.score;
 export const getHighscore = (state) => state.highscore;
 
 // game
 
 export const isGameActive = createSelector(
-    (state) => !!getBoard(state),
+    (state) => !!getGame(state),
     (active) => active
 );
 
