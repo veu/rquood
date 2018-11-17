@@ -24,7 +24,7 @@ function Menu(props) {
                 <div block="stat">
                     <div block="stat" elem="title">Streak</div>
                     <div block="stat" elem="square" mods={{type: props.streakType}}></div>
-                    <div block="stat" elem="value">{props.streakType}</div>
+                    <div block="stat" elem="value">{props.streakCount}</div>
                 </div>
                 <div block="stat">
                     <div block="stat" elem="title">Highscore</div>
