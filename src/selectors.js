@@ -5,6 +5,7 @@ const getSelection = (state) => state.selection;
 const getStreak = (state) => state.game && state.game.streak;
 
 export const getBoard = (state) => state.game && state.game.board;
+export const getBucket = (state) => state.game && state.game.bucket;
 export const getScore = (state) => state.game && state.game.score;
 export const getHighscore = (state) => state.highscore;
 
@@ -29,12 +30,17 @@ export const getStreakCount = createSelector(
 
 // board
 
-const getSelectedSquares = createSelector(
+export const getSelectedSquares = createSelector(
     getSelection,
     (selection) => selection.squares
 );
 
-const isSelectionHidden = createSelector(
+export const getSelectionSize = createSelector(
+    getSelection,
+    (selection) => selection.size
+);
+
+export const isSelectionHidden = createSelector(
     getSelection,
     (selection) => selection.hidden,
 );

@@ -13,9 +13,10 @@ export const {
     START_GAME: (board) => ({
         board,
     }),
-    REPLACE_SQUARES: (selection, values, bucket) => ({
-        selection,
+    REPLACE_SQUARES: (indexes, values, size, bucket) => ({
+        indexes,
         values,
+        size,
         bucket,
     }),
     UPDATE_SELECTION: (board, diagonal) => ({
