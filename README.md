@@ -1,7 +1,6 @@
 # Quood
 
-WORK IN PROGRESS
+A mobile puzzle game based on [Quod](https://en.wikipedia.org/wiki/Quod_(board_game))
+and built with web technologies including HTML5, CSS3, React, and Redux.
 
-A mobile puzzle game. Find a square with corners of the same color, connect two opposite corners to score.
-
-[Play the prototype](https://quood.monometric.net/).
+[Play the game](https://quood.monometric.net/).
