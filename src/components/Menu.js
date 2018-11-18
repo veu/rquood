@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { requestStartGame } from '../actions';
 import {
     isGameActive,
@@ -8,6 +9,7 @@ import {
     getStreakType,
     getStreakCount
 } from '../selectors';
+import { TITLE_URL } from '../config';
 
 function Menu(props) {
     if (!props.isGameActive) {
@@ -43,6 +45,9 @@ function Menu(props) {
                 onClick={props.requestStartGame}
             >
                 New Game
+            </div>
+            <div block="action">
+                <Link to={TITLE_URL}>Back</Link>
             </div>
         </div>
     );

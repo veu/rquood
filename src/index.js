@@ -13,11 +13,14 @@ import createReducers from './reducers';
 import saga from './sagas';
 import Game from './components/Game';
 import Title from './components/Title';
+import Tutorial from './components/Tutorial';
+import { TITLE_URL, GAME_URL, TUTORIAL_URL } from './config';
 
 function slicePersistedState(paths) {
     return (state) => {
         const persist = {...state};
         delete persist.selection;
+        delete persist.tutorial;
 
         return persist;
     };
@@ -43,8 +46,9 @@ ReactDOM.render((
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <Switch>
-                <Route exact path="/" render={() => <Title />} />
-                <Route exact path="/play" render={() => <Game />} />
+                <Route exact path={TITLE_URL} render={() => <Title />} />
+                <Route exact path={GAME_URL} render={() => <Game />} />
+                <Route exact path={TUTORIAL_URL} render={() => <Tutorial />} />
             </Switch>
         </ConnectedRouter>
     </Provider>

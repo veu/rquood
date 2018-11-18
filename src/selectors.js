@@ -1,10 +1,17 @@
 import { createSelector } from "reselect";
+import { TUTORIAL_URL } from "./config";
 
 const getSelection = (state) => state.selection;
 const getStreak = (state) => state.game && state.game.streak;
 
 export const getGame = (state) => state.game;
-export const getBoard = (state) => state.game && state.game.board;
+export const getBoard = (state) => {
+    if (state.router.location.pathname === TUTORIAL_URL) {
+        return state.tutorial.board[state.tutorial.step];
+    }
+
+    return state.game && state.game.board;
+}
 export const getBucket = (state) => state.game && state.game.bucket;
 export const getScore = (state) => state.game && state.game.score;
 export const getHighscore = (state) => state.highscore;
@@ -67,3 +74,9 @@ export const makeGetSquare = (i) => createSelector(
         };
     }
 );
+
+// tutorial
+
+export const isTutorial = (state) => state.router.location.pathname === TUTORIAL_URL;
+
+export const getTutorialMessage = (state) => state.tutorial.message[state.tutorial.step];

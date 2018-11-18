@@ -85,6 +85,10 @@ main {
             background-position-x: 100%;
         }
 
+        &_type_3::before {
+            background: none;
+        }
+
         &_hidden {
             opacity: 0;
             transform: scale(0, 0);
@@ -104,7 +108,7 @@ main {
     font-size: 1rem;
     justify-content: space-between;
     margin: 8rem;
-    max-height: 200rem;
+    max-height: 240rem;
 }
 
 .action {
@@ -158,6 +162,11 @@ main {
             background-position-x: 100%;
         }
     }
+}
+
+.message {
+    color: #ccc;
+    font-size: 35rem;
 }
 
 @keyframes jump {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { range } from 'lodash-es';
-import { BOARD_SIZE } from '../config';
+import { BOARD_SIZE, TUTORIAL_URL } from '../config';
 
 export default function Title(props) {
     const squares = range(BOARD_SIZE ** 2).map((index) => {
@@ -25,6 +25,9 @@ export default function Title(props) {
             <div block="menu">
                 <div block="action">
                     <Link to="/play">Play</Link>
+                </div>
+                <div block="action">
+                    <Link to={TUTORIAL_URL}>Tutorial</Link>
                 </div>
             </div>
         </React.Fragment>

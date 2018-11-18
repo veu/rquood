@@ -8,6 +8,7 @@ export const {
     updateSelection,
     hideSelection,
     updateHighscore,
+    advanceTutorial,
 } = createActions({
     REQUEST_ASSURE_GAME: () => ({
     }),
@@ -29,5 +30,7 @@ export const {
     HIDE_SELECTION: () => ({}),
     UPDATE_HIGHSCORE: (score) => ({
         score
+    }),
+    ADVANCE_TUTORIAL: () => ({
     }),
 });

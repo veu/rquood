@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 import reduceReducers from 'reduce-reducers';
-import { BOARD_SIZE } from './config';
+import { BOARD_SIZE, SQUARE_TYPES } from './config';
 import { isEqual } from 'lodash-es';
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
@@ -17,6 +17,58 @@ const defaultGame = {
     score: 0,
     streak: null,
 };
+
+const defaultTutorial = {
+    board: [
+        [
+            3,3,3,3,3,3,3,
+            3,3,3,3,3,3,3,
+            3,3,1,3,1,3,3,
+            3,3,3,3,3,3,3,
+            3,3,1,3,1,3,3,
+            3,3,3,3,3,3,3,
+            3,3,3,3,3,3,3,
+        ],
+        [
+            3,3,0,3,3,3,3,
+            3,3,3,3,3,3,3,
+            3,3,3,3,3,3,0,
+            3,3,3,3,3,3,3,
+            0,3,3,3,3,3,3,
+            3,3,3,3,3,3,3,
+            3,3,3,3,0,3,3,
+        ],
+        [
+            3,3,3,3,3,3,3,
+            3,3,3,3,3,3,3,
+            3,0,0,3,3,3,3,
+            3,0,0,3,3,3,3,
+            3,3,3,3,3,3,3,
+            3,3,3,3,3,3,3,
+            3,3,3,3,3,3,3,
+        ],
+        [
+            3,0,3,3,1,3,3,
+            3,2,1,3,3,0,3,
+            3,3,3,3,0,3,3,
+            3,3,3,1,2,1,0,
+            3,2,3,2,2,3,3,
+            3,0,3,1,3,0,3,
+            3,3,3,3,3,3,3,
+        ],
+    ],
+    message: [
+        `Hi there. Find a square with corners of the same color
+         and remove it by connecting two opposite corners.`,
+        `Squares have different sizes and orientations.
+         Remove bigger squares to yield a higher score.`,
+        `Removing multiple squares of the same color in a row
+         will multiply your score.`,
+        `The game does not stop if there are no more squares
+         to remove. It’s up to you to call it quits.`
+    ],
+    step: 0
+}
 
 const highscoreReducers = handleActions({
     UPDATE_HIGHSCORE: (highscore, {payload: {score}}) => {
@@ -50,6 +102,9 @@ const selectionReducers = handleActions({
     REPLACE_SQUARES: () => {
         return defaultSelection;
     },
+    ADVANCE_TUTORIAL: () => {
+        return defaultSelection;
+    }
 }, defaultSelection);
 
 const gameReducers = handleActions({
@@ -83,11 +138,21 @@ const gameReducers = handleActions({
     }
 }, null);
 
+const tutorialReducers = handleActions({
+    ADVANCE_TUTORIAL: (tutorial) => {
+        return {
+            ...tutorial,
+            step: tutorial.step + 1
+        };
+    }
+}, defaultTutorial);
+
 function patchReducer(state) {
     if (!state.selection) {
         state = {
             ...state,
-            selection: defaultSelection
+            selection: defaultSelection,
+            tutorial: defaultTutorial,
         }
     }
 
@@ -98,6 +163,7 @@ export default (history) => reduceReducers(
     combineReducers({
         router: connectRouter(history),
         game: gameReducers,
+        tutorial: tutorialReducers,
         highscore: highscoreReducers,
         selection: selectionReducers,
     }),
@@ -116,7 +182,7 @@ function getSelection(board, diagonal) {
     const start = diagonal.start.x + diagonal.start.y * BOARD_SIZE;
     const end = diagonal.end.x + diagonal.end.y * BOARD_SIZE;
 
-    if (start === end) {
+    if (start === end || board[start] >= SQUARE_TYPES) {
         return {squares: [start], size: 0};
     }
 
