@@ -36,64 +36,64 @@ main {
     height: 480rem;
     padding-bottom: 100%;
     position: relative;
-}
 
-.board__title {
-    background: #000;
-    color: white;
-    font-size: 3.3em;
-    font-weight: bold;
-    grid-area: 3 / 2 / span 1 / span 3;
-    line-height: 1.34em;
-    height: 100%;
-    position: absolute;
-    text-align: center;
-    text-transform: uppercase;
-    width: 100%;
-    z-index: 5;
-}
+    .board__title {
+        background: #000;
+        color: white;
+        font-size: 3.3em;
+        font-weight: bold;
+        grid-area: 3 / 2 / span 1 / span 3;
+        line-height: 1.34em;
+        height: 100%;
+        position: absolute;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+        z-index: 5;
+    }
 
-.board__square {
-    image-rendering: pixelated;
-    opacity: .9;
-    transition: transform 500ms, opacity 500ms;
-}
+    &__square {
+        image-rendering: pixelated;
+        opacity: .9;
+        transition: transform 500ms, opacity 500ms;
 
-.board__square::before {
-    background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
-    content: '';
-    display: block;
-    padding-bottom: 100%;
-}
+        &::before {
+            background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
+            content: '';
+            display: block;
+            padding-bottom: 100%;
+        }
 
-.board__square_active {
-    opacity: 1;
-    transform: scale(1.2, 1.2);
-}
+        &_active {
+            opacity: 1;
+            transform: scale(1.2, 1.2);
+        }
 
-.board__square_inactive {
-    opacity: .6;
-}
+        &_inactive {
+            opacity: .6;
+        }
 
-.board__square_type_0::before {
-    background-position-x: 0;
-}
+        &_type_0::before {
+            background-position-x: 0;
+        }
 
-.board__square_type_1::before {
-    background-position-x: 50%;
-}
+        &_type_1::before {
+            background-position-x: 50%;
+        }
 
-.board__square_type_2::before {
-    background-position-x: 100%;
-}
+        &_type_2::before {
+            background-position-x: 100%;
+        }
 
-.board__square_hidden {
-    opacity: 0;
-    transform: scale(0, 0);
-}
+        &_hidden {
+            opacity: 0;
+            transform: scale(0, 0);
+        }
 
-.board__square_ready::before {
-    animation: jump 300ms infinite alternate-reverse;
+        &_ready::before {
+            animation: jump 300ms infinite alternate-reverse;
+        }
+    }
 }
 
 .menu {
@@ -114,47 +114,50 @@ main {
     margin-top: 0;
     text-transform: uppercase;
     user-select: none;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
 }
 
-.action a {
-    color: inherit;
-    text-decoration: none;
-}
+.stat {
+    &__title {
+        color: #ccc;
+        text-align: left;
+        text-transform: uppercase;
+        font-size: 30rem;
+    }
 
-.stat__title {
-    color: #ccc;
-    text-align: left;
-    text-transform: uppercase;
-    font-size: 30rem;
-}
+    &__value {
+        color: white;
+        font-size: 42rem;
+        text-align: right;
+    }
 
-.stat__value {
-    color: white;
-    font-size: 42rem;
-    text-align: right;
-}
+    &__square {
+        background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
+        background-position-x: 150%;
+        float: right;
+        height: 42rem;
+        image-rendering: pixelated;
+        margin-right: -4rem;
+        margin-top: 4rem;
+        width: 42rem;
 
-.stat__square {
-    background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
-    background-position-x: 150%;
-    float: right;
-    height: 42rem;
-    image-rendering: pixelated;
-    margin-right: -4rem;
-    margin-top: 4rem;
-    width: 42rem;
-}
 
-.stat__square_type_0 {
-    background-position-x: 0;
-}
+        &_type_0 {
+            background-position-x: 0;
+        }
 
-.stat__square_type_1 {
-    background-position-x: 50%;
-}
+        &_type_1 {
+            background-position-x: 50%;
+        }
 
-.stat__square_type_2 {
-    background-position-x: 100%;
+        &_type_2 {
+            background-position-x: 100%;
+        }
+    }
 }
 
 @keyframes jump {
