@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateSelection, hideSelection } from '../actions';
+import { updateSelection, hideSelection, discardSelection } from '../actions';
 import { BOARD_SIZE } from '../config';
 import {DraggingOverlay} from './DraggingOverlay';
 import Square from './Square';
@@ -18,10 +18,11 @@ function Board(props) {
     });
 
     function handleDragUpdate(start, end) {
-        props.updateSelection(props.board, start && {
-            start,
-            end,
-        });
+        if (start) {
+            props.updateSelection(props.board, start, end)
+        } else {
+            props.discardSelection();
+        }
     }
 
     return (
@@ -49,8 +50,11 @@ export default connect(
             hideSelection: () => {
                 dispatch(hideSelection());
             },
-            updateSelection: (board, diagonal) => {
-                dispatch(updateSelection(board, diagonal));
+            updateSelection: (board, start, end) => {
+                dispatch(updateSelection(board, start, end));
+            },
+            discardSelection: () => {
+                dispatch(discardSelection());
             }
         }
     }

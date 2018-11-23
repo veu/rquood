@@ -1,9 +1,10 @@
 import { handleActions } from 'redux-actions';
 import reduceReducers from 'reduce-reducers';
 import { BOARD_SIZE, SQUARE_TYPES } from './config';
-import { isEqual } from 'lodash-es';
+import { isEqual, range, uniq, curry } from 'lodash-es';
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
+import { rotate90Around, tween, distance } from './vectors';
 
 const defaultSelection = {
     squares: [],
@@ -80,14 +81,17 @@ const selectionReducers = handleActions({
     START_GAME: () => {
         return defaultSelection;
     },
-    UPDATE_SELECTION: (selection, {payload: {board, diagonal}}) => {
-        const newSelection = getSelection(board, diagonal);
+    UPDATE_SELECTION: (selection, {payload: {board, start, end}}) => {
+        const newSelection = getSelection(board, start, end);
 
         if (isEqual(newSelection.squares, selection.squares)) {
             return selection;
         }
 
         return newSelection;
+    },
+    DISCARD_SELECTION: () => {
+        return defaultSelection;
     },
     HIDE_SELECTION: (selection) => {
         if (selection.squares.length < 4) {
@@ -170,49 +174,23 @@ export default (history) => reduceReducers(
     patchReducer,
 );
 
-function isCoordinateValid(c) {
-    return 0 <= c && c < BOARD_SIZE && c % 1 === 0;
-}
+const getSelection = (board, start, end) => ({
+    ...defaultSelection,
+    size: distance(start, end),
+    squares: uniq(
+        range(4)
+            .map(rotate90Around(tween(start, end, 0.5), start))
+            .filter(isValid)
+            .filter(isValidType(board))
+            .filter(typeEquals(board, getType(board, start)))
+            .map(toIndex)
+    ),
+});
 
-function getSelection(board, diagonal) {
-    if (diagonal === null) {
-        return {squares: [], size: 0};
-    }
-
-    const start = diagonal.start.x + diagonal.start.y * BOARD_SIZE;
-    const end = diagonal.end.x + diagonal.end.y * BOARD_SIZE;
-
-    if (start === end || board[start] >= SQUARE_TYPES) {
-        return {squares: [start], size: 0};
-    }
-
-    const a = {x: start % BOARD_SIZE, y: start / BOARD_SIZE | 0};
-    const b = {x: end % BOARD_SIZE, y: end / BOARD_SIZE | 0};
-    const center = {x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
-    const diff = {x: center.x - a.x, y: center.y - a.y};
-    const selection = {
-        ...defaultSelection,
-        squares: [start],
-        size: 2 * Math.hypot(diff.x, diff.y),
-    };
-
-    if (board[start] === board[end]) {
-        selection.squares.push(end);
-    }
-
-    const c = {x: center.x + diff.y, y: center.y - diff.x};
-    const cIndex = c.x + c.y * BOARD_SIZE;
-
-    if (isCoordinateValid(c.x) && isCoordinateValid(c.y) && board[cIndex] === board[start]) {
-        selection.squares.push(cIndex);
-    }
-
-    const d = {x: center.x - diff.y, y: center.y + diff.x};
-    const dIndex = d.x + d.y * BOARD_SIZE;
-
-    if (isCoordinateValid(d.x) && isCoordinateValid(d.y) && board[dIndex] === board[start]) {
-        selection.squares.push(dIndex);
-    }
-
-    return selection;
-}
+const toIndex = curry(({x, y}) => x + y * BOARD_SIZE);
+const isValid = ({x, y}) =>
+    0 <= x && x < BOARD_SIZE && x % 1 === 0 &&
+    0 <= y && y < BOARD_SIZE && y % 1 === 0;
+const getType = (board, v) => board[toIndex(v)];
+const typeEquals = curry((board, type, v) => getType(board, v) === type);
+const isValidType = curry((board, v) => getType(board, v) < SQUARE_TYPES);
