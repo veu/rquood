@@ -57,7 +57,7 @@ export const isBoardLocked = createSelector(
     (hidden) => hidden
 );
 
-export const makeGetSquare = (i) => createSelector(
+export const makeGetSquare = () => createSelector(
     (_, props) => props.index,
     getBoard,
     getSelectedSquares,
@@ -80,3 +80,12 @@ export const makeGetSquare = (i) => createSelector(
 export const isTutorial = (state) => state.router.location.pathname === TUTORIAL_URL;
 
 export const getTutorialMessage = (state) => state.tutorial.message[state.tutorial.step];
+
+// options
+
+const getOptions = (state) => state.options;
+
+export const getHues = createSelector(
+    getOptions,
+    (options) => options.hues
+)

@@ -19,6 +19,12 @@ const defaultGame = {
     streak: null,
 };
 
+const defaultHues = Array(SQUARE_TYPES).fill(0);
+
+const defaultOptions = {
+    hues: defaultHues,
+}
+
 const defaultTutorial = {
     board: [
         [
@@ -76,6 +82,24 @@ const highscoreReducers = handleActions({
         return Math.max(highscore, score);
     }
  }, 0);
+
+ const optionsReducers = handleActions({
+     CHANGE_HUE: (options, {payload: {index, hue}}) => {
+         const hues = [...options.hues];
+         hues[index] = hue;
+
+         return {
+             ...options,
+             hues
+         };
+     },
+     RESET_HUES: (options) => {
+         return {
+             ...options,
+             hues: defaultHues,
+         };
+     }
+  }, defaultOptions);
 
 const selectionReducers = handleActions({
     START_GAME: () => {
@@ -170,6 +194,7 @@ export default (history) => reduceReducers(
         tutorial: tutorialReducers,
         highscore: highscoreReducers,
         selection: selectionReducers,
+        options: optionsReducers,
     }),
     patchReducer,
 );

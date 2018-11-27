@@ -10,6 +10,8 @@ export const {
     hideSelection,
     updateHighscore,
     advanceTutorial,
+    changeHue,
+    resetHues,
 } = createActions({
     REQUEST_ASSURE_GAME: () => ({
     }),
@@ -36,4 +38,9 @@ export const {
     }),
     ADVANCE_TUTORIAL: () => ({
     }),
+    CHANGE_HUE: (index, hue) => ({
+        index,
+        hue,
+    }),
+    RESET_HUES: () => ({}),
 });

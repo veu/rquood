@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateSelection, hideSelection, discardSelection } from '../actions';
-import { BOARD_SIZE } from '../config';
-import {DraggingOverlay} from './DraggingOverlay';
-import Square from './Square';
 import { range } from 'lodash-es';
+import { updateSelection, hideSelection, discardSelection } from '../actions';
 import { isBoardLocked, getBoard } from '../selectors';
+import { BOARD_SIZE } from '../config';
+import Square from './Square';
+import { GridDraggingOverlay } from './GridDraggingOverlay';
 
 function Board(props) {
     const squares = range(BOARD_SIZE ** 2).map((index) => {
@@ -18,19 +18,16 @@ function Board(props) {
     });
 
     function handleDragUpdate(start, end) {
-        if (start) {
-            props.updateSelection(props.board, start, end)
-        } else {
-            props.discardSelection();
-        }
+        props.updateSelection(props.board, start, end);
     }
 
     return (
         <div block="board">
-            <DraggingOverlay
+            <GridDraggingOverlay
                 gridSize={BOARD_SIZE}
                 onDragEnd={props.hideSelection}
                 onDragUpdate={handleDragUpdate}
+                onDragAbort={props.discardSelection}
                 isLocked={props.isBoardLocked}
             />
 

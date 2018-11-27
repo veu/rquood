@@ -4,4 +4,5 @@ export const SQUARE_TYPES = 3;
 
 export const TITLE_URL = '/';
 export const GAME_URL = '/play';
+export const OPTIONS_URL = '/options';
 export const TUTORIAL_URL = '/tutorial';
