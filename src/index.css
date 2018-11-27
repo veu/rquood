@@ -37,7 +37,7 @@ main {
     padding-bottom: 100%;
     position: relative;
 
-    .board__title {
+    &__title {
         background: #000;
         color: white;
         font-size: 3.3em;
@@ -51,52 +51,52 @@ main {
         width: 100%;
         z-index: 5;
     }
+}
 
-    &__square {
-        image-rendering: pixelated;
-        opacity: .9;
-        transition: transform 500ms, opacity 500ms;
+.square {
+    image-rendering: pixelated;
+    opacity: .9;
+    transition: transform 500ms, opacity 500ms;
 
-        &::before {
-            background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
-            content: '';
-            display: block;
-            padding-bottom: 100%;
-        }
+    &::before {
+        background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
+        content: '';
+        display: block;
+        padding-bottom: 100%;
+    }
 
-        &_active {
-            opacity: 1;
-            transform: scale(1.2, 1.2);
-        }
+    &_active {
+        opacity: 1;
+        transform: scale(1.2, 1.2);
+    }
 
-        &_inactive {
-            opacity: .6;
-        }
+    &_inactive {
+        opacity: .6;
+    }
 
-        &_type_0::before {
-            background-position-x: 0;
-        }
+    &_type_0::before {
+        background-position-x: 0;
+    }
 
-        &_type_1::before {
-            background-position-x: 50%;
-        }
+    &_type_1::before {
+        background-position-x: 50%;
+    }
 
-        &_type_2::before {
-            background-position-x: 100%;
-        }
+    &_type_2::before {
+        background-position-x: 100%;
+    }
 
-        &_type_3::before {
-            background: none;
-        }
+    &_type_3::before {
+        background: none;
+    }
 
-        &_hidden {
-            opacity: 0;
-            transform: scale(0, 0);
-        }
+    &_hidden {
+        opacity: 0;
+        transform: scale(0, 0);
+    }
 
-        &_ready::before {
-            animation: jump 300ms infinite alternate-reverse;
-        }
+    &_ready::before {
+        animation: jump 300ms infinite alternate-reverse;
     }
 }
 
@@ -108,14 +108,26 @@ main {
     font-size: 1rem;
     justify-content: space-between;
     margin: 8rem;
-    max-height: 240rem;
+
+    &_small {
+        align-content: flex-start;
+        align-items: flex-start;
+    }
+
+    &_main {
+        max-height: 240rem;
+    }
+
+    &__block {
+        flex-basis: 100%;
+    }
 }
 
 .action {
     color: #ccc;
     cursor: pointer;
     font-size: 35rem;
-    margin-top: 0;
+    margin: 0 0 10rem;
     text-transform: uppercase;
     user-select: none;
 
@@ -167,6 +179,36 @@ main {
 .message {
     color: #ccc;
     font-size: 35rem;
+}
+
+.slider {
+    display: flex;
+    margin-bottom: 20rem;
+
+    &__square {
+        width: 40rem;
+    }
+
+    &__bar-border {
+        flex-grow: 1;
+        height: 40rem;
+        border: 4rem solid #ccc;
+        margin-left: 10rem;
+        position: relative;
+    }
+
+    &__bar {
+        background-color: #ccc;
+        height: 100%;
+    }
+}
+
+.options-headline {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 35rem;
+    margin-bottom: 20rem;
+    text-transform: uppercase;
 }
 
 @keyframes jump {

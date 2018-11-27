@@ -6,9 +6,12 @@ export const {
     startGame,
     replaceSquares,
     updateSelection,
+    discardSelection,
     hideSelection,
     updateHighscore,
     advanceTutorial,
+    changeHue,
+    resetHues,
 } = createActions({
     REQUEST_ASSURE_GAME: () => ({
     }),
@@ -23,14 +26,21 @@ export const {
         size,
         bucket,
     }),
-    UPDATE_SELECTION: (board, diagonal) => ({
+    UPDATE_SELECTION: (board, start, end) => ({
         board,
-        diagonal,
+        start,
+        end,
     }),
+    DISCARD_SELECTION: () => ({}),
     HIDE_SELECTION: () => ({}),
     UPDATE_HIGHSCORE: (score) => ({
         score
     }),
     ADVANCE_TUTORIAL: () => ({
     }),
+    CHANGE_HUE: (index, hue) => ({
+        index,
+        hue,
+    }),
+    RESET_HUES: () => ({}),
 });

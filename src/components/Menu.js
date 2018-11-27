@@ -37,17 +37,17 @@ function Menu(props) {
     }
 
     return (
-        <div block="menu">
+        <div block="menu" mods={{main: true}}>
             {getStats()}
 
+            <div block="action">
+                <Link to={TITLE_URL}>Back</Link>
+            </div>
             <div
                 block="action"
                 onClick={props.requestStartGame}
             >
                 New Game
-            </div>
-            <div block="action">
-                <Link to={TITLE_URL}>Back</Link>
             </div>
         </div>
     );
