@@ -7,7 +7,8 @@ import {
     getScore,
     getHighscore,
     getStreakType,
-    getStreakCount
+    getStreakCount,
+    getHues
 } from '../selectors';
 import { TITLE_URL } from '../config';
 
@@ -25,7 +26,7 @@ function Menu(props) {
                 </div>
                 <div block="stat">
                     <div block="stat" elem="title">Streak</div>
-                    <div block="stat" elem="square" mods={{type: props.streakType}}></div>
+                    <div block="stat" elem="square" mods={{type: props.streakType}} style={{filter: `hue-rotate(${props.hues[props.streakType]}deg)`}}></div>
                     <div block="stat" elem="value">{props.streakCount}</div>
                 </div>
                 <div block="stat">
@@ -56,6 +57,7 @@ function Menu(props) {
 export default connect(
     (state) => ({
         highscore: getHighscore(state),
+        hues: getHues(state),
         isGameActive: isGameActive(state),
         score: getScore(state),
         streakCount: getStreakCount(state),
