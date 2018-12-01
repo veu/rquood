@@ -9,7 +9,7 @@ export const defaultSelection = {
     hidden: false,
 };
 
-const selectionReducers = handleActions({
+export const selectionReducers = handleActions({
     START_GAME: () => {
         return defaultSelection;
     },

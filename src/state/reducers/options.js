@@ -1,14 +1,14 @@
 import { handleActions } from 'redux-actions';
 import { SQUARE_TYPES } from '../../config';
 
-const defaultHues = Array(SQUARE_TYPES).fill(0);
+export const defaultHues = Array(SQUARE_TYPES).fill(0);
 
-const defaultOptions = {
+export const defaultOptions = {
     hues: defaultHues,
 };
 
 const optionsReducers = handleActions({
-    CHANGE_HUE: (options, {payload: {index, hue}}) => {
+    CHANGE_HUE: (options, { payload: { index, hue } }) => {
         const hues = [...options.hues];
         hues[index] = hue;
 
@@ -23,6 +23,6 @@ const optionsReducers = handleActions({
             hues: defaultHues,
         };
     }
- }, defaultOptions);
+}, defaultOptions);
 
 export default optionsReducers;
