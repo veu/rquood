@@ -1,8 +1,8 @@
 import delay from 'delay';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { replaceSquares, startGame, updateHighscore, advanceTutorial } from './actions';
+import { replaceSquares, startGame, updateHighscore, advanceTutorial } from './state/actions';
 import { BOARD_SIZE } from './config';
-import { isSelectionHidden, getBucket, getScore, getSelectionSize, getSelectedSquares, isGameActive, isTutorial } from './selectors';
+import { isSelectionHidden, getBucket, getScore, getSelectionSize, getSelectedSquares, isGameActive, isTutorial } from './state/selectors';
 
 function getRandom(bucket, count, min=0, max=3, size=2) {
     return [...Array(count)].reduce(([values, bucket]) => {

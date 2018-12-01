@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
-import { getHues } from '../selectors';
-import { changeHue } from '../actions';
+import { getHues } from '../state/selectors';
+import { changeHue } from '../state/actions';
 import { DraggingOverlay } from './DraggingOverlay';
 
 function Slider(props) {

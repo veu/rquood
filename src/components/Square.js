@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { makeGetSquare, getHues } from '../selectors';
+import { makeGetSquare, getHues } from '../state/selectors';
 
 function Square(props) {
     return (

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { requestAssureGame } from '../actions';
-import { isGameActive } from '../selectors';
+import { requestAssureGame } from '../state/actions';
+import { isGameActive } from '../state/selectors';
 import Board from './Board';
 import Menu from './Menu';
 

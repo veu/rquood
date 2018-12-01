@@ -9,7 +9,7 @@ import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import createReducers from './reducers';
+import createReducers from './state/reducers';
 import saga from './sagas';
 import Game from './components/Game';
 import Title from './components/Title';

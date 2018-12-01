@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { requestStartGame } from '../actions';
+import { requestStartGame } from '../state/actions';
 import {
     isGameActive,
     getScore,
@@ -9,7 +9,7 @@ import {
     getStreakType,
     getStreakCount,
     getHues
-} from '../selectors';
+} from '../state/selectors';
 import { TITLE_URL } from '../config';
 
 function Menu(props) {

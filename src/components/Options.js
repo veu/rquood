@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { range } from 'lodash-es';
 import { Link } from 'react-router-dom';
 import { SQUARE_TYPES, TITLE_URL } from '../config';
-import { resetHues } from '../actions';
+import { resetHues } from '../state/actions';
 import Slider from './Slider';
 
 function Options(props) {

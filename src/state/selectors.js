@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { TUTORIAL_URL } from "./config";
+import { TUTORIAL_URL } from "../config";
 
 const getSelection = (state) => state.selection;
 const getStreak = (state) => state.game && state.game.streak;

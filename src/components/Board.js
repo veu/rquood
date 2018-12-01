@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { range } from 'lodash-es';
-import { updateSelection, hideSelection, discardSelection } from '../actions';
-import { isBoardLocked, getBoard } from '../selectors';
+import { updateSelection, hideSelection, discardSelection } from '../state/actions';
+import { isBoardLocked, getBoard } from '../state/selectors';
 import { BOARD_SIZE } from '../config';
 import Square from './Square';
 import { GridDraggingOverlay } from './GridDraggingOverlay';

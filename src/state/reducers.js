@@ -1,10 +1,10 @@
 import { handleActions } from 'redux-actions';
 import reduceReducers from 'reduce-reducers';
-import { BOARD_SIZE, SQUARE_TYPES } from './config';
+import { BOARD_SIZE, SQUARE_TYPES } from '../config';
 import { isEqual, range, uniq, curry } from 'lodash-es';
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import { rotate90Around, tween, distance } from './vectors';
+import { rotate90Around, tween, distance } from '../vectors';
 
 const defaultSelection = {
     squares: [],
