@@ -1,10 +1,10 @@
+import range from 'ramda/src/range';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { range } from 'lodash-es';
-import { BOARD_SIZE, TUTORIAL_URL, OPTIONS_URL } from '../config';
+import { BOARD_SIZE, OPTIONS_URL, TUTORIAL_URL } from '../config';
 
 export default function Title(props) {
-    const squares = range(BOARD_SIZE ** 2).map((index) => {
+    const squares = range(0, BOARD_SIZE ** 2).map((index) => {
         return (
             <div
                 key={index}

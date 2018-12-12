@@ -1,4 +1,4 @@
-import { curry } from "lodash-es";
+import curry from 'ramda/src/curry';
 
 export const add = ({x, y}, {x: x2, y: y2}) => ({x: x + x2, y: y + y2});
 

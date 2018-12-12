@@ -1,7 +1,10 @@
-import { isEqual, range, uniq, curry } from 'lodash-es';
+import curry from 'ramda/src/curry';
+import equals from 'ramda/src/equals';
+import range from 'ramda/src/range';
+import uniq from 'ramda/src/uniq';
 import { handleActions } from 'redux-actions';
 import { BOARD_SIZE, SQUARE_TYPES } from '../../config';
-import { rotate90Around, tween, distance } from '../../vectors';
+import { distance, rotate90Around, tween } from '../../vectors';
 
 export const defaultSelection = {
     squares: [],
@@ -16,7 +19,7 @@ export const selectionReducers = handleActions({
     UPDATE_SELECTION: (selection, {payload: {board, start, end}}) => {
         const newSelection = getSelection(board, start, end);
 
-        if (isEqual(newSelection.squares, selection.squares)) {
+        if (equals(newSelection.squares, selection.squares)) {
             return selection;
         }
 
@@ -49,7 +52,7 @@ const getSelection = (board, start, end) => ({
     ...defaultSelection,
     size: distance(start, end),
     squares: uniq(
-        range(4)
+        range(0, 4)
             .map(rotate90Around(tween(start, end, 0.5), start))
             .filter(isValid)
             .filter(isValidType(board))

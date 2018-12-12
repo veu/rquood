@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { range } from 'lodash-es';
+import range from 'ramda/src/range';
 import { Link } from 'react-router-dom';
 import { SQUARE_TYPES, TITLE_URL } from '../config';
 import { resetHues } from '../state/actions';
 import Slider from './Slider';
 
 function Options(props) {
-    const sliders = range(SQUARE_TYPES).map((type) => {
+    const sliders = range(0, SQUARE_TYPES).map((type) => {
         return <Slider key={type} index={type} />
     });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { range } from 'lodash-es';
+import range from 'ramda/src/range';
 import { updateSelection, hideSelection, discardSelection } from '../state/actions';
 import { isBoardLocked, getBoard } from '../state/selectors';
 import { BOARD_SIZE } from '../config';
@@ -8,7 +8,7 @@ import Square from './Square';
 import { GridDraggingOverlay } from './GridDraggingOverlay';
 
 function Board(props) {
-    const squares = range(BOARD_SIZE ** 2).map((index) => {
+    const squares = range(0, BOARD_SIZE ** 2).map((index) => {
         return (
             <Square
                 key={index}
