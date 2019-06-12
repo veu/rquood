@@ -1,36 +1,24 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { requestAssureGame } from '../state/actions';
 import { isGameActive } from '../state/selectors';
 import Board from './Board';
 import Menu from './Menu';
 
-function Game(props) {
+export default function Game() {
+    const isActive = useSelector(isGameActive);
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        props.requestAssureGame();
+        dispatch(requestAssureGame());
     });
 
-    if (!props.isActive) {
+    if (!isActive) {
         return null;
     }
 
-    return (
-        <React.Fragment>
-            <Board />
-            <Menu />
-        </React.Fragment>
-    );
+    return (<>
+        <Board />
+        <Menu />
+    </>);
 }
-
-export default connect(
-    (state) => ({
-        isActive: isGameActive(state),
-    }),
-    (dispatch) => {
-        return {
-            requestAssureGame: () => {
-                dispatch(requestAssureGame());
-            }
-        }
-    }
-)(Game);
