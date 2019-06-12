@@ -57,12 +57,11 @@ export const isBoardLocked = createSelector(
     (hidden) => hidden
 );
 
-export const makeGetSquare = () => createSelector(
-    (_, props) => props.index,
+export const getSquare = (index) => createSelector(
     getBoard,
     getSelectedSquares,
     isSelectionHidden,
-    (index, board, squares, hidden) => {
+    (board, squares, hidden) => {
         const active = squares.includes(index);
 
         return {

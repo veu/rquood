@@ -1,24 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { makeGetSquare, getHues } from '../state/selectors';
+import { useSelector } from 'react-redux';
+import { getSquare, getHues } from '../state/selectors';
 
-function Square(props) {
+export default function Square(props) {
+    const square = useSelector(getSquare(props.index));
+    const hues = useSelector(getHues);
+
     return (
         <div
             block="square"
-            mods={props.square}
-            style={{filter: `hue-rotate(${props.hues[props.square.type]}deg)`}}>
+            mods={square}
+            style={{filter: `hue-rotate(${hues[square.type]}deg)`}}>
         </div>
     );
 }
-
-export default connect(
-    () => {
-        const getSquare = makeGetSquare();
-
-        return (state, props) => ({
-            hues: getHues(state),
-            square: getSquare(state, props),
-        });
-    }
-)(Square);
