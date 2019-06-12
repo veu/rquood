@@ -1,13 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import range from 'ramda/src/range';
 import { updateSelection, hideSelection, discardSelection } from '../state/actions';
-import { isBoardLocked, getBoard } from '../state/selectors';
+import { isBoardLocked as getIsBoardLocked, getBoard } from '../state/selectors';
 import { BOARD_SIZE } from '../config';
 import Square from './Square';
 import { GridDraggingOverlay } from './GridDraggingOverlay';
 
-function Board(props) {
+export default function Board() {
+    const board = useSelector(getBoard);
+    const isBoardLocked = useSelector(getIsBoardLocked);
+    const dispatch = useDispatch();
+
     const squares = range(0, BOARD_SIZE ** 2).map((index) => {
         return (
             <Square
@@ -18,41 +22,20 @@ function Board(props) {
     });
 
     function handleDragUpdate(start, end) {
-        props.updateSelection(props.board, start, end);
+        dispatch(updateSelection(board, start, end));
     }
 
     return (
         <div block="board">
             <GridDraggingOverlay
                 gridSize={BOARD_SIZE}
-                onDragEnd={props.hideSelection}
+                onDragEnd={() => dispatch(hideSelection())}
                 onDragUpdate={handleDragUpdate}
-                onDragAbort={props.discardSelection}
-                isLocked={props.isBoardLocked}
+                onDragAbort={() => dispatch(discardSelection())}
+                isLocked={isBoardLocked}
             />
 
             {squares}
-
         </div>
     );
 }
-
-export default connect(
-    (state) => ({
-        board: getBoard(state),
-        isBoardLocked: isBoardLocked(state)
-    }),
-    (dispatch) => {
-        return {
-            hideSelection: () => {
-                dispatch(hideSelection());
-            },
-            updateSelection: (board, start, end) => {
-                dispatch(updateSelection(board, start, end));
-            },
-            discardSelection: () => {
-                dispatch(discardSelection());
-            }
-        }
-    }
-)(Board);
