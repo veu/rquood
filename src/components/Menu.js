@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { requestStartGame } from '../state/actions';
 import {
-    isGameActive,
+    isGameActive as getIsGameActive,
     getScore,
     getHighscore,
     getStreakType,
@@ -12,29 +12,37 @@ import {
 } from '../state/selectors';
 import { TITLE_URL } from '../config';
 
-function Menu(props) {
-    if (!props.isGameActive) {
+export default function Menu() {
+    const isGameActive = useSelector(getIsGameActive);
+
+    if (!isGameActive) {
         return null;
     }
 
+    const highscore = useSelector(getHighscore);
+    const hues = useSelector(getHues);
+    const score = useSelector(getScore);
+    const streakCount = useSelector(getStreakCount);
+    const streakType = useSelector(getStreakType);
+
+    const dispatch = useDispatch();
+
     function getStats() {
-        return (
-            <React.Fragment>
-                <div block="stat">
-                    <div block="stat" elem="title">Score</div>
-                    <div block="stat" elem="value">{props.score}</div>
-                </div>
-                <div block="stat">
-                    <div block="stat" elem="title">Streak</div>
-                    <div block="stat" elem="square" mods={{type: props.streakType}} style={{filter: `hue-rotate(${props.hues[props.streakType]}deg)`}}></div>
-                    <div block="stat" elem="value">{props.streakCount}</div>
-                </div>
-                <div block="stat">
-                    <div block="stat" elem="title">Highscore</div>
-                    <div block="stat" elem="value">{props.highscore}</div>
-                </div>
-            </React.Fragment>
-        );
+        return (<>
+            <div block="stat">
+                <div block="stat" elem="title">Score</div>
+                <div block="stat" elem="value">{score}</div>
+            </div>
+            <div block="stat">
+                <div block="stat" elem="title">Streak</div>
+                <div block="stat" elem="square" mods={{type: streakType}} style={{filter: `hue-rotate(${hues[streakType]}deg)`}}></div>
+                <div block="stat" elem="value">{streakCount}</div>
+            </div>
+            <div block="stat">
+                <div block="stat" elem="title">Highscore</div>
+                <div block="stat" elem="value">{highscore}</div>
+            </div>
+        </>);
     }
 
     return (
@@ -46,28 +54,10 @@ function Menu(props) {
             </div>
             <div
                 block="action"
-                onClick={props.requestStartGame}
+                onClick={() => dispatch(requestStartGame())}
             >
                 New Game
             </div>
         </div>
     );
 }
-
-export default connect(
-    (state) => ({
-        highscore: getHighscore(state),
-        hues: getHues(state),
-        isGameActive: isGameActive(state),
-        score: getScore(state),
-        streakCount: getStreakCount(state),
-        streakType: getStreakType(state),
-    }),
-    (dispatch) => {
-        return {
-            requestStartGame: () => {
-                dispatch(requestStartGame());
-            }
-        }
-    }
-)(Menu);

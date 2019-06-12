@@ -1,16 +1,16 @@
-import React, { useRef } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getHues } from '../state/selectors';
 import { changeHue } from '../state/actions';
 import { DraggingOverlay } from './DraggingOverlay';
 
-function Slider(props) {
-    const ref = useRef();
-
-    const hue = props.hues[props.index];
+export default function Slider({index}) {
+    const hues = useSelector(getHues);
+    const hue = hues[index];
+    const dispatch = useDispatch();
 
     function onDragUpdate(_, end) {
-        props.changeHue(props.index, end.x * 360 | 0);
+        dispatch(changeHue(index, end.x * 360 | 0));
     }
 
     return (
@@ -18,19 +18,16 @@ function Slider(props) {
             <div block="slider" elem="square">
                 <div
                     block="square"
-                    mods={{type: props.index}}
+                    mods={{type: index}}
                     style={{filter: `hue-rotate(${hue}deg)`}}>
                 </div>
             </div>
-            <div block="slider" elem="bar-border"
-                onPointerDown={(event) => changeHue(event) }
-                ref={ref}
-            >
+            <div block="slider" elem="bar-border">
                 <DraggingOverlay
-                 onDragUpdate={onDragUpdate}
-                 onDragAbort={() => {}}
-                onDragEnd={() => {}}
-                isLocked={false}
+                    onDragUpdate={onDragUpdate}
+                    onDragAbort={() => {}}
+                    onDragEnd={() => {}}
+                    isLocked={false}
                 />
                 <div block="slider" elem="bar"
                 style={{width: `${hue / 3.6}%`}}>
@@ -39,16 +36,3 @@ function Slider(props) {
         </div>
     );
 }
-
-export default connect(
-    (state) => ({
-        hues: getHues(state),
-    }),
-    (dispatch) => {
-        return {
-            changeHue: (index, hue) => {
-                dispatch(changeHue(index, hue));
-            }
-        }
-    }
-)(Slider);
