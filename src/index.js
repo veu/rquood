@@ -16,6 +16,7 @@ import Title from './components/Title';
 import Tutorial from './components/Tutorial';
 import { TITLE_URL, GAME_URL, TUTORIAL_URL, OPTIONS_URL } from './config';
 import Options from './components/Options';
+import CustomProperties from './components/CustomProperties';
 
 function slicePersistedState(paths) {
     return (state) => {
@@ -46,12 +47,14 @@ sagaMiddleware.run(saga);
 ReactDOM.render((
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            <Switch>
-                <Route exact path={TITLE_URL} render={() => <Title />} />
-                <Route exact path={GAME_URL} render={() => <Game />} />
-                <Route exact path={TUTORIAL_URL} render={() => <Tutorial />} />
-                <Route exact path={OPTIONS_URL} render={() => <Options />} />
-            </Switch>
+            <CustomProperties>
+                <Switch>
+                    <Route exact path={TITLE_URL} render={() => <Title />} />
+                    <Route exact path={GAME_URL} render={() => <Game />} />
+                    <Route exact path={TUTORIAL_URL} render={() => <Tutorial />} />
+                    <Route exact path={OPTIONS_URL} render={() => <Options />} />
+                </Switch>
+            </CustomProperties>
         </ConnectedRouter>
     </Provider>
 ), document.getElementById('root'));

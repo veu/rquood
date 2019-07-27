@@ -16,11 +16,7 @@ export default function Slider({index}) {
     return (
         <div block="slider">
             <div block="slider" elem="square">
-                <div
-                    block="square"
-                    mods={{type: index}}
-                    style={{filter: `hue-rotate(${hue}deg)`}}>
-                </div>
+                <div block="square" mods={{type: index}}></div>
             </div>
             <div block="slider" elem="bar-border">
                 <DraggingOverlay

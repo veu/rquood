@@ -7,8 +7,7 @@ import {
     getScore,
     getHighscore,
     getStreakType,
-    getStreakCount,
-    getHues
+    getStreakCount
 } from '../state/selectors';
 import { TITLE_URL } from '../config';
 
@@ -20,7 +19,6 @@ export default function Menu() {
     }
 
     const highscore = useSelector(getHighscore);
-    const hues = useSelector(getHues);
     const score = useSelector(getScore);
     const streakCount = useSelector(getStreakCount);
     const streakType = useSelector(getStreakType);
@@ -35,7 +33,7 @@ export default function Menu() {
             </div>
             <div block="stat">
                 <div block="stat" elem="title">Streak</div>
-                <div block="stat" elem="square" mods={{type: streakType}} style={{filter: `hue-rotate(${hues[streakType]}deg)`}}></div>
+                <div block="square" mods={{type: streakType}}></div>
                 <div block="stat" elem="value">{streakCount}</div>
             </div>
             <div block="stat">
