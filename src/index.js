@@ -6,7 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import persistState from 'redux-localstorage';
 import { Switch, Route } from 'react-router';
 import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import createReducers from './state/reducers';
@@ -29,7 +29,7 @@ function slicePersistedState(paths) {
 }
 
 const sagaMiddleware = createSagaMiddleware();
-const history = createBrowserHistory();
+const history = createHashHistory();
 
 const store = createStore(
     createReducers(history),
