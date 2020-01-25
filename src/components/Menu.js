@@ -33,7 +33,9 @@ export default function Menu() {
             </div>
             <div block="stat">
                 <div block="stat" elem="title">Streak</div>
-                <div block="square" mods={{type: streakType}}></div>
+                <div block="stat" elem="square">
+                    <div block="square" mods={{type: streakType}}></div>
+                </div>
                 <div block="stat" elem="value">{streakCount}</div>
             </div>
             <div block="stat">
