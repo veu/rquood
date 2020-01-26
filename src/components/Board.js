@@ -14,10 +14,12 @@ export default function Board() {
 
     const squares = range(0, BOARD_SIZE ** 2).map((index) => {
         return (
-            <Square
-                key={index}
-                index={index}
-            />
+            <div block="board" elem="square">
+                <Square
+                    key={index}
+                    index={index}
+                />
+            </div>
         );
     });
 

@@ -31,11 +31,15 @@ main {
 }
 
 .board {
-    display: grid;
-    grid-template: repeat(7, 1fr) / repeat(7, 1fr);
     height: 480rem;
     padding-bottom: 100%;
     position: relative;
+
+    &__square {
+        float: left;
+        height: calc(480rem / 7);
+        width: calc(480rem / 7);
+    }
 
     &__title {
         background: #000;
@@ -75,17 +79,17 @@ main {
     }
 
     &_type_0::before {
-        background-position-x: 0;
+        background-position: 0 0;
         filter: hue-rotate(calc(var(--hue0) * 1deg));
     }
 
     &_type_1::before {
-        background-position-x: 50%;
+        background-position: 50% 0;
         filter: hue-rotate(calc(var(--hue1) * 1deg));
     }
 
     &_type_2::before {
-        background-position-x: 100%;
+        background-position: 100% 0;
         filter: hue-rotate(calc(var(--hue2) * 1deg));
     }
 
