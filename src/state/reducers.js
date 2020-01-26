@@ -3,7 +3,7 @@ import reduceReducers from 'reduce-reducers';
 import { combineReducers } from 'redux';
 import gameReducers from './reducers/game';
 import highscoreReducers from './reducers/highscore';
-import optionsReducers from './reducers/options';
+import optionsReducers, { INPUT_MODE_DRAG } from './reducers/options';
 import selectionReducers, { defaultSelection } from './reducers/selection';
 import tutorialReducers, { defaultTutorial } from './reducers/tutorial';
 
@@ -14,6 +14,10 @@ function patchReducer(state) {
             selection: defaultSelection,
             tutorial: defaultTutorial,
         }
+    }
+
+    if (!state.options.inputMode) {
+        state.options.inputMode = INPUT_MODE_DRAG;
     }
 
     return state;

@@ -84,6 +84,11 @@ export const getTutorialMessage = (state) => state.tutorial.message[state.tutori
 
 const getOptions = (state) => state.options;
 
+export const getInputMode = createSelector(
+    getOptions,
+    (options) => options.inputMode
+)
+
 export const getHues = createSelector(
     getOptions,
     (options) => options.hues

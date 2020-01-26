@@ -4,7 +4,7 @@ import { getHues } from '../state/selectors';
 import { changeHue } from '../state/actions';
 import { DraggingOverlay } from './DraggingOverlay';
 
-export default function Slider({index}) {
+export default function HueSlider({index}) {
     const hues = useSelector(getHues);
     const hue = hues[index];
     const dispatch = useDispatch();

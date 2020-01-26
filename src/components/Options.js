@@ -1,14 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import range from 'ramda/src/range';
 import { Link } from 'react-router-dom';
 import { SQUARE_TYPES, TITLE_URL } from '../config';
-import { resetHues } from '../state/actions';
-import Slider from './Slider';
+import { resetHues, changeInputMode } from '../state/actions';
+import HueSlider from './HueSlider';
+import { getInputMode } from '../state/selectors';
 
 export default function Options() {
+    const inputMode = useSelector(getInputMode);
     const sliders = range(0, SQUARE_TYPES).map((type) => {
-        return <Slider key={type} index={type} />
+        return <HueSlider key={type} index={type} />
     });
 
     const dispatch = useDispatch();
@@ -16,11 +18,17 @@ export default function Options() {
     return (
         <div block="menu">
             <div block="menu" elem="block">
+                <div block="options-headline">Input Mode</div>
+                <button block="action" onClick={() => dispatch(changeInputMode())}>
+                    {inputMode}
+                </button>
+            </div>
+            <div block="menu" elem="block">
                 <div block="options-headline">Square Colors</div>
                 {sliders}
-                <div block="action" onClick={() => dispatch(resetHues())}>
+                <button block="action" onClick={() => dispatch(resetHues())}>
                     Reset
-                </div>
+                </button>
             </div>
             <div block="action">
                 <Link to={TITLE_URL}>Back</Link>
