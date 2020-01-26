@@ -59,6 +59,11 @@ main {
 }
 
 .square {
+    background: none;
+    border: none;
+    height: 100%;
+    padding: 0;
+    width: 100%;
     image-rendering: pixelated;
     opacity: .9;
     transition: transform 500ms, opacity 500ms;

@@ -5,5 +5,5 @@ import { getSquare } from '../state/selectors';
 export default function Square({index}) {
     const square = useSelector(getSquare(index));
 
-    return <div block="square" mods={square}></div>;
+    return <button block="square" mods={square}></button>;
 }
