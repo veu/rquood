@@ -46,13 +46,14 @@ main {
         color: white;
         font-size: 3.3em;
         font-weight: bold;
-        grid-area: 3 / 2 / span 1 / span 3;
         line-height: 1.34em;
-        height: 100%;
+        height: calc(480rem / 7);
         position: absolute;
+        top: calc(480rem / 7 * 2);
+        left: calc(480rem / 7 * 1);
         text-align: center;
         text-transform: uppercase;
-        width: 100%;
+        width: calc(480rem / 7 * 3);
         z-index: 5;
     }
 }

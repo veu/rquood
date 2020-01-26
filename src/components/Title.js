@@ -6,10 +6,13 @@ import { BOARD_SIZE, GAME_URL, OPTIONS_URL, TUTORIAL_URL } from '../config';
 export default function Title() {
     const squares = range(0, BOARD_SIZE ** 2).map((index) => {
         return (
-            <div
-                key={index}
-                block="square"
-            ></div>
+            <div block="board" elem="square">
+                <div
+                    key={index}
+                    block="square"
+                    mods={{type: 1}}
+                ></div>
+            </div>
         );
     });
 
