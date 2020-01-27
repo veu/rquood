@@ -1,6 +1,6 @@
 import delay from 'delay';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { replaceSquares, startGame, updateHighscore, advanceTutorial } from './state/actions';
+import { replaceSquares, startGame, updateHighscore, advanceTutorial, discardSelection } from './state/actions';
 import { BOARD_SIZE } from './config';
 import { isSelectionHidden, getBucket, getScore, getSelectionSize, getSelectedSquares, isGameActive, isTutorial } from './state/selectors';
 
@@ -63,9 +63,14 @@ function* onRequestAssureGame() {
     }
 }
 
+function* onLocationChange() {
+    yield put(discardSelection());
+}
+
 export default function* () {
     yield takeEvery('HIDE_SELECTION', onHideSelection);
     yield takeEvery('REPLACE_SQUARES', onReplaceSquares);
     yield takeEvery('REQUEST_ASSURE_GAME', onRequestAssureGame);
     yield takeEvery('REQUEST_START_GAME', onRequestStartGame);
+    yield takeEvery('@@router/LOCATION_CHANGE', onLocationChange);
 };
