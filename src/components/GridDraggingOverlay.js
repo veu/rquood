@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
 import { DraggingOverlay } from './DraggingOverlay';
 
-export function GridDraggingOverlay(props) {
+export function GridDraggingOverlay({
+    active,
+    gridSize,
+    isLocked,
+    onDragAbort,
+    onDragEnd,
+    onDragUpdate
+}) {
     const [lastEnd, setLastEnd] = useState(null);
 
-    function onDragUpdate(start, end) {
+    if (!active) {
+        return <></>;
+    }
+
+    function dragUpdate(start, end) {
         const gridStart = {
-            x: start.x * props.gridSize | 0,
-            y: start.y * props.gridSize | 0,
+            x: start.x * gridSize | 0,
+            y: start.y * gridSize | 0,
         };
         const gridEnd = {
-            x: end.x * props.gridSize | 0,
-            y: end.y * props.gridSize | 0,
+            x: end.x * gridSize | 0,
+            y: end.y * gridSize | 0,
         };
 
         if (lastEnd && end.x === lastEnd.x && end.y === lastEnd.y) {
@@ -20,27 +31,27 @@ export function GridDraggingOverlay(props) {
 
         setLastEnd(end);
 
-        props.onDragUpdate(gridStart, gridEnd);
+        onDragUpdate(gridStart, gridEnd);
     }
 
-    function onDragAbort() {
+    function dragAbort() {
         setLastEnd(null);
 
-        props.onDragAbort();
+        onDragAbort();
     }
 
-    function onDragEnd() {
+    function dragEnd() {
         setLastEnd(null);
 
-        props.onDragEnd();
+        onDragEnd();
     }
 
     return (
         <DraggingOverlay
-            onDragAbort={onDragAbort}
-            onDragEnd={onDragEnd}
-            onDragUpdate={onDragUpdate}
-            isLocked={props.isLocked}
+            onDragAbort={dragAbort}
+            onDragEnd={dragEnd}
+            onDragUpdate={dragUpdate}
+            isLocked={isLocked}
         />
     );
 }
