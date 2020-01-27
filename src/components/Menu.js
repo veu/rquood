@@ -45,10 +45,11 @@ export default function Menu() {
         </>);
     }
 
-    return (
+    return (<>
         <div block="menu" mods={{main: true}}>
             {getStats()}
-
+        </div>
+        <div block="menu" mods={{main: true}}>
             <div block="action">
                 <Link to={TITLE_URL}>Back</Link>
             </div>
@@ -59,5 +60,5 @@ export default function Menu() {
                 New Game
             </div>
         </div>
-    );
+    </>);
 }
