@@ -23,5 +23,6 @@
   "categories": [
     "games"
   ],
-  "fullscreen": "true"
+  "fullscreen": "true",
+  "orientation": "portrait-primary"
 }
