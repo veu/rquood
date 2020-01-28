@@ -1,16 +1,28 @@
 {
-  "short_name": "Quood",
+  "version": "1.0.0",
   "name": "Quood",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+  "description": "A zen and cute puzzle game",
+  "type": "web",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "favicon.ico",
+    "32": "favicon.ico",
+    "64": "favicon.ico",
+  },
+  "developer": {
+    "name": "Rebecca König",
+    "url": "https://monometric.net"
+  },
+  "locales": {
+    "en-US": {
+      "name": "Quood",
+      "subtitle": "A zen and cute puzzle game",
+      "description": "Match cute animal squares and relax"
     }
+  },
+  "default_locale": "en-US",
+  "categories": [
+    "games"
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#000000",
   "fullscreen": true
 }
