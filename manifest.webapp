@@ -5,9 +5,8 @@
   "type": "web",
   "launch_path": "/index.html",
   "icons": {
-    "16": "favicon.ico",
-    "32": "favicon.ico",
-    "64": "favicon.ico"
+    "56": "icon-56.png",
+    "112": "icon-112.png"
   },
   "developer": {
     "name": "Rebecca König",
@@ -21,6 +20,7 @@
     }
   },
   "default_locale": "en-US",
+  "origin": "app://quood.monometric.net",
   "categories": [
     "games"
   ],
