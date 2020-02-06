@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import range from 'ramda/src/range';
 import { Link } from 'react-router-dom';
-import { SQUARE_TYPES, TITLE_URL } from '../config';
+import { SQUARE_TYPES, TITLE_URL, IS_KAY_OS } from '../config';
 import { resetHues, changeInputMode } from '../state/actions';
 import HueSlider from './HueSlider';
 import { getInputMode } from '../state/selectors';
@@ -17,12 +17,14 @@ export default function Options() {
 
     return (
         <div block="menu">
-            <div block="menu" elem="block">
-                <div block="options-headline">Input Mode</div>
-                <button block="action" onClick={() => dispatch(changeInputMode())}>
-                    {inputMode}
-                </button>
-            </div>
+            {!IS_KAY_OS && (
+                <div block="menu" elem="block">
+                    <div block="options-headline">Input Mode</div>
+                    <button block="action" onClick={() => dispatch(changeInputMode())}>
+                        {inputMode}
+                    </button>
+                </div>
+            )}
             <div block="menu" elem="block">
                 <div block="options-headline">Square Colors</div>
                 {sliders}

@@ -6,3 +6,5 @@ export const TITLE_URL = '/';
 export const GAME_URL = '/play';
 export const OPTIONS_URL = '/options';
 export const TUTORIAL_URL = '/tutorial';
+
+export const IS_KAY_OS = navigator.userAgent.includes('KAIOS');
