@@ -1,11 +1,24 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { push } from 'connected-react-router';
 import { getTutorialMessage } from '../state/selectors';
-import { TITLE_URL } from '../config';
+import { TITLE_URL, KEY_SOFT_LEFT } from '../config';
 import Board from './Board';
 
-export default function Tutorial() {
+function Tutorial({ push }) {
+    useEffect(() => {
+        window.onkeydown = (event) => {
+            if (event.key === KEY_SOFT_LEFT) {
+                push(TITLE_URL);
+            }
+        };
+
+        return () => {
+            window.onkeydown = null;
+        };
+    });
+
     const message = useSelector(getTutorialMessage);
 
     return (<>
@@ -19,3 +32,5 @@ export default function Tutorial() {
         </div>
     </>);
 }
+
+export default connect(null, { push })(Tutorial);

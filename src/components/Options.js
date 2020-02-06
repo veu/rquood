@@ -1,13 +1,26 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import range from 'ramda/src/range';
 import { Link } from 'react-router-dom';
-import { SQUARE_TYPES, TITLE_URL, IS_KAY_OS } from '../config';
+import { push } from 'connected-react-router';
+import { SQUARE_TYPES, TITLE_URL, IS_KAY_OS, KEY_SOFT_LEFT } from '../config';
 import { resetHues, changeInputMode } from '../state/actions';
 import HueSlider from './HueSlider';
 import { getInputMode } from '../state/selectors';
 
-export default function Options() {
+function Options({ push }) {
+    useEffect(() => {
+        window.onkeydown = (event) => {
+            if (event.key === KEY_SOFT_LEFT) {
+                push(TITLE_URL);
+            }
+        };
+
+        return () => {
+            window.onkeydown = null;
+        };
+    });
+
     const inputMode = useSelector(getInputMode);
     const sliders = range(0, SQUARE_TYPES).map((type) => {
         return <HueSlider key={type} index={type} />
@@ -38,3 +51,5 @@ export default function Options() {
         </div>
     );
 }
+
+export default connect(null, { push })(Options);

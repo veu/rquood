@@ -1,9 +1,33 @@
 import range from 'ramda/src/range';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { BOARD_SIZE, GAME_URL, OPTIONS_URL, TUTORIAL_URL } from '../config';
+import { push } from 'connected-react-router';
+import {
+    BOARD_SIZE,
+    GAME_URL,
+    OPTIONS_URL,
+    TUTORIAL_URL,
+    KEY_SOFT_LEFT,
+    KEY_SOFT_RIGHT
+} from '../config';
 
-export default function Title() {
+function Title({ push }) {
+    useEffect(() => {
+        window.onkeydown = (event) => {
+            if (event.key === KEY_SOFT_LEFT) {
+                push(GAME_URL);
+            }
+            if (event.key === KEY_SOFT_RIGHT) {
+                push(TUTORIAL_URL);
+            }
+        };
+
+        return () => {
+            window.onkeydown = null;
+        };
+    });
+
     const squares = range(0, BOARD_SIZE ** 2).map((index) => {
         return (
             <div block="board" elem="square" key={index}>
@@ -35,3 +59,5 @@ export default function Title() {
         </div>
     </>);
 }
+
+export default connect(null, { push })(Title);
