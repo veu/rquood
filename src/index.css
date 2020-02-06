@@ -37,8 +37,8 @@ main {
 
     &__square {
         float: left;
-        height: calc(480rem / 7);
-        width: calc(480rem / 7);
+        height: calc(480rem / 7.01);
+        width: calc(480rem / 7.01);
     }
 
     &__title {
