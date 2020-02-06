@@ -46,7 +46,7 @@ export default function Menu() {
     }
 
     return (<>
-        <div block="menu" mods={{main: true}}>
+        <div block="menu">
             {getStats()}
         </div>
         <div block="menu" mods={{main: true}}>

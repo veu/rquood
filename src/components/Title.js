@@ -46,7 +46,7 @@ function Title({ push }) {
             {squares}
         </div>
 
-        <div block="menu" mods={{small: true}}>
+        <div block="menu" mods={{main: true}}>
             <div block="action">
                 <Link to={GAME_URL}>Play</Link>
             </div>

@@ -4,6 +4,7 @@
 
 html {
     font-size: .2vw;
+    overflow: hidden
 }
 
 @media (min-width: 500px) {
@@ -18,16 +19,20 @@ body {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     margin: 10rem;
     padding: 0;
+    overflow: hidden;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 20rem);
+    height: 100vh;
     width: 480rem;
     margin: 0 auto;
+    position: relative;
+
+    & > div {
+        height: 100%;
+    }
 }
 
 .board {
@@ -122,13 +127,11 @@ main {
     justify-content: space-between;
     margin: 8rem;
 
-    &_small {
-        align-content: flex-start;
-        align-items: flex-start;
-    }
-
     &_main {
-        max-height: 240rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
     }
 
     &__block {

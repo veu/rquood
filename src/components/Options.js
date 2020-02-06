@@ -29,26 +29,30 @@ function Options({ push }) {
     const dispatch = useDispatch();
 
     return (
-        <div block="menu">
-            {!IS_KAY_OS && (
+        <React.Fragment>
+            <div block="menu">
+                {!IS_KAY_OS && (
+                    <div block="menu" elem="block">
+                        <div block="options-headline">Input Mode</div>
+                        <button block="action" onClick={() => dispatch(changeInputMode())}>
+                            {inputMode}
+                        </button>
+                    </div>
+                )}
                 <div block="menu" elem="block">
-                    <div block="options-headline">Input Mode</div>
-                    <button block="action" onClick={() => dispatch(changeInputMode())}>
-                        {inputMode}
+                    <div block="options-headline">Square Colors</div>
+                    {sliders}
+                    <button block="action" onClick={() => dispatch(resetHues())}>
+                        Reset
                     </button>
                 </div>
-            )}
-            <div block="menu" elem="block">
-                <div block="options-headline">Square Colors</div>
-                {sliders}
-                <button block="action" onClick={() => dispatch(resetHues())}>
-                    Reset
-                </button>
             </div>
-            <div block="action">
-                <Link to={TITLE_URL}>Back</Link>
+            <div block="menu" mods={{main: true}}>
+                <div block="action">
+                    <Link to={TITLE_URL}>Back</Link>
+                </div>
             </div>
-        </div>
+        </React.Fragment>
     );
 }
 

@@ -23,7 +23,7 @@ function Tutorial({ push }) {
 
     return (<>
         <Board />
-        <div block="menu">
+        <div block="menu" mods={{main: true}}>
             <div block="message">{message}</div>
 
             <div block="action">
