@@ -3,19 +3,24 @@ import { useDispatch, useSelector, connect } from 'react-redux';
 import { goBack } from 'connected-react-router';
 import range from 'ramda/src/range';
 import { SQUARE_TYPES, IS_KAY_OS } from '../config';
-import { resetHues, changeInputMode } from '../state/actions';
+import { resetHues, changeInputMode, requestStartGame } from '../state/actions';
 import HueSlider from './HueSlider';
 import { getInputMode } from '../state/selectors';
 import { useKaiOsSoftwareKeys } from '../hooks';
 
 function Options({ goBack }) {
-    const { refLeft } = useKaiOsSoftwareKeys();
+    const { refLeft, refRight } = useKaiOsSoftwareKeys();
     const inputMode = useSelector(getInputMode);
     const sliders = range(0, SQUARE_TYPES).map((type) => {
         return <HueSlider key={type} index={type} />
     });
 
     const dispatch = useDispatch();
+
+    const restart = () => {
+        dispatch(requestStartGame());
+        goBack();
+    };
 
     return (
         <>
@@ -43,6 +48,13 @@ function Options({ goBack }) {
                     ref={refLeft}
                 >
                     Back
+                </div>
+                <div
+                    block="action"
+                    onClick={restart}
+                    ref={refRight}
+                >
+                    Restart
                 </div>
             </div>
         </>

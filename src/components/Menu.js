@@ -1,8 +1,7 @@
 import React from 'react';
-import { useDispatch, useSelector, connect } from 'react-redux';
+import { useSelector, connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { goBack } from 'connected-react-router';
-import { requestStartGame } from '../state/actions';
 import {
     isGameActive as getIsGameActive,
     getScore,
@@ -25,8 +24,6 @@ function Menu({ goBack }) {
     const score = useSelector(getScore);
     const streakCount = useSelector(getStreakCount);
     const streakType = useSelector(getStreakType);
-
-    const dispatch = useDispatch();
 
     function getStats() {
         return (<>
@@ -61,14 +58,7 @@ function Menu({ goBack }) {
                 Back
             </div>
             <div block="action">
-                <Link to={OPTIONS_URL}>Options</Link>
-            </div>
-            <div
-                block="action"
-                onClick={() => dispatch(requestStartGame())}
-                ref={refRight}
-            >
-                Restart
+                <Link to={OPTIONS_URL} innerRef={refRight}>Options</Link>
             </div>
         </div>
     </>);
