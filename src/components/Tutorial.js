@@ -22,10 +22,11 @@ function Tutorial({ push }) {
     const message = useSelector(getTutorialMessage);
 
     return (<>
-        <Board />
-        <div block="menu" mods={{main: true}}>
+        <Board isTutorial={true} />
+        <div block="menu">
             <div block="message">{message}</div>
-
+        </div>
+        <div block="menu" mods={{main: true}}>
             <div block="action">
                 <Link to={TITLE_URL}>Back</Link>
             </div>

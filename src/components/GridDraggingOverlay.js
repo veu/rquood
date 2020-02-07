@@ -3,7 +3,8 @@ import { DraggingOverlay } from './DraggingOverlay';
 
 export function GridDraggingOverlay({
     active,
-    gridSize,
+    gridWidth,
+    gridHeight,
     isLocked,
     onDragAbort,
     onDragEnd,
@@ -17,12 +18,12 @@ export function GridDraggingOverlay({
 
     function dragUpdate(start, end) {
         const gridStart = {
-            x: start.x * gridSize | 0,
-            y: start.y * gridSize | 0,
+            x: start.x * gridWidth | 0,
+            y: start.y * gridHeight | 0,
         };
         const gridEnd = {
-            x: end.x * gridSize | 0,
-            y: end.y * gridSize | 0,
+            x: end.x * gridWidth | 0,
+            y: end.y * gridHeight | 0,
         };
 
         if (lastEnd && end.x === lastEnd.x && end.y === lastEnd.y) {

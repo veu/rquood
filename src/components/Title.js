@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import {
-    BOARD_SIZE,
     GAME_URL,
     OPTIONS_URL,
     TUTORIAL_URL,
     KEY_SOFT_LEFT,
-    KEY_SOFT_RIGHT
+    KEY_SOFT_RIGHT,
+    BOARD_HEIGHT,
+    BOARD_WIDTH
 } from '../config';
 
 function Title({ push }) {
@@ -28,7 +29,7 @@ function Title({ push }) {
         };
     });
 
-    const squares = range(0, BOARD_SIZE ** 2).map((index) => {
+    const squares = range(0, BOARD_HEIGHT * BOARD_WIDTH).map((index) => {
         return (
             <div block="board" elem="square" key={index}>
                 <div

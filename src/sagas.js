@@ -1,7 +1,7 @@
 import delay from 'delay';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { replaceSquares, startGame, updateHighscore, advanceTutorial, discardSelection } from './state/actions';
-import { BOARD_SIZE } from './config';
+import { replaceSquares, startGame, updateHighscore, advanceTutorial, discardSelection, startTutorial } from './state/actions';
+import { BOARD_HEIGHT, BOARD_WIDTH, TUTORIAL_URL } from './config';
 import { isSelectionHidden, getBucket, getScore, getSelectionSize, getSelectedSquares, isGameActive, isTutorial } from './state/selectors';
 
 function getRandom(bucket, count, min=0, max=3, size=2) {
@@ -48,7 +48,7 @@ function* onReplaceSquares() {
 }
 
 function* onRequestStartGame() {
-    const [values] = getRandom([], BOARD_SIZE ** 2);
+    const [values] = getRandom([], BOARD_HEIGHT * BOARD_WIDTH);
 
     yield put(startGame(values));
 }
@@ -57,13 +57,17 @@ function* onRequestAssureGame() {
     const state = yield select();
 
     if (!isGameActive(state)) {
-        const [values] = getRandom([], BOARD_SIZE ** 2);
+        const [values] = getRandom([], BOARD_HEIGHT * BOARD_WIDTH);
 
         yield put(startGame(values));
     }
 }
 
-function* onLocationChange() {
+function* onLocationChange({ payload }) {
+    if (payload.location.pathname === TUTORIAL_URL) {
+        yield put(startTutorial());
+    }
+
     yield put(discardSelection());
 }
 

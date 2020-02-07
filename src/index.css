@@ -44,6 +44,11 @@ main {
     padding-bottom: 100%;
     position: relative;
 
+    &_tutorial {
+        height: calc(480rem * 5 / 7);
+        padding-bottom: calc(100% * 5 / 7);
+    }
+
     &__square {
         float: left;
         height: calc(480rem / 7.01);
@@ -204,6 +209,7 @@ main {
 .message {
     color: #ccc;
     font-size: 35rem;
+    white-space: pre-line;
 }
 
 .slider {

@@ -9,6 +9,7 @@ export const {
     discardSelection,
     hideSelection,
     updateHighscore,
+    startTutorial,
     advanceTutorial,
     changeInputMode,
     changeHue,
@@ -36,6 +37,8 @@ export const {
     HIDE_SELECTION: () => ({}),
     UPDATE_HIGHSCORE: (score) => ({
         score
+    }),
+    START_TUTORIAL: () => ({
     }),
     ADVANCE_TUTORIAL: () => ({
     }),

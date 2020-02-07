@@ -3,7 +3,8 @@ import ClickOverlay from './ClickOverlay';
 
 export default function GridClickOverlay({
     active,
-    gridSize,
+    gridWidth,
+    gridHeight,
     onDragAbort,
     onDragEnd,
     onDragUpdate,
@@ -22,8 +23,8 @@ export default function GridClickOverlay({
         }
 
         const gridPosition = {
-            x: position.x * gridSize | 0,
-            y: position.y * gridSize | 0,
+            x: position.x * gridWidth | 0,
+            y: position.y * gridHeight | 0,
         };
 
         if (!start) {
@@ -47,8 +48,8 @@ export default function GridClickOverlay({
         }
 
         const gridPosition = {
-            x: position.x * gridSize | 0,
-            y: position.y * gridSize | 0,
+            x: position.x * gridWidth | 0,
+            y: position.y * gridHeight | 0,
         };
 
         if (end && gridPosition.x === end.x && gridPosition.y === end.y) {
