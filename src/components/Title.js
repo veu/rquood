@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import {
     GAME_URL,
-    OPTIONS_URL,
     TUTORIAL_URL,
     KEY_SOFT_LEFT,
     KEY_SOFT_RIGHT,
     BOARD_HEIGHT,
-    BOARD_WIDTH
+    BOARD_WIDTH,
+    OPTIONS_URL
 } from '../config';
 
 function Title({ push }) {

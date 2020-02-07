@@ -1,6 +1,7 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { goBack, push } from 'connected-react-router';
 import { requestStartGame } from '../state/actions';
 import {
     isGameActive as getIsGameActive,
@@ -9,9 +10,28 @@ import {
     getStreakType,
     getStreakCount
 } from '../state/selectors';
-import { TITLE_URL } from '../config';
+import { OPTIONS_URL, KEY_SOFT_LEFT, KEY_SOFT_RIGHT } from '../config';
 
-export default function Menu() {
+function Menu({ goBack, push }) {
+    const restart = () => {
+        dispatch(requestStartGame());
+    };
+
+    useEffect(() => {
+        window.onkeydown = (event) => {
+            if (event.key === KEY_SOFT_LEFT) {
+                goBack();
+            }
+            if (event.key === KEY_SOFT_RIGHT) {
+                push(OPTIONS_URL);
+            }
+        };
+
+        return () => {
+            window.onkeydown = null;
+        };
+    });
+
     const isGameActive = useSelector(getIsGameActive);
 
     if (!isGameActive) {
@@ -50,15 +70,23 @@ export default function Menu() {
             {getStats()}
         </div>
         <div block="menu" mods={{main: true}}>
-            <div block="action">
-                <Link to={TITLE_URL}>Back</Link>
+            <div
+                block="action"
+                onClick={() => goBack()}
+            >
+                Back
             </div>
             <div
                 block="action"
-                onClick={() => dispatch(requestStartGame())}
+                onClick={restart}
             >
-                New Game
+                Restart
+            </div>
+            <div block="action">
+                <Link to={OPTIONS_URL}>Options</Link>
             </div>
         </div>
     </>);
 }
+
+export default connect(null, { goBack, push })(Menu);

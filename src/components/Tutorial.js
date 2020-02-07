@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import { useSelector, connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { push } from 'connected-react-router';
+import { goBack } from 'connected-react-router';
 import { getTutorialMessage } from '../state/selectors';
-import { TITLE_URL, KEY_SOFT_LEFT } from '../config';
+import { KEY_SOFT_LEFT } from '../config';
 import Board from './Board';
 
-function Tutorial({ push }) {
+function Tutorial({ goBack }) {
     useEffect(() => {
         window.onkeydown = (event) => {
             if (event.key === KEY_SOFT_LEFT) {
-                push(TITLE_URL);
+                goBack();
             }
         };
 
@@ -27,11 +26,11 @@ function Tutorial({ push }) {
             <div block="message">{message}</div>
         </div>
         <div block="menu" mods={{main: true}}>
-            <div block="action">
-                <Link to={TITLE_URL}>Back</Link>
+            <div block="action" onClick={() => goBack()}>
+                Back
             </div>
         </div>
     </>);
 }
 
-export default connect(null, { push })(Tutorial);
+export default connect(null, { goBack })(Tutorial);

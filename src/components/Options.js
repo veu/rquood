@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
+import { goBack } from 'connected-react-router';
 import range from 'ramda/src/range';
-import { Link } from 'react-router-dom';
-import { push } from 'connected-react-router';
-import { SQUARE_TYPES, TITLE_URL, IS_KAY_OS, KEY_SOFT_LEFT } from '../config';
+import { SQUARE_TYPES, IS_KAY_OS, KEY_SOFT_LEFT } from '../config';
 import { resetHues, changeInputMode } from '../state/actions';
 import HueSlider from './HueSlider';
 import { getInputMode } from '../state/selectors';
 
-function Options({ push }) {
+function Options({ goBack }) {
     useEffect(() => {
         window.onkeydown = (event) => {
             if (event.key === KEY_SOFT_LEFT) {
-                push(TITLE_URL);
+                window.history.back();
             }
         };
 
@@ -29,7 +28,7 @@ function Options({ push }) {
     const dispatch = useDispatch();
 
     return (
-        <React.Fragment>
+        <>
             <div block="menu">
                 {!IS_KAY_OS && (
                     <div block="menu" elem="block">
@@ -48,12 +47,12 @@ function Options({ push }) {
                 </div>
             </div>
             <div block="menu" mods={{main: true}}>
-                <div block="action">
-                    <Link to={TITLE_URL}>Back</Link>
+                <div block="action" onClick={() => goBack()}>
+                    Back
                 </div>
             </div>
-        </React.Fragment>
+        </>
     );
 }
 
-export default connect(null, { push })(Options);
+export default connect(null, { goBack })(Options);
