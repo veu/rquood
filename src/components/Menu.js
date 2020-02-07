@@ -60,14 +60,15 @@ function Menu({ goBack }) {
             >
                 Back
             </div>
+            <div block="action">
+                <Link to={OPTIONS_URL}>Options</Link>
+            </div>
             <div
                 block="action"
                 onClick={() => dispatch(requestStartGame())}
+                ref={refRight}
             >
                 Restart
-            </div>
-            <div block="action">
-                <Link to={OPTIONS_URL} innerRef={refRight}>Options</Link>
             </div>
         </div>
     </>);
