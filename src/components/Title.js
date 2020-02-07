@@ -25,7 +25,7 @@ function Title() {
     });
 
     return (<>
-        <div block="board">
+        <div block="board" mods={{ title: true }}>
             <div block="board" elem="title">Quood</div>
 
             {squares}

@@ -44,6 +44,10 @@ main {
     padding-bottom: 100%;
     position: relative;
 
+    &:not(&_title) {
+        cursor: pointer;
+    }
+
     &_tutorial {
         height: calc(480rem * 5 / 7);
         padding-bottom: calc(100% * 5 / 7);
