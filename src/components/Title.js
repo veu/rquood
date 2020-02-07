@@ -1,33 +1,17 @@
 import range from 'ramda/src/range';
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { push } from 'connected-react-router';
 import {
     GAME_URL,
     TUTORIAL_URL,
-    KEY_SOFT_LEFT,
-    KEY_SOFT_RIGHT,
     BOARD_HEIGHT,
     BOARD_WIDTH,
     OPTIONS_URL
 } from '../config';
+import { useKaiOsSoftwareKeys } from '../hooks';
 
-function Title({ push }) {
-    useEffect(() => {
-        window.onkeydown = (event) => {
-            if (event.key === KEY_SOFT_LEFT) {
-                push(GAME_URL);
-            }
-            if (event.key === KEY_SOFT_RIGHT) {
-                push(TUTORIAL_URL);
-            }
-        };
-
-        return () => {
-            window.onkeydown = null;
-        };
-    });
+function Title() {
+    const { refLeft, refRight } = useKaiOsSoftwareKeys();
 
     const squares = range(0, BOARD_HEIGHT * BOARD_WIDTH).map((index) => {
         return (
@@ -49,16 +33,16 @@ function Title({ push }) {
 
         <div block="menu" mods={{main: true}}>
             <div block="action">
-                <Link to={GAME_URL}>Play</Link>
+                <Link to={GAME_URL} innerRef={refLeft}>Play</Link>
             </div>
             <div block="action">
                 <Link to={OPTIONS_URL}>Options</Link>
             </div>
             <div block="action">
-                <Link to={TUTORIAL_URL}>Tutorial</Link>
+                <Link to={TUTORIAL_URL} innerRef={refRight}>Tutorial</Link>
             </div>
         </div>
     </>);
 }
 
-export default connect(null, { push })(Title);
+export default Title;

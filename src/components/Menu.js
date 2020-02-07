@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { goBack, push } from 'connected-react-router';
+import { goBack } from 'connected-react-router';
 import { requestStartGame } from '../state/actions';
 import {
     isGameActive as getIsGameActive,
@@ -10,28 +10,11 @@ import {
     getStreakType,
     getStreakCount
 } from '../state/selectors';
-import { OPTIONS_URL, KEY_SOFT_LEFT, KEY_SOFT_RIGHT } from '../config';
+import { OPTIONS_URL } from '../config';
+import { useKaiOsSoftwareKeys } from '../hooks';
 
-function Menu({ goBack, push }) {
-    const restart = () => {
-        dispatch(requestStartGame());
-    };
-
-    useEffect(() => {
-        window.onkeydown = (event) => {
-            if (event.key === KEY_SOFT_LEFT) {
-                goBack();
-            }
-            if (event.key === KEY_SOFT_RIGHT) {
-                push(OPTIONS_URL);
-            }
-        };
-
-        return () => {
-            window.onkeydown = null;
-        };
-    });
-
+function Menu({ goBack }) {
+    const { refLeft, refRight } = useKaiOsSoftwareKeys();
     const isGameActive = useSelector(getIsGameActive);
 
     if (!isGameActive) {
@@ -73,20 +56,21 @@ function Menu({ goBack, push }) {
             <div
                 block="action"
                 onClick={() => goBack()}
+                ref={refLeft}
             >
                 Back
             </div>
             <div
                 block="action"
-                onClick={restart}
+                onClick={() => dispatch(requestStartGame())}
             >
                 Restart
             </div>
             <div block="action">
-                <Link to={OPTIONS_URL}>Options</Link>
+                <Link to={OPTIONS_URL} innerRef={refRight}>Options</Link>
             </div>
         </div>
     </>);
 }
 
-export default connect(null, { goBack, push })(Menu);
+export default connect(null, { goBack })(Menu);

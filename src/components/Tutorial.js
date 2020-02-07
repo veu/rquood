@@ -1,22 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, connect } from 'react-redux';
 import { goBack } from 'connected-react-router';
 import { getTutorialMessage } from '../state/selectors';
-import { KEY_SOFT_LEFT } from '../config';
 import Board from './Board';
+import { useKaiOsSoftwareKeys } from '../hooks';
 
 function Tutorial({ goBack }) {
-    useEffect(() => {
-        window.onkeydown = (event) => {
-            if (event.key === KEY_SOFT_LEFT) {
-                goBack();
-            }
-        };
-
-        return () => {
-            window.onkeydown = null;
-        };
-    });
+    const { refLeft } = useKaiOsSoftwareKeys();
 
     const message = useSelector(getTutorialMessage);
 
@@ -26,7 +16,11 @@ function Tutorial({ goBack }) {
             <div block="message">{message}</div>
         </div>
         <div block="menu" mods={{main: true}}>
-            <div block="action" onClick={() => goBack()}>
+            <div
+                block="action"
+                onClick={() => goBack()}
+                ref={refLeft}
+            >
                 Back
             </div>
         </div>

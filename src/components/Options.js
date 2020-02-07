@@ -1,25 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { goBack } from 'connected-react-router';
 import range from 'ramda/src/range';
-import { SQUARE_TYPES, IS_KAY_OS, KEY_SOFT_LEFT } from '../config';
+import { SQUARE_TYPES, IS_KAY_OS } from '../config';
 import { resetHues, changeInputMode } from '../state/actions';
 import HueSlider from './HueSlider';
 import { getInputMode } from '../state/selectors';
+import { useKaiOsSoftwareKeys } from '../hooks';
 
 function Options({ goBack }) {
-    useEffect(() => {
-        window.onkeydown = (event) => {
-            if (event.key === KEY_SOFT_LEFT) {
-                window.history.back();
-            }
-        };
-
-        return () => {
-            window.onkeydown = null;
-        };
-    });
-
+    const { refLeft } = useKaiOsSoftwareKeys();
     const inputMode = useSelector(getInputMode);
     const sliders = range(0, SQUARE_TYPES).map((type) => {
         return <HueSlider key={type} index={type} />
@@ -47,7 +37,11 @@ function Options({ goBack }) {
                 </div>
             </div>
             <div block="menu" mods={{main: true}}>
-                <div block="action" onClick={() => goBack()}>
+                <div
+                    block="action"
+                    onClick={() => goBack()}
+                    ref={refLeft}
+                >
                     Back
                 </div>
             </div>
