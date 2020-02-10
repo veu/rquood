@@ -4,6 +4,7 @@ import { goBack } from 'connected-react-router';
 import { getTutorialMessage } from '../state/selectors';
 import Board from './Board';
 import { useKaiOsSoftwareKeys } from '../hooks';
+import { IS_KAY_OS } from '../config';
 
 function Tutorial({ goBack }) {
     const { refLeft } = useKaiOsSoftwareKeys();
@@ -15,13 +16,23 @@ function Tutorial({ goBack }) {
         <div block="menu">
             <div block="message">{message}</div>
         </div>
-        <div block="menu" mods={{main: true}}>
+        <div block="main-menu">
             <div
-                block="action"
+                block="main-menu"
+                elem="action"
                 onClick={() => goBack()}
                 ref={refLeft}
             >
                 Back
+            </div>
+            <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
+                SELECT
+            </div>
+            <div
+                block="main-menu"
+                elem="action"
+                mods={{inactive: true}}
+            >
             </div>
         </div>
     </>);

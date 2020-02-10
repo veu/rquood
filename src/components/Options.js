@@ -7,6 +7,7 @@ import { resetHues, changeInputMode, requestStartGame } from '../state/actions';
 import HueSlider from './HueSlider';
 import { getInputMode } from '../state/selectors';
 import { useKaiOsSoftwareKeys } from '../hooks';
+import { INPUT_MODE_TOUCH } from '../state/reducers/options';
 
 function Options({ goBack }) {
     const { refLeft, refRight } = useKaiOsSoftwareKeys();
@@ -29,7 +30,7 @@ function Options({ goBack }) {
                     <div block="menu" elem="block">
                         <div block="options-headline">Input Mode</div>
                         <button block="action" onClick={() => dispatch(changeInputMode())}>
-                            {inputMode}
+                            {inputMode === INPUT_MODE_TOUCH ? 'Touch' : 'Click'}
                         </button>
                     </div>
                 )}
@@ -41,16 +42,21 @@ function Options({ goBack }) {
                     </button>
                 </div>
             </div>
-            <div block="menu" mods={{main: true}}>
+            <div block="main-menu">
                 <div
-                    block="action"
+                    block="main-menu"
+                    elem="action"
                     onClick={() => goBack()}
                     ref={refLeft}
                 >
                     Back
                 </div>
+                <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
+                    SELECT
+                </div>
                 <div
-                    block="action"
+                    block="main-menu"
+                    elem="action"
                     onClick={restart}
                     ref={refRight}
                 >

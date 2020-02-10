@@ -9,7 +9,7 @@ import {
     getStreakType,
     getStreakCount
 } from '../state/selectors';
-import { OPTIONS_URL } from '../config';
+import { OPTIONS_URL, IS_KAY_OS } from '../config';
 import { useKaiOsSoftwareKeys } from '../hooks';
 
 function Menu({ goBack }) {
@@ -49,15 +49,19 @@ function Menu({ goBack }) {
         <div block="menu">
             {getStats()}
         </div>
-        <div block="menu" mods={{main: true}}>
+        <div block="main-menu">
             <div
-                block="action"
+                block="main-menu"
+                elem="action"
                 onClick={() => goBack()}
                 ref={refLeft}
             >
                 Back
             </div>
-            <div block="action">
+            <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
+                SELECT
+            </div>
+            <div block="main-menu" elem="action">
                 <Link to={OPTIONS_URL} innerRef={refRight}>Options</Link>
             </div>
         </div>

@@ -36,9 +36,8 @@ export const defaultTutorial = {
          Find a square with corners of the same color and remove it by connecting two opposite corners.`,
         `Squares have different sizes and orientations. Removing bigger squares yields a higher score.`,
         `Removing multiple squares of the same color in a row  will multiply your score.`,
-        `The game wont’t tell you if there are no squares to remove. You have to call it quits.
-         Enjoy!`,
-        `The game doesn’t end if there are no squares to remove. You have to call it quits.
+        `The game won’t tell you when there aren’t any squares left to remove.
+         You have to call it quits.
          Enjoy!`
     ],
     step: 0

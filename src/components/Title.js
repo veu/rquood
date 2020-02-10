@@ -5,7 +5,8 @@ import {
     GAME_URL,
     TUTORIAL_URL,
     BOARD_HEIGHT,
-    BOARD_WIDTH
+    BOARD_WIDTH,
+    IS_KAY_OS
 } from '../config';
 import { useKaiOsSoftwareKeys } from '../hooks';
 
@@ -30,11 +31,14 @@ function Title() {
             {squares}
         </div>
 
-        <div block="menu" mods={{main: true}}>
-            <div block="action">
+        <div block="main-menu">
+            <div block="main-menu" elem="action">
                 <Link to={GAME_URL} innerRef={refLeft}>Play</Link>
             </div>
-            <div block="action">
+            <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
+                SELECT
+            </div>
+            <div block="main-menu" elem="action">
                 <Link to={TUTORIAL_URL} innerRef={refRight}>Tutorial</Link>
             </div>
         </div>
