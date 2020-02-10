@@ -1,6 +1,12 @@
 import React, {useRef, useState} from 'react';
 
-export function DraggingOverlay(props) {
+export function DraggingOverlay({
+    isLocked = false,
+    onDragUpdate,
+    onDragEnd = () => {},
+    onDragAbort = () => {},
+    zIndex = 10000
+ }) {
     const ref = useRef();
     const [dragStart, setDragStart] = useState(null);
 
@@ -8,41 +14,41 @@ export function DraggingOverlay(props) {
         height: '100%',
         position: 'absolute',
         width: '100%',
-        zIndex: props.zIndex === undefined ? 10000 : props.zIndex,
+        zIndex,
     };
 
     function startDragging(event) {
-        if (props.isLocked) {
+        if (isLocked) {
             return;
         }
 
         const position = getPosition(event, ref);
 
         setDragStart(position);
-        props.onDragUpdate(position, position);
+        onDragUpdate(position, position);
     }
 
     function finishDragging() {
-        if (props.isLocked || !dragStart) {
+        if (isLocked || !dragStart) {
             return;
         }
 
         setDragStart(null);
-        props.onDragEnd();
+        onDragEnd();
     }
 
     function abortDragging() {
-        if (props.isLocked || !dragStart) {
+        if (isLocked || !dragStart) {
             return;
         }
 
         setDragStart(null);
-        props.onDragAbort();
+        onDragAbort();
     }
 
     function updatePosition(event) {
         if (dragStart) {
-            props.onDragUpdate(dragStart, getPosition(event, ref));
+            onDragUpdate(dragStart, getPosition(event, ref));
         }
     }
 

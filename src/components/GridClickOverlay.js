@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ClickOverlay from './ClickOverlay';
 
 export default function GridClickOverlay({
-    active,
     gridWidth,
     gridHeight,
     onDragAbort,
@@ -12,10 +11,6 @@ export default function GridClickOverlay({
 }) {
     const [start, setStart] = useState(null);
     const [end, setEnd] = useState(null);
-
-    if (!active) {
-        return <></>;
-    }
 
     function click(position) {
         if (isLocked) {

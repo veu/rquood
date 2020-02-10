@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 export default function ClickOverlay({
     onClick,
-    onMouseMove,
+    onMouseMove = () => {},
     zIndex = 10000
 }) {
     const ref = useRef();

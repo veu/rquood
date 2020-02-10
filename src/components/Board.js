@@ -29,17 +29,15 @@ export default function Board({ isTutorial = false }) {
 
     return (
         <div block="board" mods={{ tutorial: isTutorial }}>
-            <GridDraggingOverlay
-                active={inputMode === INPUT_MODE_TOUCH}
+            {inputMode === INPUT_MODE_TOUCH && <GridDraggingOverlay
                 gridWidth={BOARD_WIDTH}
                 gridHeight={height}
                 onDragEnd={() => dispatch(hideSelection())}
                 onDragUpdate={(start, end) => dispatch(updateSelection(board, start, end))}
                 onDragAbort={() => dispatch(discardSelection())}
                 isLocked={isBoardLocked}
-            />
-            <GridClickOverlay
-                active={inputMode === INPUT_MODE_CLICK}
+            />}
+            {inputMode === INPUT_MODE_CLICK && <GridClickOverlay
                 gridWidth={BOARD_WIDTH}
                 gridHeight={height}
                 onDragEnd={() => dispatch(hideSelection())}
@@ -47,7 +45,7 @@ export default function Board({ isTutorial = false }) {
                 onDragAbort={() => dispatch(discardSelection())}
                 isLocked={isBoardLocked}
             >
-            </GridClickOverlay>
+            </GridClickOverlay>}
 
             {squares}
         </div>

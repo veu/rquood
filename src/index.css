@@ -33,10 +33,6 @@ main {
     height: calc(100% - 20rem);
     margin: 10rem auto;
     width: 480rem;
-
-    & > div {
-        height: 100%;
-    }
 }
 
 .board {
@@ -104,17 +100,14 @@ main {
 
     &_type_0::before {
         background-position: 0 0;
-        filter: hue-rotate(calc(var(--hue0) * 1deg));
     }
 
     &_type_1::before {
         background-position: 50% 0;
-        filter: hue-rotate(calc(var(--hue1) * 1deg));
     }
 
     &_type_2::before {
         background-position: 100% 0;
-        filter: hue-rotate(calc(var(--hue2) * 1deg));
     }
 
     &_type_3::before {
@@ -237,17 +230,14 @@ main {
 
         &_type_0 {
             background-position-x: 0;
-            filter: hue-rotate(calc(var(--hue0) * 1deg));
         }
 
         &_type_1 {
             background-position-x: 50%;
-            filter: hue-rotate(calc(var(--hue1) * 1deg));
         }
 
         &_type_2 {
             background-position-x: 100%;
-            filter: hue-rotate(calc(var(--hue2) * 1deg));
         }
     }
 }

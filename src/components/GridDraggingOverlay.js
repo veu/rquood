@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { DraggingOverlay } from './DraggingOverlay';
 
 export function GridDraggingOverlay({
-    active,
     gridWidth,
     gridHeight,
     isLocked,
@@ -11,10 +10,6 @@ export function GridDraggingOverlay({
     onDragUpdate
 }) {
     const [lastEnd, setLastEnd] = useState(null);
-
-    if (!active) {
-        return <></>;
-    }
 
     function dragUpdate(start, end) {
         const gridStart = {
