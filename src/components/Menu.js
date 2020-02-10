@@ -7,7 +7,8 @@ import {
     getScore,
     getHighscore,
     getStreakType,
-    getStreakCount
+    getStreakCount,
+    getHues
 } from '../state/selectors';
 import { OPTIONS_URL, IS_KAY_OS } from '../config';
 import { useKaiOsSoftwareKeys } from '../hooks';
@@ -15,15 +16,19 @@ import { useKaiOsSoftwareKeys } from '../hooks';
 function Menu({ goBack }) {
     const { refLeft, refRight } = useKaiOsSoftwareKeys();
     const isGameActive = useSelector(getIsGameActive);
+    const highscore = useSelector(getHighscore);
+    const score = useSelector(getScore);
+    const streakCount = useSelector(getStreakCount);
+    const streakType = useSelector(getStreakType);
+    const hues = useSelector(getHues);
 
     if (!isGameActive) {
         return null;
     }
 
-    const highscore = useSelector(getHighscore);
-    const score = useSelector(getScore);
-    const streakCount = useSelector(getStreakCount);
-    const streakType = useSelector(getStreakType);
+    const style = {
+        filter: `hue-rotate(${hues[streakType]}deg)`
+    };
 
     function getStats() {
         return (<>
@@ -33,10 +38,12 @@ function Menu({ goBack }) {
             </div>
             <div block="stat">
                 <div block="stat" elem="title">Streak</div>
-                <div block="stat" elem="square">
-                    <div block="square" mods={{type: streakType}}></div>
-                </div>
-                <div block="stat" elem="value">{streakCount}</div>
+                {streakCount > 0 && <>
+                    <div block="stat" elem="square">
+                        <div block="square" mods={{type: streakType}} style={style}></div>
+                    </div>
+                    <div block="stat" elem="value">{streakCount}</div>
+                </>}
             </div>
             <div block="stat">
                 <div block="stat" elem="title">Highscore</div>

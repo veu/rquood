@@ -9,9 +9,15 @@ import {
     IS_KAY_OS
 } from '../config';
 import { useKaiOsSoftwareKeys } from '../hooks';
+import { useSelector } from 'react-redux';
+import { getHues } from '../state/selectors';
 
 function Title() {
     const { refLeft, refRight } = useKaiOsSoftwareKeys();
+    const hues = useSelector(getHues);
+    const squareStyle = {
+        filter: `hue-rotate(${hues[1]}deg)`
+    };
 
     const squares = range(0, BOARD_HEIGHT * BOARD_WIDTH).map((index) => {
         return (
@@ -19,6 +25,7 @@ function Title() {
                 <div
                     block="square"
                     mods={{type: 1}}
+                    style={squareStyle}
                 ></div>
             </div>
         );
