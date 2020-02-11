@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "name": "Quood",
-  "description": "A zen and cute puzzle game",
+  "description": "A relaxing puzzle game",
   "type": "web",
   "launch_path": "/index.html",
   "icons": {
@@ -15,7 +15,7 @@
   "locales": {
     "en-US": {
       "name": "Quood",
-      "subtitle": "A zen and cute puzzle game",
+      "subtitle": "A relaxing puzzle game",
       "description": "Match cute animal squares and relax"
     }
   },
