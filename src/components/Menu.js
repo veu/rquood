@@ -1,7 +1,6 @@
 import React from 'react';
-import { useSelector, connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { goBack } from 'connected-react-router';
 import {
     isGameActive as getIsGameActive,
     getScore,
@@ -10,10 +9,11 @@ import {
     getStreakCount,
     getHues
 } from '../state/selectors';
-import { OPTIONS_URL, IS_KAY_OS } from '../config';
+import { OPTIONS_URL, IS_KAY_OS, TITLE_URL } from '../config';
 import { useKaiOsSoftwareKeys } from '../hooks';
+import BackLink from './BackLink';
 
-function Menu({ goBack }) {
+function Menu() {
     const { refLeft, refRight } = useKaiOsSoftwareKeys();
     const isGameActive = useSelector(getIsGameActive);
     const highscore = useSelector(getHighscore);
@@ -57,13 +57,8 @@ function Menu({ goBack }) {
             {getStats()}
         </div>
         <div block="main-menu">
-            <div
-                block="main-menu"
-                elem="action"
-                onClick={() => goBack()}
-                ref={refLeft}
-            >
-                Back
+            <div block="main-menu" elem="action">
+                <BackLink to={TITLE_URL} innerRef={refLeft} />
             </div>
             <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
                 SELECT
@@ -75,4 +70,4 @@ function Menu({ goBack }) {
     </>);
 }
 
-export default connect(null, { goBack })(Menu);
+export default Menu;

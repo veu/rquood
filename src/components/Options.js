@@ -2,12 +2,13 @@ import React from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { goBack } from 'connected-react-router';
 import range from 'ramda/src/range';
-import { SQUARE_TYPES, IS_KAY_OS } from '../config';
+import { SQUARE_TYPES, IS_KAY_OS, GAME_URL } from '../config';
 import { resetHues, changeInputMode, requestStartGame } from '../state/actions';
 import HueSlider from './HueSlider';
 import { getInputMode } from '../state/selectors';
 import { useKaiOsSoftwareKeys } from '../hooks';
 import { INPUT_MODE_TOUCH } from '../state/reducers/options';
+import BackLink from './BackLink';
 
 function Options({ goBack }) {
     const { refLeft, refRight } = useKaiOsSoftwareKeys();
@@ -20,7 +21,6 @@ function Options({ goBack }) {
 
     const restart = () => {
         dispatch(requestStartGame());
-        goBack();
     };
 
     return (
@@ -43,24 +43,16 @@ function Options({ goBack }) {
                 </div>
             </div>
             <div block="main-menu">
-                <div
-                    block="main-menu"
-                    elem="action"
-                    onClick={() => goBack()}
-                    ref={refLeft}
-                >
-                    Back
+                <div block="main-menu" elem="action">
+                    <BackLink to={GAME_URL} innerRef={refLeft} />
                 </div>
                 <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
                     SELECT
                 </div>
-                <div
-                    block="main-menu"
-                    elem="action"
-                    onClick={restart}
-                    ref={refRight}
-                >
-                    Restart
+                <div block="main-menu" elem="action">
+                    <BackLink to={GAME_URL} innerRef={refRight} onClick={restart}>
+                        Restart
+                    </BackLink>
                 </div>
             </div>
         </>

@@ -4,7 +4,8 @@ import { goBack } from 'connected-react-router';
 import { getTutorialMessage } from '../state/selectors';
 import Board from './Board';
 import { useKaiOsSoftwareKeys } from '../hooks';
-import { IS_KAY_OS } from '../config';
+import { IS_KAY_OS, TITLE_URL } from '../config';
+import BackLink from './BackLink';
 
 function Tutorial({ goBack }) {
     const { refLeft } = useKaiOsSoftwareKeys();
@@ -17,13 +18,8 @@ function Tutorial({ goBack }) {
             <div block="message">{message}</div>
         </div>
         <div block="main-menu">
-            <div
-                block="main-menu"
-                elem="action"
-                onClick={() => goBack()}
-                ref={refLeft}
-            >
-                Back
+            <div block="main-menu" elem="action">
+                <BackLink to={TITLE_URL} innerRef={refLeft} />
             </div>
             <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
                 SELECT
