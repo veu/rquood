@@ -7,6 +7,7 @@ import persistState from 'redux-localstorage';
 import { Switch, Route } from 'react-router';
 import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
 import { createHashHistory } from 'history';
+import 'normalize.css';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import createReducers from './state/reducers';
