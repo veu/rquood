@@ -2,25 +2,9 @@
     box-sizing: border-box;
 }
 
-html {
-    font-size: .2vw;
-}
-
-@media (min-width: 500px) and (orientation: portrait) {
-    html {
-        font-size: 1px;
-    }
-}
-
-@media (orientation: landscape) {
-    html {
-        font-size: .15vh;
-    }
-}
-
 body {
     background: black;
-    font-size: 16rem;
+    font-size: 8px;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
     padding: 0;
     position: absolute;
@@ -34,15 +18,13 @@ body {
 
 main {
     position: relative;
-    height: calc(100% - 20rem);
-    min-height: 640rem;
-    margin: 10rem auto;
-    width: 480rem;
+    height: 304px;
+    margin: 8px;
+    width: 224px;
 }
 
 .board {
-    height: 480rem;
-    padding-bottom: 100%;
+    height: 224px;
     position: relative;
 
     &:not(&_title) {
@@ -50,29 +32,28 @@ main {
     }
 
     &_tutorial {
-        height: calc(480rem * 5 / 7);
-        padding-bottom: calc(100% * 5 / 7);
+        height: 160px;
     }
 
     &__square {
         float: left;
-        height: calc(480rem / 7.01);
-        width: calc(480rem / 7.01);
+        height: 32px;
+        width: 32px;
     }
 
     &__title {
         background: #000;
         color: white;
-        font-size: 3.3em;
+        font-size: 24px;
         font-weight: bold;
-        line-height: 1.34em;
-        height: calc(480rem / 7);
+        line-height: 32px;
+        height: 32px;
         position: absolute;
-        top: calc(480rem / 7 * 2);
-        left: calc(480rem / 7 * 1);
+        top: 64px;
+        left: 32px;
         text-align: center;
         text-transform: uppercase;
-        width: calc(480rem / 7 * 3);
+        width: 96px;
         z-index: 5;
     }
 }
@@ -133,8 +114,8 @@ main {
     display: flex;
     justify-content: space-between;
     left: 0;
-    line-height: 1.6em;
-    margin: 8rem;
+    line-height: 13px;
+    margin: 4px;
     position: absolute;
     right: 0;
 
@@ -146,17 +127,17 @@ main {
         display: inline;
         flex-grow: 1;
         flex-basis: 33%;
-        font-size: 35rem;
+        font-size: 16px;
         font-weight: 600;
         text-align: center;
 
         &:first-child {
-            font-size: 29rem;
+            font-size: 14px;
             text-align: left;
         }
 
         &:last-child {
-            font-size: 29rem;
+            font-size: 14px;
             text-align: right;
         }
 
@@ -176,9 +157,8 @@ main {
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
-    font-size: 1rem;
     justify-content: space-between;
-    margin: 8rem;
+    margin: 4px;
 
     &_main {
         position: absolute;
@@ -197,9 +177,9 @@ main {
     border: none;
     color: #fff;
     cursor: pointer;
-    font-size: 35rem;
+    font-size: 16px;
     font-weight: bold;
-    margin: 0 0 10rem;
+    margin: 0 0 5px;
     padding: 0;
     user-select: none;
 
@@ -213,12 +193,12 @@ main {
     &__title {
         color: #fff;
         text-align: left;
-        font-size: 29rem;
+        font-size: 14px;
     }
 
     &__value {
         color: white;
-        font-size: 42rem;
+        font-size: 21px;
         text-align: right;
     }
 
@@ -226,11 +206,11 @@ main {
         background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
         background-position-x: 150%;
         float: right;
-        height: 42rem;
+        height: 16px;
         image-rendering: pixelated;
-        margin-right: -4rem;
-        margin-top: 4rem;
-        width: 42rem;
+        margin-right: -2px;
+        margin-top: 2px;
+        width: 16px;
 
         &_type_0 {
             background-position-x: 0;
@@ -248,46 +228,47 @@ main {
 
 .message {
     color: #fff;
-    font-size: 35rem;
+    font-size: 16px;
     white-space: pre-line;
 }
 
 .slider {
     display: flex;
-    margin-bottom: 20rem;
+    margin-bottom: 10px;
 
     &__square {
-        width: 40rem;
+        width: 32px;
     }
 
     &__bar-border {
         flex-grow: 1;
-        height: 40rem;
-        border: 4rem solid #fff;
-        margin-left: 10rem;
+        height: 28px;
+        border: 2px solid #fff;
+        margin-left: 10px;
+        margin-top: 2px;
         position: relative;
     }
 
     &__bar {
         background-color: #fff;
-        height: 100%;
+        height: 24px;
     }
 }
 
 .options-headline {
     color: #fff;
-    font-size: 42rem;
+    font-size: 21px;
     font-weight: bold;
-    margin-bottom: 20rem;
-    margin-top: 10rem;
+    margin-bottom: 10px;
+    margin-top: 5px;
 }
 
 @keyframes jump {
     from {
-        transform: translateY(.1em);
+        transform: translateY(2px);
     }
 
     to {
-        transform: translateY(-.1em);
+        transform: translateY(-2px);
     }
 }
