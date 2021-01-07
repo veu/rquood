@@ -84,8 +84,8 @@ main {
     padding: 0;
     width: 100%;
     image-rendering: pixelated;
-    opacity: .9;
-    transition: transform 500ms, opacity 500ms;
+    opacity: .8;
+    transition: transform 300ms, opacity 300ms;
 
     &::before {
         background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
@@ -96,7 +96,6 @@ main {
 
     &_active {
         opacity: 1;
-        transform: scale(1.2, 1.2);
     }
 
     &_inactive {
