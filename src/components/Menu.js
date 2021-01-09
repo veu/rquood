@@ -9,7 +9,7 @@ import {
     getStreakCount,
     getHues
 } from '../state/selectors';
-import { OPTIONS_URL, IS_KAY_OS, TITLE_URL } from '../config';
+import { OPTIONS_URL, TITLE_URL } from '../config';
 import { useKaiOsSoftwareKeys } from '../hooks';
 import BackLink from './BackLink';
 
@@ -60,7 +60,7 @@ function Menu() {
             <div block="main-menu" elem="action">
                 <BackLink to={TITLE_URL} innerRef={refLeft} />
             </div>
-            <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
+            <div block="main-menu" elem="action">
                 SELECT
             </div>
             <div block="main-menu" elem="action">

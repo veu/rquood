@@ -11,7 +11,6 @@ export const {
     updateHighscore,
     startTutorial,
     advanceTutorial,
-    changeInputMode,
     changeHue,
     resetHues,
 } = createActions({
@@ -41,8 +40,6 @@ export const {
     START_TUTORIAL: () => ({
     }),
     ADVANCE_TUTORIAL: () => ({
-    }),
-    CHANGE_INPUT_MODE: () => ({
     }),
     CHANGE_HUE: (index, hue) => ({
         index,

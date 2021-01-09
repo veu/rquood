@@ -1,14 +1,10 @@
 import { handleActions } from 'redux-actions';
-import { SQUARE_TYPES, IS_KAY_OS } from '../../config';
-
-export const INPUT_MODE_TOUCH = 'TOUCH';
-export const INPUT_MODE_CLICK = 'CLICK';
+import { SQUARE_TYPES } from '../../config';
 
 export const defaultHues = Array(SQUARE_TYPES).fill(0);
 
 export const defaultOptions = {
-    hues: defaultHues,
-    inputMode: IS_KAY_OS ? INPUT_MODE_CLICK : INPUT_MODE_TOUCH
+    hues: defaultHues
 };
 
 const optionsReducers = handleActions({
@@ -26,15 +22,6 @@ const optionsReducers = handleActions({
             ...options,
             hues: defaultHues,
         };
-    },
-    CHANGE_INPUT_MODE: (options) => {
-        return {
-            ...options,
-            inputMode:
-                options.inputMode === INPUT_MODE_CLICK
-                    ? INPUT_MODE_TOUCH
-                    : INPUT_MODE_CLICK
-        }
     }
 }, defaultOptions);
 

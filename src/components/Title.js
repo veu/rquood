@@ -5,8 +5,7 @@ import {
     GAME_URL,
     TUTORIAL_URL,
     BOARD_HEIGHT,
-    BOARD_WIDTH,
-    IS_KAY_OS
+    BOARD_WIDTH
 } from '../config';
 import { useKaiOsSoftwareKeys } from '../hooks';
 import { useSelector } from 'react-redux';
@@ -42,7 +41,7 @@ function Title() {
             <div block="main-menu" elem="action">
                 <Link to={GAME_URL} innerRef={refLeft}>Play</Link>
             </div>
-            <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
+            <div block="main-menu" elem="action">
                 SELECT
             </div>
             <div block="main-menu" elem="action">
