@@ -75,6 +75,10 @@ main {
         padding-bottom: 100%;
     }
 
+    &:focus {
+        background-color: white;
+    }
+
     &_active {
         opacity: 1;
     }

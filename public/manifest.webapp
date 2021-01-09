@@ -24,6 +24,5 @@
     "games"
   ],
   "fullscreen": "true",
-  "cursor": true,
   "orientation": "portrait-primary"
 }
