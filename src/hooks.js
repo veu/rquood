@@ -46,13 +46,15 @@ export function useDPad(onMove) {
 
 export function useClick(onClick) {
     useEffect(() => {
-        const handler = () => {
-            onClick();
+        const handler = (event) => {
+            if (event.key === 'Enter') {
+                onClick();
+            }
         };
-        document.addEventListener('click', handler);
+        document.addEventListener('keydown', handler);
 
         return () => {
-            document.removeEventListener('click', handler);
+            document.removeEventListener('keydown', handler);
         };
     });
 }
