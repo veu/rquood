@@ -61,7 +61,6 @@ main {
     padding: 0;
     width: 100%;
     image-rendering: pixelated;
-    opacity: .8;
     transition: transform 300ms, opacity 300ms;
 
     &::before {
@@ -71,16 +70,32 @@ main {
         padding-bottom: 100%;
     }
 
+    &_type_0&_active {
+        background-color: #a3983a;
+
+        &:focus {
+            background-color: #e5dea9;
+        }
+    }
+
+    &_type_1&_active {
+        background-color: #4c497e;
+
+        &:focus {
+            background-color: #cccce7;
+        }
+    }
+
+    &_type_2&_active {
+        background-color: #c44d44;
+
+        &:focus {
+            background-color: #e6c8c6;
+        }
+    }
+
     &:focus {
-        background-color: white;
-    }
-
-    &_active {
-        opacity: 1;
-    }
-
-    &_inactive {
-        opacity: .6;
+        background-color: #fff;
     }
 
     &_type_0::before {
@@ -320,10 +335,10 @@ main {
 
 @keyframes jump {
     from {
-        transform: translateY(2px);
+        transform: translateY(1px);
     }
 
     to {
-        transform: translateY(-2px);
+        transform: translateY(-1px);
     }
 }

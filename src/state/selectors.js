@@ -67,7 +67,6 @@ export const getSquare = (index) => createSelector(
         return {
             type: board && board[index],
             active,
-            inactive: squares.length > 0 && !active,
             hidden: hidden && active,
             ready: squares.length === 4 && active,
         };
