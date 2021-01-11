@@ -277,13 +277,13 @@ main {
     }
 
     &__value {
-        background: #5f47bf;
+        background: #fff;
         height: 100%;
         position: relative;
         width: 50%;
 
         &::before {
-            background: #5f47bf;
+            background: #fff;
             border-radius: 4px;
             content: '';
             height: 100%;
@@ -293,7 +293,7 @@ main {
         }
 
         &::after {
-            background: #5f47bf;
+            background: #fff;
             border-radius: 14.5px;
             border: 4px solid #000;
             content: '';
@@ -307,18 +307,18 @@ main {
     }
 
     &_active {
-        background: #5f47bf;
+        background: #fff;
 
         .slider__value {
-            background: #fff;
+            background: #000;
 
             &::before {
-                background: #fff;
+                background: #000;
             }
 
             &::after {
-                background: #fff;
-                border: 4px solid #5f47bf;
+                background: #000;
+                border: 4px solid #fff;
             }
        }
     }
