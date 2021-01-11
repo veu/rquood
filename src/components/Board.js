@@ -13,7 +13,9 @@ export default function Board({ isTutorial = false }) {
     const isBoardLocked = useSelector(getIsBoardLocked);
     const [start, setStart] = useState(null);
     const [end, setEnd] = useState(null);
-    const [cursor, setCursor] = useState({x: 3, y: 3});
+    const height = isTutorial ? BOARD_HEIGHT_TUTORIAL : BOARD_HEIGHT;
+    const [cursor, setCursor] = useState({x: 3, y: Math.floor(height / 2)});
+
 
     useDPad((dx, dy) => {
         if (isBoardLocked) {
@@ -21,7 +23,7 @@ export default function Board({ isTutorial = false }) {
         }
 
         const x = (cursor.x + dx + 7) % 7;
-        const y = (cursor.y + dy + 7) % 7;
+        const y = (cursor.y + dy + height) % height;
 
         setCursor({x, y});
 
@@ -50,8 +52,6 @@ export default function Board({ isTutorial = false }) {
             dispatch(hideSelection())
         }
     });
-
-    const height = isTutorial ? BOARD_HEIGHT_TUTORIAL : BOARD_HEIGHT;
 
     const squares = range(0, height * BOARD_WIDTH).map((index) => {
         return (
