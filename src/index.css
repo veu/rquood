@@ -28,7 +28,7 @@ main {
     position: relative;
 
     &_tutorial {
-        height: 160px;
+        height: 128px;
     }
 
     &__square {
@@ -262,11 +262,8 @@ main {
 .message {
     color: #fff;
     font-size: 17px;
+    padding: 12px 4px;
     white-space: pre-line;
-
-    &_spaced {
-        padding: 12px 12px;
-    }
 }
 
 .slider {

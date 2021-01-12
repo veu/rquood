@@ -15,7 +15,7 @@ function About() {
         </div>
 
         <div block="menu">
-            <div block="message" mods={{spaced: true}}>
+            <div block="message">
                 Quood Version 1.1.0<br />
                 By Rebecca König
             </div>

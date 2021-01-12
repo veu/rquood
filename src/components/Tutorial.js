@@ -13,6 +13,9 @@ function Tutorial({ goBack }) {
     const message = useSelector(getTutorialMessage);
 
     return (<>
+        <div block="title">
+            Tutorial
+        </div>
         <Board isTutorial={true} />
         <div block="menu">
             <div block="message">{message}</div>

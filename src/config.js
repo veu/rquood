@@ -1,6 +1,6 @@
 // Dimensions and types exist to have named constants. Changing them requires more work.
 export const BOARD_HEIGHT = 7;
-export const BOARD_HEIGHT_TUTORIAL = 5;
+export const BOARD_HEIGHT_TUTORIAL = 4;
 export const BOARD_WIDTH = 7;
 export const SQUARE_TYPES = 3;
 
