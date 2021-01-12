@@ -40,10 +40,11 @@ function Options({ goBack }) {
 
     return (
         <>
+            <div block="title">
+                Options
+            </div>
+
             <div block="menu">
-                <div block="menu" elem="title">
-                    Options
-                </div>
                 <div block="menu" elem="block">
                     <div block="options-headline">Square Colors</div>
                     {sliders}

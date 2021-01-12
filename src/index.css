@@ -166,6 +166,14 @@ main {
     }
 }
 
+.title {
+    color: #fff;
+    flex-basis: 100%;
+    font-size: 17px;
+    padding-bottom: 6px;
+    text-align: center;
+}
+
 .menu {
     align-content: space-between;
     display: flex;
@@ -255,6 +263,10 @@ main {
     color: #fff;
     font-size: 17px;
     white-space: pre-line;
+
+    &_spaced {
+        padding: 12px 12px;
+    }
 }
 
 .slider {
