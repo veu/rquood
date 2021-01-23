@@ -34,14 +34,14 @@ function BottomMenu({ center, left, right }) {
     useClick(center.onClick || (() => {}));
 
     return (
-    <div block="main-menu">
-        <div block="main-menu" elem="action">
+    <div block="bottom-menu">
+        <div block="bottom-menu" elem="action">
             <SideLink link={left} innerRef={refLeft} />
         </div>
-        <div block="main-menu" elem="action">
+        <div block="bottom-menu" elem="action">
             {center.text}
         </div>
-        <div block="main-menu" elem="action">
+        <div block="bottom-menu" elem="action">
             <SideLink link={right} innerRef={refRight} />
         </div>
     </div>);
