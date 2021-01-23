@@ -47,7 +47,7 @@ function Menu() {
         </>);
     }
 
-    return (<div block="menu">
+    return (<div block="menu" mods={{game: true}}>
         {getStats()}
     </div>);
 }
