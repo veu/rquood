@@ -1,6 +1,6 @@
 import range from 'ramda/src/range';
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
     ABOUT_URL,
     GAME_URL,
@@ -8,17 +8,13 @@ import {
     BOARD_HEIGHT,
     BOARD_WIDTH
 } from '../config';
-import { useClick, useKaiOsSoftwareKeys } from '../hooks';
 import { useSelector } from 'react-redux';
 import { getHues } from '../state/selectors';
+import BottomMenu from './BottomMenu';
 
 function Title() {
     const history = useHistory();
-    const { refLeft, refRight } = useKaiOsSoftwareKeys();
     const hues = useSelector(getHues);
-    useClick(() => {
-        history.push(GAME_URL);
-    });
 
     const squareStyle = {
         filter: `hue-rotate(${hues[1]}deg)`
@@ -42,17 +38,11 @@ function Title() {
             {squares}
         </div>
 
-        <div block="main-menu">
-            <div block="main-menu" elem="action">
-                <Link to={ABOUT_URL} innerRef={refLeft}>About</Link>
-            </div>
-            <div block="main-menu" elem="action">
-                START
-            </div>
-            <div block="main-menu" elem="action">
-                <Link to={TUTORIAL_URL} innerRef={refRight}>Tutorial</Link>
-            </div>
-        </div>
+        <BottomMenu
+            left={{text: 'About', url: ABOUT_URL}}
+            center={{text: 'START', onClick: () => { history.push(GAME_URL) } }}
+            right={{text: 'Tutorial', url: TUTORIAL_URL}}
+        />
     </>);
 }
 

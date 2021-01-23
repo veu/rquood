@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
     isGameActive as getIsGameActive,
     getScore,
@@ -9,12 +8,8 @@ import {
     getStreakCount,
     getHues
 } from '../state/selectors';
-import { OPTIONS_URL, TITLE_URL } from '../config';
-import { useKaiOsSoftwareKeys } from '../hooks';
-import BackLink from './BackLink';
 
 function Menu() {
-    const { refLeft, refRight } = useKaiOsSoftwareKeys();
     const isGameActive = useSelector(getIsGameActive);
     const highscore = useSelector(getHighscore);
     const score = useSelector(getScore);
@@ -52,22 +47,9 @@ function Menu() {
         </>);
     }
 
-    return (<>
-        <div block="menu">
-            {getStats()}
-        </div>
-        <div block="main-menu">
-            <div block="main-menu" elem="action">
-                <BackLink to={TITLE_URL} innerRef={refLeft} />
-            </div>
-            <div block="main-menu" elem="action">
-                SELECT
-            </div>
-            <div block="main-menu" elem="action">
-                <Link to={OPTIONS_URL} innerRef={refRight}>Options</Link>
-            </div>
-        </div>
-    </>);
+    return (<div block="menu">
+        {getStats()}
+    </div>);
 }
 
 export default Menu;

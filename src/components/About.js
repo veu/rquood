@@ -1,14 +1,8 @@
 import React from 'react';
 import { TITLE_URL } from '../config';
-import { useClick, useKaiOsSoftwareKeys } from '../hooks';
-import BackLink from './BackLink';
+import BottomMenu from './BottomMenu';
 
 function About() {
-    const {refLeft} = useKaiOsSoftwareKeys();
-    useClick(() => {
-        window.open("https://monometric.net", '_blank');
-    });
-
     return (<>
         <div block="title">
             About
@@ -27,17 +21,15 @@ function About() {
             </button>
         </div>
 
-
-        <div block="main-menu">
-            <div block="main-menu" elem="action">
-                <BackLink to={TITLE_URL} innerRef={refLeft} />
-            </div>
-            <div block="main-menu" elem="action">
-                SELECT
-            </div>
-            <div block="main-menu" elem="action">
-            </div>
-        </div>
+        <BottomMenu
+            left={{text: 'Back', url: TITLE_URL, back: true }}
+            center={{
+                text: 'SELECT',
+                onClick: () => {
+                    window.open("https://monometric.net", '_blank');
+                }
+            }}
+        />
     </>);
 }
 

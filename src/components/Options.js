@@ -5,12 +5,11 @@ import range from 'ramda/src/range';
 import { SQUARE_TYPES, GAME_URL } from '../config';
 import { changeHue, resetHues, requestStartGame } from '../state/actions';
 import { getHues } from '../state/selectors';
+import BottomMenu from './BottomMenu';
 import HueSlider from './HueSlider';
-import { useClick, useDPad, useKaiOsSoftwareKeys } from '../hooks';
-import BackLink from './BackLink';
+import { useDPad } from '../hooks';
 
 function Options({ goBack }) {
-    const {refLeft, refRight} = useKaiOsSoftwareKeys();
     const [cursor, setCursor] = useState(0);
     const dispatch = useDispatch();
     const hues = useSelector(getHues);
@@ -22,12 +21,6 @@ function Options({ goBack }) {
            const hue = Math.max(0, Math.min(360, hues[cursor] + dx * 30));
            dispatch(changeHue(cursor, hue));
        }
-    });
-
-    useClick(() => {
-        if (cursor === 3) {
-            dispatch(resetHues());
-        }
     });
 
     const sliders = range(0, SQUARE_TYPES).map((type) => {
@@ -56,19 +49,19 @@ function Options({ goBack }) {
                     </button>
                 </div>
             </div>
-            <div block="main-menu">
-                <div block="main-menu" elem="action">
-                    <BackLink to={GAME_URL} innerRef={refLeft} />
-                </div>
-                <div block="main-menu" elem="action">
-                    SELECT
-                </div>
-                <div block="main-menu" elem="action">
-                    <BackLink to={GAME_URL} innerRef={refRight} onClick={restart}>
-                        Restart
-                    </BackLink>
-                </div>
-            </div>
+
+            <BottomMenu
+                left={{text: 'Back', url: GAME_URL, back: true}}
+                center={{
+                    text: 'SELECT',
+                    onClick: () => {
+                        if (cursor === 3) {
+                            dispatch(resetHues());
+                        }
+                    }
+                }}
+                right={{text: 'Restart', url: GAME_URL, back: true, onClick: restart}}
+            />
         </>
     );
 }
