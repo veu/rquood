@@ -45,7 +45,7 @@ export default function Board() {
             setEnd({x, y});
             dispatch(updateSelection(board, width, start, {x, y}));
         }
-    });
+    }, { withNumPad: true });
 
     useClick(() => {
         if (isBoardLocked) {
@@ -67,7 +67,7 @@ export default function Board() {
             setEnd(null);
             dispatch(hideSelection())
         }
-    });
+    }, { withNumPad: true });
 
     const squares = range(0, height * width).map((index) => {
         return (

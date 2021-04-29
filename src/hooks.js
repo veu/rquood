@@ -39,19 +39,37 @@ export function useKaiOsSoftwareKeys() {
     return { refLeft, refRight };
 }
 
-export function useDPad(onMove) {
+const dPadDirections = {
+    ArrowLeft: [-1, 0],
+    ArrowRight: [1, 0],
+    ArrowUp: [0, -1],
+    ArrowDown: [0, 1],
+};
+
+const numPadDirections = {
+    1: [-1, -1],
+    2: [0, -1],
+    3: [1, -1],
+    4: [-1, 0],
+    6: [1, 0],
+    7: [-1, 1],
+    8: [0, 1],
+    9: [1, 1],
+};
+
+export function useDPad(onMove, { withNumPad = false } = {}) {
     useEffect(() => {
         const handler = (event) => {
-            if (event.key === 'ArrowLeft') {
-                onMove(-1, 0);
-            } else if (event.key === 'ArrowRight') {
-                onMove(1, 0);
-            } else if (event.key === 'ArrowUp') {
-                onMove(0, -1);
-            } else if (event.key === 'ArrowDown') {
-                onMove(0, 1);
+            if (dPadDirections[event.key]) {
+                onMove(...dPadDirections[event.key]);
+                return;
+            }
+
+            if (withNumPad && numPadDirections[event.key]) {
+                onMove(...numPadDirections[event.key]);
             }
         };
+
         document.addEventListener('keydown', handler);
 
         return () => {
@@ -60,10 +78,10 @@ export function useDPad(onMove) {
     });
 }
 
-export function useClick(onClick) {
+export function useClick(onClick, { withNumPad = false } = {}) {
     useEffect(() => {
         const handler = (event) => {
-            if (event.key === 'Enter') {
+            if (event.key === 'Enter' || (withNumPad && event.key === '5')) {
                 onClick();
             }
         };
