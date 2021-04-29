@@ -12,7 +12,7 @@ function About() {
         <main>
             <div block="menu">
                 <div block="message">
-                    Quood Version 1.1.0<br />
+                    Quood Version 2.0.0<br />
                     By Rebecca König
                 </div>
                 <button

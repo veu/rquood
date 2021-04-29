@@ -269,6 +269,7 @@ main.game {
 .message {
     color: #fff;
     font-size: 17px;
+    line-height: 22px;
     padding: 12px 4px;
     white-space: pre-line;
 }
