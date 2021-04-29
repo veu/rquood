@@ -53,9 +53,11 @@ export default function Board() {
         }
 
         if (!start) {
-            setStart(cursor);
-            setEnd(cursor);
-            dispatch(updateSelection(board, width, cursor, cursor))
+            if (board[cursor.x + cursor.y * width] !== 3) {
+                setStart(cursor);
+                setEnd(cursor);
+                dispatch(updateSelection(board, width, cursor, cursor))
+            }
         } else if (cursor.x === start.x && cursor.y === start.y) {
             setStart(null);
             setEnd(null);
