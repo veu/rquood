@@ -1,18 +1,38 @@
 import { handleActions } from 'redux-actions';
+import { BOARD_HEIGHT, BOARD_WIDTH, LANDSCAPE_TUTORIAL, PORTRAIT_TUTORIAL } from "../../config";
 
 const defaultGame = {
     board: null,
     bucket: [],
+    height: BOARD_HEIGHT,
     score: 0,
     streak: null,
+    width: BOARD_WIDTH
 };
 
 const gameReducers = handleActions({
-    START_GAME: (_, {payload: {board}}) => {
+    START_GAME: (_, {payload: { board, width, height }}) => {
         return {
             ...defaultGame,
             board,
+            width,
+            height,
         };
+    },
+    SET_SIZE: (game, {payload: { width, height }}) => {
+        return {
+            ...game,
+            width,
+            height,
+        };
+    },
+    START_TUTORIAL: (game, { payload: { isPortrait } }) => {
+        const newTutorial = isPortrait ? PORTRAIT_TUTORIAL : LANDSCAPE_TUTORIAL;
+        return {
+            ...game,
+            height: newTutorial.height,
+            width: newTutorial.width,
+        }
     },
     REPLACE_SQUARES: (game, {payload: {indexes, values, size, bucket}}) => {
         const board = [...game.board];
@@ -30,6 +50,7 @@ const gameReducers = handleActions({
         };
 
         return {
+            ...game,
             board,
             bucket,
             score,

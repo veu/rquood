@@ -4,6 +4,7 @@ export const {
     requestAssureGame,
     requestStartGame,
     startGame,
+    setSize,
     replaceSquares,
     updateSelection,
     discardSelection,
@@ -18,8 +19,14 @@ export const {
     }),
     REQUEST_START_GAME: () => ({
     }),
-    START_GAME: (board) => ({
+    START_GAME: (board, width, height) => ({
         board,
+        width,
+        height,
+    }),
+    SET_SIZE: (width, height) => ({
+        width,
+        height,
     }),
     REPLACE_SQUARES: (indexes, values, size, bucket) => ({
         indexes,
@@ -27,8 +34,9 @@ export const {
         size,
         bucket,
     }),
-    UPDATE_SELECTION: (board, start, end) => ({
+    UPDATE_SELECTION: (board, width, start, end) => ({
         board,
+        width,
         start,
         end,
     }),
@@ -37,7 +45,8 @@ export const {
     UPDATE_HIGHSCORE: (score) => ({
         score
     }),
-    START_TUTORIAL: () => ({
+    START_TUTORIAL: (isPortrait) => ({
+        isPortrait
     }),
     ADVANCE_TUTORIAL: () => ({
     }),

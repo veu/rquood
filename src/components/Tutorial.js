@@ -10,18 +10,23 @@ function Tutorial({ goBack }) {
     const message = useSelector(getTutorialMessage);
 
     return (<>
-        <div block="title">
-            Tutorial
-        </div>
-        <Board isTutorial={true} />
-        <div block="menu">
-            <div block="message">{message}</div>
-        </div>
-
-        <BottomMenu
-            left={{text: 'Back', url: TITLE_URL, back: true}}
-            center={{text: 'SELECT'}}
-        />
+        <header>
+            <h1>
+                Tutorial
+            </h1>
+        </header>
+        <main className="tutorial">
+            <Board />
+            <div block="menu">
+                <div block="message">{message}</div>
+            </div>
+        </main>
+        <footer>
+            <BottomMenu
+                left={{text: 'Back', url: TITLE_URL, back: true}}
+                center={{text: 'SELECT'}}
+            />
+        </footer>
     </>);
 }
 

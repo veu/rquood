@@ -4,9 +4,11 @@
 
 body {
     background: black;
+    display: flex;
+    flex-direction: column;
     font-size: 8px;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
-    padding: 0;
+    margin: 8px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -16,20 +18,27 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+header {
+    h1 {
+        color: #fff;
+        flex-basis: 100%;
+        font-size: 17px;
+        margin: 0;
+        padding-bottom: 6px;
+        text-align: center;
+    }
+}
+
 main {
     position: relative;
-    height: 304px;
-    margin: 8px;
-    width: 224px;
+    height: 100%;
+    width: 100%;
 }
 
 .board {
     height: 224px;
+    width: 224px;
     position: relative;
-
-    &_tutorial {
-        height: 128px;
-    }
 
     &__square {
         float: left;
@@ -51,6 +60,12 @@ main {
         text-transform: uppercase;
         width: 96px;
         z-index: 5;
+    }
+}
+
+main.tutorial {
+    .board {
+        height: 128px;
     }
 }
 
@@ -166,24 +181,11 @@ main {
     }
 }
 
-.title {
-    color: #fff;
-    flex-basis: 100%;
-    font-size: 17px;
-    padding-bottom: 6px;
-    text-align: center;
-}
-
 .menu {
     align-content: space-between;
     display: flex;
-    flex-grow: 1;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-between;
-
-    &_game {
-        margin: 8px 4px 0;
-    }
 
     &__title {
         color: #fff;
@@ -195,6 +197,13 @@ main {
 
     &__block {
         flex-basis: 100%;
+    }
+}
+
+main.game {
+    .menu {
+        flex-direction: row;
+        margin: 8px 4px 0;
     }
 }
 
@@ -215,7 +224,8 @@ main {
     }
 
     &_active {
-        background: #5f47bf;
+        background: #fff;
+        color: #000;
     }
 }
 
@@ -228,6 +238,8 @@ main {
 
     &__value {
         color: white;
+        display: flex;
+        flex-direction: row-reverse;
         font-size: 21px;
         text-align: right;
     }
@@ -235,10 +247,8 @@ main {
     &__square {
         background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
         background-position-x: 150%;
-        float: right;
         height: 16px;
         image-rendering: pixelated;
-        margin-right: -2px;
         margin-top: 2px;
         width: 16px;
 
@@ -346,5 +356,60 @@ main {
 
     to {
         transform: translateY(-1px);
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .bottom-menu {
+        left: initial;
+        flex-direction: column;
+        width: 68px;
+
+        &__action + &__action {
+            margin-top: 4px;
+        }
+    }
+
+    .menu {
+        max-width: 214px;
+    }
+
+    .slider {
+        padding: 4px 12px;
+    }
+
+    main.game {
+        display: flex;
+        justify-content: space-between;
+
+        .menu {
+            flex-direction: column;
+            justify-content: flex-start;
+            margin: 4px 4px 0 0;
+        }
+
+        .stat {
+            &__title {
+                text-align: right;
+            }
+
+            &__square {
+                float: left;
+            }
+
+            & + & {
+                margin-top: 8px;
+            }
+        }
+    }
+
+    main.tutorial {
+        display: flex;
+
+        .board {
+            flex-shrink: 0;
+            height: 160px;
+            width: 128px;
+        }
     }
 }

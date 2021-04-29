@@ -5,14 +5,14 @@ import gameReducers from './reducers/game';
 import highscoreReducers from './reducers/highscore';
 import optionsReducers from './reducers/options';
 import selectionReducers, { defaultSelection } from './reducers/selection';
-import tutorialReducers, { defaultTutorial } from './reducers/tutorial';
+import tutorialReducers from './reducers/tutorial';
 
 function patchReducer(state) {
     if (!state.selection) {
         state = {
             ...state,
             selection: defaultSelection,
-            tutorial: defaultTutorial,
+            tutorial: null,
         }
     }
 

@@ -1,20 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import range from 'ramda/src/range';
 import { updateSelection, hideSelection, discardSelection } from '../state/actions';
-import { isBoardLocked as getIsBoardLocked, getBoard } from '../state/selectors';
-import { BOARD_WIDTH, BOARD_HEIGHT_TUTORIAL, BOARD_HEIGHT } from '../config';
+import {
+    isBoardLocked as getIsBoardLocked,
+    getBoard,
+    getHeight,
+    getWidth
+} from '../state/selectors';
 import { useClick, useDPad } from '../hooks';
 import Square from './Square';
 
-export default function Board({ isTutorial = false }) {
+export default function Board() {
     const dispatch = useDispatch();
     const board = useSelector(getBoard);
     const isBoardLocked = useSelector(getIsBoardLocked);
+    const height = useSelector(getHeight);
+    const width = useSelector(getWidth);
     const [start, setStart] = useState(null);
     const [end, setEnd] = useState(null);
-    const height = isTutorial ? BOARD_HEIGHT_TUTORIAL : BOARD_HEIGHT;
-    const [cursor, setCursor] = useState({x: 3, y: Math.floor(height / 2)});
+    const [cursor, setCursor] = useState({
+        x: Math.floor(width / 2),
+        y: Math.floor(height / 2),
+    });
+    useEffect(() => {
+        setCursor({
+            x: Math.floor(width / 2),
+            y: Math.floor(height / 2),
+        });
+    }, [width, height]);
 
 
     useDPad((dx, dy) => {
@@ -22,14 +36,14 @@ export default function Board({ isTutorial = false }) {
             return;
         }
 
-        const x = (cursor.x + dx + 7) % 7;
+        const x = (cursor.x + dx + width) % width;
         const y = (cursor.y + dy + height) % height;
 
         setCursor({x, y});
 
         if (start && !(end && x === end.x && y === end.y)) {
             setEnd({x, y});
-            dispatch(updateSelection(board, start, {x, y}));
+            dispatch(updateSelection(board, width, start, {x, y}));
         }
     });
 
@@ -41,7 +55,7 @@ export default function Board({ isTutorial = false }) {
         if (!start) {
             setStart(cursor);
             setEnd(cursor);
-            dispatch(updateSelection(board, cursor, cursor))
+            dispatch(updateSelection(board, width, cursor, cursor))
         } else if (cursor.x === start.x && cursor.y === start.y) {
             setStart(null);
             setEnd(null);
@@ -53,7 +67,7 @@ export default function Board({ isTutorial = false }) {
         }
     });
 
-    const squares = range(0, height * BOARD_WIDTH).map((index) => {
+    const squares = range(0, height * width).map((index) => {
         return (
             <div block="board" elem="square" key={index}>
                 <Square
@@ -65,10 +79,7 @@ export default function Board({ isTutorial = false }) {
     });
 
     return (
-        <div
-            block="board"
-            mods={{ tutorial: isTutorial }}
-        >
+        <div block="board">
             {squares}
         </div>
     );

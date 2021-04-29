@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "2.0.0",
   "name": "Quood",
   "description": "A relaxing puzzle game",
   "type": "web",
@@ -23,6 +23,5 @@
   "categories": [
     "games"
   ],
-  "fullscreen": "true",
-  "orientation": "portrait-primary"
+  "fullscreen": "true"
 }

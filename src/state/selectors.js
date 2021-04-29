@@ -13,7 +13,9 @@ export const getBoard = (state) => {
     return state.game && state.game.board;
 }
 export const getBucket = (state) => state.game && state.game.bucket;
+export const getHeight = (state) => state.game && state.game.height;
 export const getScore = (state) => state.game && state.game.score;
+export const getWidth = (state) => state.game && state.game.width;
 export const getHighscore = (state) => state.highscore;
 
 // game
@@ -32,7 +34,7 @@ export const getStreakType = createSelector(
 
 export const getStreakCount = createSelector(
     getStreak,
-    (streak) => streak && streak.count
+    (streak) => streak ? streak.count : 0
 );
 
 // board

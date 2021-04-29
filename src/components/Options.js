@@ -31,12 +31,13 @@ function Options({ goBack }) {
         dispatch(requestStartGame());
     };
 
-    return (
-        <>
-            <div block="title">
+    return (<>
+        <header>
+            <h1>
                 Options
-            </div>
-
+            </h1>
+        </header>
+        <main>
             <div block="menu">
                 <div block="menu" elem="block">
                     <div block="options-headline">Square Colors</div>
@@ -49,7 +50,8 @@ function Options({ goBack }) {
                     </button>
                 </div>
             </div>
-
+        </main>
+        <footer>
             <BottomMenu
                 left={{text: 'Back', url: GAME_URL, back: true}}
                 center={{
@@ -62,8 +64,8 @@ function Options({ goBack }) {
                 }}
                 right={{text: 'Restart', url: GAME_URL, back: true, onClick: restart}}
             />
-        </>
-    );
+        </footer>
+    </>);
 }
 
 export default connect(null, { goBack })(Options);

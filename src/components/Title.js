@@ -33,16 +33,19 @@ function Title() {
     });
 
     return (<>
-        <div block="board" mods={{ title: true }}>
-            <div block="board" elem="title">Quood</div>
-            {squares}
-        </div>
-
-        <BottomMenu
-            left={{text: 'About', url: ABOUT_URL}}
-            center={{text: 'START', onClick: () => { history.push(GAME_URL) } }}
-            right={{text: 'Tutorial', url: TUTORIAL_URL}}
-        />
+        <main>
+            <div block="board" mods={{ title: true }}>
+                <div block="board" elem="title">Quood</div>
+                {squares}
+            </div>
+        </main>
+        <footer>
+            <BottomMenu
+                left={{text: 'About', url: ABOUT_URL}}
+                center={{text: 'START', onClick: () => { history.push(GAME_URL) } }}
+                right={{text: 'Tutorial', url: TUTORIAL_URL}}
+            />
+        </footer>
     </>);
 }
 

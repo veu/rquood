@@ -20,13 +20,17 @@ function Game() {
     }
 
     return (<>
-        <Board />
-        <Menu />
-        <BottomMenu
-            left={{text: 'Back', url: TITLE_URL, back: true}}
-            center={{text: 'SELECT'}}
-            right={{text: 'Options', url: OPTIONS_URL}}
-        />
+        <main className="game">
+            <Board />
+            <Menu />
+        </main>
+        <footer>
+            <BottomMenu
+                left={{text: 'Back', url: TITLE_URL, back: true}}
+                center={{text: 'SELECT'}}
+                right={{text: 'Options', url: OPTIONS_URL}}
+            />
+        </footer>
     </>);
 }
 

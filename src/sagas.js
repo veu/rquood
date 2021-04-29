@@ -1,8 +1,24 @@
 import delay from 'delay';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { replaceSquares, startGame, updateHighscore, advanceTutorial, discardSelection, startTutorial } from './state/actions';
+import {
+    replaceSquares,
+    startGame,
+    updateHighscore,
+    advanceTutorial,
+    discardSelection,
+    startTutorial,
+    setSize
+} from './state/actions';
 import { BOARD_HEIGHT, BOARD_WIDTH, TUTORIAL_URL } from './config';
-import { isSelectionHidden, getBucket, getScore, getSelectionSize, getSelectedSquares, isGameActive, isTutorial } from './state/selectors';
+import {
+    isSelectionHidden,
+    getBucket,
+    getScore,
+    getSelectionSize,
+    getSelectedSquares,
+    isGameActive,
+    isTutorial
+} from './state/selectors';
 
 function getRandom(bucket, count, min=0, max=3, size=2) {
     return [...Array(count)].reduce(([values, bucket]) => {
@@ -50,22 +66,25 @@ function* onReplaceSquares() {
 function* onRequestStartGame() {
     const [values] = getRandom([], BOARD_HEIGHT * BOARD_WIDTH);
 
-    yield put(startGame(values));
+    yield put(startGame(values, BOARD_WIDTH, BOARD_HEIGHT));
 }
 
 function* onRequestAssureGame() {
     const state = yield select();
 
-    if (!isGameActive(state)) {
+    if (isGameActive(state)) {
+        yield put(setSize(BOARD_WIDTH, BOARD_HEIGHT))
+    } else {
         const [values] = getRandom([], BOARD_HEIGHT * BOARD_WIDTH);
 
-        yield put(startGame(values));
+        yield put(startGame(values, BOARD_WIDTH, BOARD_HEIGHT));
     }
 }
 
 function* onLocationChange({ payload }) {
     if (payload.location.pathname === TUTORIAL_URL) {
-        yield put(startTutorial());
+        const isPortrait = matchMedia('only screen and (orientation : portrait)').matches;
+        yield put(startTutorial(isPortrait));
     }
 
     yield put(discardSelection());
