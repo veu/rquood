@@ -1,6 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useClick, useKaiOsSoftwareKeys } from '../hooks';
+import { connect } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { goBack } from 'connected-react-router';
+import { TITLE_URL } from "../config";
+import { useBackKey, useClick, useKaiOsSoftwareKeys } from '../hooks';
 import BackLink from './BackLink';
 
 function SideLink({ link, innerRef }) {
@@ -29,9 +32,16 @@ function SideLink({ link, innerRef }) {
     );
 }
 
-function BottomMenu({ center, left, right }) {
+function BottomMenu({ center, goBack, left, right }) {
     const { refLeft, refRight } = useKaiOsSoftwareKeys();
     useClick(center.onClick || (() => {}));
+    const history = useHistory();
+    useBackKey((event) => {
+        if (history.location.pathname !== TITLE_URL) {
+            goBack()
+            event.preventDefault();
+        }
+    });
 
     return (
     <div block="bottom-menu">
@@ -47,4 +57,4 @@ function BottomMenu({ center, left, right }) {
     </div>);
 }
 
-export default BottomMenu;
+export default connect(null, { goBack })(BottomMenu);

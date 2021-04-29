@@ -1,6 +1,22 @@
 import { useEffect, useRef } from "react";
 import { KEY_SOFT_LEFT, KEY_SOFT_RIGHT } from "./config";
 
+export function useBackKey(onBack) {
+    useEffect(() => {
+        const handler = (event) => {
+            if (event.key === 'Backspace') {
+                onBack(event);
+            }
+        };
+
+        document.addEventListener('keydown', handler);
+
+        return () => {
+            document.removeEventListener('keydown', handler);
+        };
+    }, []);
+}
+
 export function useKaiOsSoftwareKeys() {
     const refLeft = useRef();
     const refRight = useRef();
