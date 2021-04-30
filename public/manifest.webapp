@@ -1,8 +1,8 @@
 {
   "version": "2.0.0",
   "name": "Quood",
-  "description": "A relaxing puzzle game",
   "subtitle": "A match square game",
+  "description": "Match cute animal squares without pressure",
   "type": "web",
   "launch_path": "/index.html",
   "icons": {
@@ -16,8 +16,8 @@
   "locales": {
     "en-US": {
       "name": "Quood",
-      "subtitle": "A relaxing puzzle game",
-      "description": "Match cute animal squares and relax"
+      "subtitle": "A match square game",
+      "description": "Match cute animal squares without pressure"
     }
   },
   "default_locale": "en-US",
