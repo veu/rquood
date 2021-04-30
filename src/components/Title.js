@@ -22,10 +22,9 @@ function Title() {
 
     const squares = range(0, BOARD_HEIGHT * BOARD_WIDTH).map((index) => {
         return (
-            <div block="board" elem="square" key={index}>
+            <div className="board__square" key={index}>
                 <div
-                    block="square"
-                    mods={{type: 1}}
+                    className="square square_type_1"
                     style={squareStyle}
                 ></div>
             </div>
@@ -34,8 +33,8 @@ function Title() {
 
     return (<>
         <main>
-            <div block="board" mods={{ title: true }}>
-                <div block="board" elem="title">Quood</div>
+            <div className="board">
+                <div className="board__title">Quood</div>
                 {squares}
             </div>
         </main>

@@ -71,7 +71,7 @@ export default function Board() {
 
     const squares = range(0, height * width).map((index) => {
         return (
-            <div block="board" elem="square" key={index}>
+            <div className="board__square" key={index}>
                 <Square
                     cursor={cursor}
                     index={index}
@@ -81,7 +81,7 @@ export default function Board() {
     });
 
     return (
-        <div block="board">
+        <div className="board">
             {squares}
         </div>
     );

@@ -10,12 +10,12 @@ export default function HueSlider({cursor, index}) {
     };
 
     return (
-        <div block="slider" mods={{active: index === cursor}}>
-            <div block="slider" elem="square">
-                <div block="square" mods={{type: index}} style={style}></div>
+        <div className={`slider${index === cursor ? ' slider_active' : ''}`}>
+            <div className="slider__square">
+                <div className={`square square_type_${index}`} style={style}></div>
             </div>
-            <div block="slider" elem="bar">
-                <div block="slider" elem="value"
+            <div className="slider__bar">
+                <div className="slider__value"
                     style={{width: `${hue / 3.6}%`}}>
                 </div>
             </div>

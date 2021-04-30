@@ -38,14 +38,11 @@ function Options({ goBack }) {
             </h1>
         </header>
         <main>
-            <div block="menu">
-                <div block="menu" elem="block">
-                    <div block="options-headline">Square Colors</div>
+            <div className="menu">
+                <div className="menu__block">
+                    <div className="options-headline">Square Colors</div>
                     {sliders}
-                    <button
-                        block="action"
-                        mods={{active: cursor === 3}}
-                    >
+                    <button className={`action${cursor === 3 ? ' action_active' : ''}`}>
                         Reset
                     </button>
                 </div>

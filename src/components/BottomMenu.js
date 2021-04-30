@@ -44,14 +44,14 @@ function BottomMenu({ center, goBack, left, right }) {
     });
 
     return (
-    <div block="bottom-menu">
-        <div block="bottom-menu" elem="action">
+    <div className="bottom-menu">
+        <div className="bottom-menu__action">
             <SideLink link={left} innerRef={refLeft} />
         </div>
-        <div block="bottom-menu" elem="action">
+        <div className="bottom-menu__action">
             {center.text}
         </div>
-        <div block="bottom-menu" elem="action">
+        <div className="bottom-menu__action">
             <SideLink link={right} innerRef={refRight} />
         </div>
     </div>);

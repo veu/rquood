@@ -20,7 +20,14 @@ export default function Square({cursor, index}) {
         }
     }, [cursor]);
 
+    const block = 'square';
+    const mods = Object
+        .entries(square)
+        .filter(([_, value]) => value !== false)
+        .map(([name, val]) => `${block}_${name}${val === true ? '' : '_' + val}`);
+    const className = [block, ...mods].join(' ');
+
     return (
-        <button block="square" mods={square} style={style} ref={ref}></button>
+        <button className={className} style={style} ref={ref}></button>
     );
 }

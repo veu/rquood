@@ -10,15 +10,12 @@ function About() {
             </h1>
         </header>
         <main>
-            <div block="menu">
-                <div block="message">
+            <div className="menu">
+                <div className="message">
                     Quood Version 2.0.0<br />
                     By Rebecca König
                 </div>
-                <button
-                    block="action"
-                    mods={{active: true}}
-                >
+                <button className="action action_active">
                     https://monometric.net
                 </button>
             </div>

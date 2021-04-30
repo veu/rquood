@@ -26,24 +26,24 @@ function Menu() {
     };
 
     return (
-        <div block="menu">
-            <div block="stat">
-                <div block="stat" elem="title">Score</div>
-                <div block="stat" elem="value">{score}</div>
+        <div className="menu">
+            <div className="stat">
+                <div className="stat__title">Score</div>
+                <div className="stat__value">{score}</div>
             </div>
-            <div block="stat">
-                <div block="stat" elem="title">Streak</div>
+            <div className="stat">
+                <div className="stat__title">Streak</div>
 
-                <div block="stat" elem="value">
+                <div className="stat__value">
                 {streakCount}
-                {streakCount > 0 && <div block="stat" elem="square">
-                <div block="square" mods={{type: streakType}} style={style}></div>
+                {streakCount > 0 && <div className="stat__square">
+                <div className={`square square_type_${streakType}`} style={style}></div>
             </div>}
                 </div>
             </div>
-            <div block="stat">
-                <div block="stat" elem="title">Highscore</div>
-                <div block="stat" elem="value">{highscore}</div>
+            <div className="stat">
+                <div className="stat__title">Highscore</div>
+                <div className="stat__value">{highscore}</div>
             </div>
         </div>
     );

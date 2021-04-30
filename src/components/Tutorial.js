@@ -17,8 +17,8 @@ function Tutorial({ goBack }) {
         </header>
         <main className="tutorial">
             <Board />
-            <div block="menu">
-                <div block="message">{message}</div>
+            <div className="menu">
+                <div className="message">{message}</div>
             </div>
         </main>
         <footer>

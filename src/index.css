@@ -18,15 +18,13 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-header {
-    h1 {
-        color: #fff;
-        flex-basis: 100%;
-        font-size: 17px;
-        margin: 0;
-        padding-bottom: 6px;
-        text-align: center;
-    }
+header h1 {
+    color: #fff;
+    flex-basis: 100%;
+    font-size: 17px;
+    margin: 0;
+    padding-bottom: 6px;
+    text-align: center;
 }
 
 main {
@@ -39,34 +37,32 @@ main {
     height: 224px;
     width: 224px;
     position: relative;
-
-    &__square {
-        float: left;
-        height: 32px;
-        width: 32px;
-    }
-
-    &__title {
-        background: #000;
-        color: white;
-        font-size: 24px;
-        font-weight: bold;
-        line-height: 32px;
-        height: 32px;
-        position: absolute;
-        top: 64px;
-        left: 32px;
-        text-align: center;
-        text-transform: uppercase;
-        width: 96px;
-        z-index: 5;
-    }
 }
 
-main.tutorial {
-    .board {
-        height: 128px;
-    }
+.board__square {
+    float: left;
+    height: 32px;
+    width: 32px;
+}
+
+.board__title {
+    background: #000;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 32px;
+    height: 32px;
+    position: absolute;
+    top: 64px;
+    left: 32px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 96px;
+    z-index: 5;
+}
+
+main.tutorial .board {
+    height: 128px;
 }
 
 .square {
@@ -77,66 +73,66 @@ main.tutorial {
     width: 100%;
     image-rendering: pixelated;
     transition: transform 300ms, opacity 300ms;
+}
 
-    &::before {
-        background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
-        content: '';
-        display: block;
-        padding-bottom: 100%;
-    }
+.square::before {
+    background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+}
 
-    &_type_0&_active {
-        background-color: #a3983a;
+.square_type_0.square_active {
+    background-color: #a3983a;
+}
 
-        &:focus {
-            background-color: #e5dea9;
-        }
-    }
+.square_type_0.square_active:focus {
+    background-color: #e5dea9;
+}
 
-    &_type_1&_active {
-        background-color: #4c497e;
+.square_type_1.square_active {
+    background-color: #4c497e;
+}
 
-        &:focus {
-            background-color: #cccce7;
-        }
-    }
+.square_type_1.square_active:focus {
+    background-color: #cccce7;
+}
 
-    &_type_2&_active {
-        background-color: #c44d44;
+.square_type_2.square_active {
+    background-color: #c44d44;
+}
 
-        &:focus {
-            background-color: #e6c8c6;
-        }
-    }
+.square_type_2.square_active:focus {
+    background-color: #e6c8c6;
+}
 
-    &:focus {
-        background-color: #fff;
-    }
+.square:focus {
+    background-color: #fff;
+}
 
-    &_type_0::before {
-        background-position: 0 0;
-    }
+.square_type_0::before {
+    background-position: 0 0;
+}
 
-    &_type_1::before {
-        background-position: 50% 0;
-    }
+.square_type_1::before {
+    background-position: 50% 0;
+}
 
-    &_type_2::before {
-        background-position: 100% 0;
-    }
+.square_type_2::before {
+    background-position: 100% 0;
+}
 
-    &_type_3::before {
-        background: none;
-    }
+.square_type_3::before {
+    background: none;
+}
 
-    &_hidden {
-        opacity: 0;
-        transform: scale(0, 0);
-    }
+.square_hidden {
+    opacity: 0;
+    transform: scale(0, 0);
+}
 
-    &_ready::before {
-        animation: jump 300ms infinite alternate-reverse;
-    }
+.square_ready::before {
+    animation: jump 300ms infinite alternate-reverse;
 }
 
 .bottom-menu {
@@ -148,37 +144,37 @@ main.tutorial {
     margin: 4px;
     position: absolute;
     right: 0;
+}
 
-    &__action {
-        background: none;
-        border: none;
-        color: #fff;
-        display: inline;
-        flex-grow: 1;
-        flex-basis: 33%;
-        font-size: 17px;
-        font-weight: 600;
-        text-align: center;
+.bottom-menu__action {
+    background: none;
+    border: none;
+    color: #fff;
+    display: inline;
+    flex-grow: 1;
+    flex-basis: 33%;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+}
 
-        &:first-child {
-            font-size: 14px;
-            text-align: left;
-        }
+.bottom-menu__action:first-child {
+    font-size: 14px;
+    text-align: left;
+}
 
-        &:last-child {
-            font-size: 14px;
-            text-align: right;
-        }
+.bottom-menu__action:last-child {
+    font-size: 14px;
+    text-align: right;
+}
 
-        &_inactive {
-            visibility: hidden;
-        }
+.bottom-menu__action_inactive {
+    visibility: hidden;
+}
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-    }
+.bottom-menu__action a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .menu {
@@ -186,25 +182,23 @@ main.tutorial {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    &__title {
-        color: #fff;
-        flex-basis: 100%;
-        font-size: 17px;
-        padding-bottom: 6px;
-        text-align: center;
-    }
-
-    &__block {
-        flex-basis: 100%;
-    }
 }
 
-main.game {
-    .menu {
-        flex-direction: row;
-        margin: 8px 4px 0;
-    }
+.menu__title {
+    color: #fff;
+    flex-basis: 100%;
+    font-size: 17px;
+    padding-bottom: 6px;
+    text-align: center;
+}
+
+.menu__block {
+    flex-basis: 100%;
+}
+
+main.game .menu {
+    flex-direction: row;
+    margin: 8px 4px 0;
 }
 
 .action {
@@ -217,53 +211,51 @@ main.game {
     margin: 0 -8px 0;
     padding: 12px 12px;
     width: calc(100% + 16px);
-
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    &_active {
-        background: #fff;
-        color: #000;
-    }
 }
 
-.stat {
-    &__title {
-        color: #fff;
-        text-align: left;
-        font-size: 14px;
-    }
+.action a {
+    color: inherit;
+    text-decoration: none;
+}
 
-    &__value {
-        color: white;
-        display: flex;
-        flex-direction: row-reverse;
-        font-size: 21px;
-        text-align: right;
-    }
+.action_active {
+    background: #fff;
+    color: #000;
+}
 
-    &__square {
-        background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
-        background-position-x: 150%;
-        height: 16px;
-        image-rendering: pixelated;
-        margin-top: 2px;
-        width: 16px;
+.stat__title {
+    color: #fff;
+    text-align: left;
+    font-size: 14px;
+}
 
-        &_type_0 {
-            background-position-x: 0;
-        }
+.stat__value {
+    color: white;
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 21px;
+    text-align: right;
+}
 
-        &_type_1 {
-            background-position-x: 50%;
-        }
+.stat__square {
+    background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
+    background-position-x: 150%;
+    height: 16px;
+    image-rendering: pixelated;
+    margin-top: 2px;
+    width: 16px;
+}
 
-        &_type_2 {
-            background-position-x: 100%;
-        }
-    }
+.stat__square_type_0 {
+    background-position-x: 0;
+}
+
+.stat__square_type_1 {
+    background-position-x: 50%;
+}
+
+.stat__square_type_2 {
+    background-position-x: 100%;
 }
 
 .message {
@@ -278,67 +270,67 @@ main.game {
     display: flex;
     margin: 0 -8px 0;
     padding: 8px 12px;
+}
 
-    &__square {
-        width: 32px;
-    }
+.slider__square {
+    width: 32px;
+}
 
-    &__bar {
-        margin: 12px 0 0 8px;
-        flex-grow: 1;
-        height: 8px;
-        background: #888;
-        border: 0 solid #888;
-        border-width: 0 10.5px;
-        border-radius: 4px;
-    }
+.slider__bar {
+    margin: 12px 0 0 8px;
+    flex-grow: 1;
+    height: 8px;
+    background: #888;
+    border: 0 solid #888;
+    border-width: 0 10.5px;
+    border-radius: 4px;
+}
 
-    &__value {
-        background: #fff;
-        height: 100%;
-        position: relative;
-        width: 50%;
+.slider__value {
+    background: #fff;
+    height: 100%;
+    position: relative;
+    width: 50%;
+}
 
-        &::before {
-            background: #fff;
-            border-radius: 4px;
-            content: '';
-            height: 100%;
-            margin-left: -10.5px;
-            position: absolute;
-            width: 21px;
-        }
+.slider__value::before {
+    background: #fff;
+    border-radius: 4px;
+    content: '';
+    height: 100%;
+    margin-left: -10.5px;
+    position: absolute;
+    width: 21px;
+}
 
-        &::after {
-            background: #fff;
-            border-radius: 14.5px;
-            border: 4px solid #000;
-            content: '';
-            height: 21px;
-            margin-top: -15px;
-            position: absolute;
-            right: -14.5px;
-            top: 50%;
-            width: 21px;
-        }
-    }
+.slider__value::after {
+    background: #fff;
+    border-radius: 14.5px;
+    border: 4px solid #000;
+    content: '';
+    height: 21px;
+    margin-top: -15px;
+    position: absolute;
+    right: -14.5px;
+    top: 50%;
+    width: 21px;
+}
 
-    &_active {
-        background: #fff;
+.slider_active {
+    background: #fff;
+}
 
-        .slider__value {
-            background: #000;
+.slider_active .slider__value {
+    background: #000;
+}
 
-            &::before {
-                background: #000;
-            }
+.slider_active .slider__value::before {
+    background: #000;
+}
 
-            &::after {
-                background: #000;
-                border: 4px solid #fff;
-            }
-       }
-    }
+.slider_active .slider__value::after {
+    background: #000;
+    border: 4px solid #fff;
 }
 
 .options-headline {
@@ -365,10 +357,10 @@ main.game {
         left: initial;
         flex-direction: column;
         width: 68px;
+    }
 
-        &__action + &__action {
-            margin-top: 4px;
-        }
+    .bottom-menu__action + .bottom-menu__action {
+        margin-top: 4px;
     }
 
     .menu {
@@ -382,35 +374,33 @@ main.game {
     main.game {
         display: flex;
         justify-content: space-between;
+    }
 
-        .menu {
-            flex-direction: column;
-            justify-content: flex-start;
-            margin: 4px 4px 0 0;
-        }
+    main.game .menu {
+        flex-direction: column;
+        justify-content: flex-start;
+        margin: 4px 4px 0 0;
+    }
 
-        .stat {
-            &__title {
-                text-align: right;
-            }
+    main.game .stat__title {
+        text-align: right;
+    }
 
-            &__square {
-                float: left;
-            }
+    main.game .stat__square {
+        float: left;
+    }
 
-            & + & {
-                margin-top: 8px;
-            }
-        }
+    main.game .stat + main.game .stat {
+        margin-top: 8px;
     }
 
     main.tutorial {
         display: flex;
+    }
 
-        .board {
-            flex-shrink: 0;
-            height: 160px;
-            width: 128px;
-        }
+    main.tutorial .board {
+        flex-shrink: 0;
+        height: 160px;
+        width: 128px;
     }
 }
