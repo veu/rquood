@@ -19,14 +19,16 @@ function patchReducer(state) {
     return state;
 }
 
-export default (history) => reduceReducers(
+export default function reducers(history) {
+  return reduceReducers(
     combineReducers({
-        router: connectRouter(history),
-        game: gameReducers,
-        tutorial: tutorialReducers,
-        highscore: highscoreReducers,
-        selection: selectionReducers,
-        options: optionsReducers,
+      router: connectRouter(history),
+      game: gameReducers,
+      tutorial: tutorialReducers,
+      highscore: highscoreReducers,
+      selection: selectionReducers,
+      options: optionsReducers,
     }),
     patchReducer,
-);
+  );
+}

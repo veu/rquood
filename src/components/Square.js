@@ -18,7 +18,7 @@ export default function Square({cursor, index}) {
         if (x === cursor.x && y === cursor.y) {
             ref.current.focus();
         }
-    }, [cursor]);
+    }, [cursor, index, width]);
 
     const block = 'square';
     const mods = Object
@@ -28,6 +28,6 @@ export default function Square({cursor, index}) {
     const className = [block, ...mods].join(' ');
 
     return (
-        <button className={className} style={style} ref={ref}></button>
+        <button className={className} style={style} ref={ref} />
     );
 }

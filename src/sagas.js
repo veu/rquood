@@ -90,7 +90,7 @@ function* onLocationChange({ payload }) {
     yield put(discardSelection());
 }
 
-export default function* () {
+export default function* saga () {
     yield takeEvery('HIDE_SELECTION', onHideSelection);
     yield takeEvery('REPLACE_SQUARES', onReplaceSquares);
     yield takeEvery('REQUEST_ASSURE_GAME', onRequestAssureGame);

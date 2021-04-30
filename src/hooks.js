@@ -14,7 +14,7 @@ export function useBackKey(onBack) {
         return () => {
             document.removeEventListener('keydown', handler);
         };
-    }, []);
+    }, [onBack]);
 }
 
 export function useKaiOsSoftwareKeys() {
