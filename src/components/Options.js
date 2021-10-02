@@ -1,62 +1,54 @@
-import React from 'react';
-import { useDispatch, useSelector, connect } from 'react-redux';
-import { goBack } from 'connected-react-router';
-import range from 'ramda/src/range';
-import { SQUARE_TYPES, IS_KAY_OS, GAME_URL } from '../config';
-import { resetHues, changeInputMode, requestStartGame } from '../state/actions';
-import HueSlider from './HueSlider';
-import { getInputMode } from '../state/selectors';
-import { useKaiOsSoftwareKeys } from '../hooks';
-import { INPUT_MODE_TOUCH } from '../state/reducers/options';
-import BackLink from './BackLink';
+import React from "react";
+import range from "ramda/src/range";
+import { SQUARE_TYPES, GAME_URL } from "../config";
+import HueSlider from "./HueSlider";
+import { getInputMode } from "../state/selectors";
+import { INPUT_MODE_TOUCH } from "../state/reducers/options";
+import BackLink from "./BackLink";
+import { useStore } from "../state/store";
 
-function Options({ goBack }) {
-    const { refLeft, refRight } = useKaiOsSoftwareKeys();
-    const inputMode = useSelector(getInputMode);
-    const sliders = range(0, SQUARE_TYPES).map((type) => {
-        return <HueSlider key={type} index={type} />
-    });
+function Options() {
+  const { changeInputMode, inputMode, startGame, resetHues } = useStore(
+    (state) => ({
+      changeInputMode: state.changeInputMode,
+      inputMode: getInputMode(state),
+      startGame: state.startGame,
+      resetHues: state.resetHues,
+    })
+  );
+  const sliders = range(0, SQUARE_TYPES).map((type) => {
+    return <HueSlider key={type} index={type} />;
+  });
 
-    const dispatch = useDispatch();
-
-    const restart = () => {
-        dispatch(requestStartGame());
-    };
-
-    return (
-        <>
-            <div block="menu">
-                {!IS_KAY_OS && (
-                    <div block="menu" elem="block">
-                        <div block="options-headline">Input Mode</div>
-                        <button block="action" onClick={() => dispatch(changeInputMode())}>
-                            {inputMode === INPUT_MODE_TOUCH ? 'Touch' : 'Click'}
-                        </button>
-                    </div>
-                )}
-                <div block="menu" elem="block">
-                    <div block="options-headline">Square Colors</div>
-                    {sliders}
-                    <button block="action" onClick={() => dispatch(resetHues())}>
-                        Reset
-                    </button>
-                </div>
-            </div>
-            <div block="main-menu">
-                <div block="main-menu" elem="action">
-                    <BackLink to={GAME_URL} innerRef={refLeft} />
-                </div>
-                <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
-                    SELECT
-                </div>
-                <div block="main-menu" elem="action">
-                    <BackLink to={GAME_URL} innerRef={refRight} onClick={restart}>
-                        Restart
-                    </BackLink>
-                </div>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className="menu">
+        <div className="menu__block">
+          <div className="options-headline">Input Mode</div>
+          <button className="action" onClick={() => changeInputMode()}>
+            {inputMode === INPUT_MODE_TOUCH ? "Touch" : "Click"}
+          </button>
+        </div>
+        <div className="menu__block">
+          <div className="options-headline">Square Colors</div>
+          {sliders}
+          <button className="action" onClick={() => resetHues()}>
+            Reset
+          </button>
+        </div>
+      </div>
+      <div className="main-menu">
+        <div className="main-menu__action">
+          <BackLink to={GAME_URL} />
+        </div>
+        <div className="main-menu__action">
+          <BackLink to={GAME_URL} onClick={() => startGame()}>
+            Restart
+          </BackLink>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default connect(null, { goBack })(Options);
+export default Options;

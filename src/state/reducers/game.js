@@ -1,41 +1,42 @@
-import { handleActions } from 'redux-actions';
+import produce from "immer";
+import { getSelectedSquares, getSelectionSize } from "../selectors";
 
 const defaultGame = {
-    board: null,
-    bucket: [],
-    score: 0,
-    streak: null,
+  board: null,
+  bucket: [],
+  score: 0,
+  streak: null,
 };
 
-const gameReducers = handleActions({
-    START_GAME: (_, {payload: {board}}) => {
-        return {
-            ...defaultGame,
-            board,
-        };
-    },
-    REPLACE_SQUARES: (game, {payload: {indexes, values, size, bucket}}) => {
-        const board = [...game.board];
-        const type = board[indexes[0]];
+export const createGameSlice = (set) => ({
+  game: null,
+  initGame: (board) =>
+    set(
+      produce((state) => {
+        state.game = { ...defaultGame, board };
+      })
+    ),
+  replaceSquares: (values, bucket) =>
+    set(
+      produce((state) => {
+        const indexes = getSelectedSquares(state);
+        const size = getSelectionSize(state);
+        const type = state.game.board[indexes[0]];
 
         for (const index of indexes) {
-            board[index] = values.pop();
+          state.game.board[index] = values.pop();
         }
 
-        const streakCount = game.streak && game.streak.type === type ? game.streak.count + 1 : 1;
-        const score = game.score + (size | 0) * streakCount;
-        const streak = {
-            count: streakCount,
-            type,
+        const streakCount =
+          state.game.streak && state.game.streak.type === type
+            ? state.game.streak.count + 1
+            : 1;
+        state.game.score = state.game.score + (size | 0) * streakCount;
+        state.game.streak = {
+          count: streakCount,
+          type,
         };
-
-        return {
-            board,
-            bucket,
-            score,
-            streak,
-        }
-    }
-}, null);
-
-export default gameReducers;
+        state.game.bucket = bucket;
+      })
+    ),
+});

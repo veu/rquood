@@ -1,26 +1,31 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { requestAssureGame } from '../state/actions';
-import { isGameActive } from '../state/selectors';
-import Board from './Board';
-import Menu from './Menu';
+import React, { useEffect } from "react";
+import { isGameActive } from "../state/selectors";
+import Board from "./Board";
+import Menu from "./Menu";
+import { useStore } from "../state/store";
 
 function Game() {
-    const dispatch = useDispatch();
-    const isActive = useSelector(isGameActive);
+  const { isActive, assureGame, resetSelection } = useStore((state) => ({
+    isActive: isGameActive(state),
+    assureGame: state.assureGame,
+    resetSelection: state.resetSelection,
+  }));
 
-    useEffect(() => {
-        dispatch(requestAssureGame());
-    });
+  useEffect(() => {
+    assureGame();
+    resetSelection();
+  }, [assureGame, resetSelection]);
 
-    if (!isActive) {
-        return null;
-    }
+  if (!isActive) {
+    return null;
+  }
 
-    return (<>
-        <Board />
-        <Menu />
-    </>);
+  return (
+    <>
+      <Board />
+      <Menu />
+    </>
+  );
 }
 
 export default Game;

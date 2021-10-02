@@ -1,13 +1,21 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { getSquare, getHues } from '../state/selectors';
+import React from "react";
+import { getSquare, getHues } from "../state/selectors";
+import { useStore } from "../state/store";
 
-export default function Square({index}) {
-    const square = useSelector(getSquare(index));
-    const hues = useSelector(getHues);
-    const style = {
-        filter: `hue-rotate(${hues[square.type]}deg)`
-    };
+export default function Square({ index, isTutorial = false }) {
+  const [hues, square] = useStore((state) => [
+    getHues(state),
+    getSquare(isTutorial, index)(state),
+  ]);
+  const style = {
+    filter: `hue-rotate(${hues[square.type]}deg)`,
+  };
 
-    return <button block="square" mods={square} style={style}></button>;
+  const block = "square";
+  const mods = Object.entries(square)
+    .filter(([_, value]) => value !== false)
+    .map(([name, val]) => `${block}_${name}${val === true ? "" : "_" + val}`);
+  const className = [block, ...mods].join(" ");
+
+  return <button className={className} style={style} />;
 }

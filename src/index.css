@@ -44,37 +44,32 @@ main {
     height: 480rem;
     padding-bottom: 100%;
     position: relative;
+}
 
-    &:not(&_title) {
-        cursor: pointer;
-    }
+.board:not(.board_title) {
+    cursor: pointer;
+}
 
-    &_tutorial {
-        height: calc(480rem * 5 / 7);
-        padding-bottom: calc(100% * 5 / 7);
-    }
+.board__square {
+    float: left;
+    height: calc(480rem / 7.01);
+    width: calc(480rem / 7.01);
+}
 
-    &__square {
-        float: left;
-        height: calc(480rem / 7.01);
-        width: calc(480rem / 7.01);
-    }
-
-    &__title {
-        background: #000;
-        color: white;
-        font-size: 3.3em;
-        font-weight: bold;
-        line-height: 1.34em;
-        height: calc(480rem / 7);
-        position: absolute;
-        top: calc(480rem / 7 * 2);
-        left: calc(480rem / 7 * 1);
-        text-align: center;
-        text-transform: uppercase;
-        width: calc(480rem / 7 * 3);
-        z-index: 5;
-    }
+.board__title {
+    background: #000;
+    color: white;
+    font-size: 3.3em;
+    font-weight: bold;
+    line-height: 1.34em;
+    height: calc(480rem / 7);
+    position: absolute;
+    top: calc(480rem / 7 * 2);
+    left: calc(480rem / 7 * 1);
+    text-align: center;
+    text-transform: uppercase;
+    width: calc(480rem / 7 * 3);
+    z-index: 5;
 }
 
 .square {
@@ -86,47 +81,47 @@ main {
     image-rendering: pixelated;
     opacity: .9;
     transition: transform 500ms, opacity 500ms;
+}
 
-    &::before {
-        background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
-        content: '';
-        display: block;
-        padding-bottom: 100%;
-    }
+.square::before {
+    background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+}
 
-    &_active {
-        opacity: 1;
-        transform: scale(1.2, 1.2);
-    }
+.square_active {
+    opacity: 1;
+    transform: scale(1.2, 1.2);
+}
 
-    &_inactive {
-        opacity: .6;
-    }
+.square_inactive {
+    opacity: .6;
+}
 
-    &_type_0::before {
-        background-position: 0 0;
-    }
+.square_type_0::before {
+    background-position: 0 0;
+}
 
-    &_type_1::before {
-        background-position: 50% 0;
-    }
+.square_type_1::before {
+    background-position: 50% 0;
+}
 
-    &_type_2::before {
-        background-position: 100% 0;
-    }
+.square_type_2::before {
+    background-position: 100% 0;
+}
 
-    &_type_3::before {
-        background: none;
-    }
+.square_type_3::before {
+    background: none;
+}
 
-    &_hidden {
-        opacity: 0;
-        transform: scale(0, 0);
-    }
+.square_hidden {
+    opacity: 0;
+    transform: scale(0, 0);
+}
 
-    &_ready::before {
-        animation: jump 300ms infinite alternate-reverse;
-    }
+.square_ready::before {
+    animation: jump 300ms infinite alternate-reverse;
 }
 
 .main-menu {
@@ -138,38 +133,38 @@ main {
     margin: 8rem;
     position: absolute;
     right: 0;
+}
 
-    &__action {
-        background: none;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        display: inline;
-        flex-grow: 1;
-        flex-basis: 33%;
-        font-size: 35rem;
-        font-weight: 600;
-        text-align: center;
+.main-menu__action {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inline;
+    flex-grow: 0;
+    flex-basis: 33%;
+    font-size: 35rem;
+    font-weight: 600;
+    text-align: center;
+}
 
-        &:first-child {
-            font-size: 29rem;
-            text-align: left;
-        }
+.main-menu__action:first-child {
+    font-size: 29rem;
+    text-align: left;
+}
 
-        &:last-child {
-            font-size: 29rem;
-            text-align: right;
-        }
+.main-menu__action:last-child {
+    font-size: 29rem;
+    text-align: right;
+}
 
-        &_inactive {
-            visibility: hidden;
-        }
+.main-menu__action_inactive {
+    visibility: hidden;
+}
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-    }
+.main-menu__action a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .menu {
@@ -180,17 +175,17 @@ main {
     font-size: 1rem;
     justify-content: space-between;
     margin: 8rem;
+}
 
-    &_main {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
+.menu_main {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 
-    &__block {
-        flex-basis: 100%;
-    }
+.menu__block {
+    flex-basis: 100%;
 }
 
 .action {
@@ -203,48 +198,46 @@ main {
     margin: 0 0 10rem;
     padding: 0;
     user-select: none;
-
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
 }
 
-.stat {
-    &__title {
-        color: #fff;
-        text-align: left;
-        font-size: 29rem;
-    }
+.action a {
+    color: inherit;
+    text-decoration: none;
+}
 
-    &__value {
-        color: white;
-        font-size: 42rem;
-        text-align: right;
-    }
+.stat__title {
+    color: #fff;
+    text-align: left;
+    font-size: 29rem;
+}
 
-    &__square {
-        background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
-        background-position-x: 150%;
-        float: right;
-        height: 42rem;
-        image-rendering: pixelated;
-        margin-right: -4rem;
-        margin-top: 4rem;
-        width: 42rem;
+.stat__value {
+    color: white;
+    font-size: 42rem;
+    text-align: right;
+}
 
-        &_type_0 {
-            background-position-x: 0;
-        }
+.stat__square {
+    background: 50% 0 / 300% url('./assets/animals.png') no-repeat;
+    background-position-x: 150%;
+    float: right;
+    height: 42rem;
+    image-rendering: pixelated;
+    margin-right: -4rem;
+    margin-top: 4rem;
+    width: 42rem;
+}
 
-        &_type_1 {
-            background-position-x: 50%;
-        }
+.stat__square_type_0 {
+    background-position-x: 0;
+}
 
-        &_type_2 {
-            background-position-x: 100%;
-        }
-    }
+.stat__square_type_1 {
+    background-position-x: 50%;
+}
+
+.stat__square_type_2 {
+    background-position-x: 100%;
 }
 
 .message {
@@ -256,23 +249,23 @@ main {
 .slider {
     display: flex;
     margin-bottom: 20rem;
+}
 
-    &__square {
-        width: 40rem;
-    }
+.slider__square {
+    width: 40rem;
+}
 
-    &__bar-border {
-        flex-grow: 1;
-        height: 40rem;
-        border: 4rem solid #fff;
-        margin-left: 10rem;
-        position: relative;
-    }
+.slider__bar-border {
+    flex-grow: 1;
+    height: 40rem;
+    border: 4rem solid #fff;
+    margin-left: 10rem;
+    position: relative;
+}
 
-    &__bar {
-        background-color: #fff;
-        height: 100%;
-    }
+.slider__bar {
+    background-color: #fff;
+    height: 100%;
 }
 
 .options-headline {
