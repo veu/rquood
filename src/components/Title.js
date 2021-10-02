@@ -9,12 +9,12 @@ import {
     IS_KAY_OS
 } from '../config';
 import { useKaiOsSoftwareKeys } from '../hooks';
-import { useSelector } from 'react-redux';
 import { getHues } from '../state/selectors';
+import { useStore } from "../state/store";
 
 function Title() {
     const { refLeft, refRight } = useKaiOsSoftwareKeys();
-    const hues = useSelector(getHues);
+    const hues = useStore(getHues);
     const squareStyle = {
         filter: `hue-rotate(${hues[1]}deg)`
     };

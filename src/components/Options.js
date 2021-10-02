@@ -1,27 +1,24 @@
 import React from 'react';
-import { useDispatch, useSelector, connect } from 'react-redux';
-import { goBack } from 'connected-react-router';
 import range from 'ramda/src/range';
 import { SQUARE_TYPES, IS_KAY_OS, GAME_URL } from '../config';
-import { resetHues, changeInputMode, requestStartGame } from '../state/actions';
 import HueSlider from './HueSlider';
 import { getInputMode } from '../state/selectors';
 import { useKaiOsSoftwareKeys } from '../hooks';
 import { INPUT_MODE_TOUCH } from '../state/reducers/options';
 import BackLink from './BackLink';
+import {useStore} from "../state/store";
 
-function Options({ goBack }) {
+function Options() {
     const { refLeft, refRight } = useKaiOsSoftwareKeys();
-    const inputMode = useSelector(getInputMode);
+    const { changeInputMode, inputMode, startGame, resetHues } = useStore(state => ({
+        changeInputMode: state.changeInputMode,
+        inputMode: getInputMode(state),
+        startGame: state.startGame,
+        resetHues: state.resetHues,
+    }));
     const sliders = range(0, SQUARE_TYPES).map((type) => {
         return <HueSlider key={type} index={type} />
     });
-
-    const dispatch = useDispatch();
-
-    const restart = () => {
-        dispatch(requestStartGame());
-    };
 
     return (
         <>
@@ -29,7 +26,7 @@ function Options({ goBack }) {
                 {!IS_KAY_OS && (
                     <div block="menu" elem="block">
                         <div block="options-headline">Input Mode</div>
-                        <button block="action" onClick={() => dispatch(changeInputMode())}>
+                        <button block="action" onClick={() => changeInputMode()}>
                             {inputMode === INPUT_MODE_TOUCH ? 'Touch' : 'Click'}
                         </button>
                     </div>
@@ -37,7 +34,7 @@ function Options({ goBack }) {
                 <div block="menu" elem="block">
                     <div block="options-headline">Square Colors</div>
                     {sliders}
-                    <button block="action" onClick={() => dispatch(resetHues())}>
+                    <button block="action" onClick={() => resetHues()}>
                         Reset
                     </button>
                 </div>
@@ -50,7 +47,7 @@ function Options({ goBack }) {
                     SELECT
                 </div>
                 <div block="main-menu" elem="action">
-                    <BackLink to={GAME_URL} innerRef={refRight} onClick={restart}>
+                    <BackLink to={GAME_URL} innerRef={refRight} onClick={() => startGame()}>
                         Restart
                     </BackLink>
                 </div>
@@ -59,4 +56,4 @@ function Options({ goBack }) {
     );
 }
 
-export default connect(null, { goBack })(Options);
+export default Options;

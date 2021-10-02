@@ -1,16 +1,24 @@
-import React from 'react';
-import { useSelector, connect } from 'react-redux';
-import { goBack } from 'connected-react-router';
-import { getTutorialMessage } from '../state/selectors';
+import React, { useEffect } from 'react';
 import Board from './Board';
 import { useKaiOsSoftwareKeys } from '../hooks';
 import { IS_KAY_OS, TITLE_URL } from '../config';
 import BackLink from './BackLink';
+import {useStore} from "../state/store";
+import {getTutorialMessage} from "../state/selectors";
 
-function Tutorial({ goBack }) {
+function Tutorial() {
     const { refLeft } = useKaiOsSoftwareKeys();
 
-    const message = useSelector(getTutorialMessage);
+    const [message, resetSelection, startTutorial] = useStore(state => [
+        getTutorialMessage(state),
+        state.resetSelection,
+        state.startTutorial
+    ]);
+
+    useEffect(() => {
+        startTutorial();
+        resetSelection();
+    }, []);
 
     return (<>
         <Board isTutorial={true} />
@@ -34,4 +42,4 @@ function Tutorial({ goBack }) {
     </>);
 }
 
-export default connect(null, { goBack })(Tutorial);
+export default Tutorial;

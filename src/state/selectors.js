@@ -1,15 +1,10 @@
 import { createSelector } from "reselect";
-import { TUTORIAL_URL } from "../config";
 
 const getSelection = (state) => state.selection;
 const getStreak = (state) => state.game && state.game.streak;
 
 export const getGame = (state) => state.game;
 export const getBoard = (state) => {
-    if (state.router.location.pathname === TUTORIAL_URL) {
-        return state.tutorial.board[state.tutorial.step];
-    }
-
     return state.game && state.game.board;
 }
 export const getBucket = (state) => state.game && state.game.bucket;
@@ -57,12 +52,14 @@ export const isBoardLocked = createSelector(
     (hidden) => hidden
 );
 
-export const getSquare = (index) => createSelector(
+export const getSquare = (isTutorial, index) => createSelector(
     getBoard,
+    getTutorialBoard,
     getSelectedSquares,
     isSelectionHidden,
-    (board, squares, hidden) => {
+    (gameBoard, tutorialBoard, squares, hidden) => {
         const active = squares.includes(index);
+        const board = isTutorial ? tutorialBoard : gameBoard;
 
         return {
             type: board && board[index],
@@ -76,9 +73,9 @@ export const getSquare = (index) => createSelector(
 
 // tutorial
 
-export const isTutorial = (state) => state.router.location.pathname === TUTORIAL_URL;
-
 export const getTutorialMessage = (state) => state.tutorial.message[state.tutorial.step];
+
+export const getTutorialBoard = (state) => state.tutorial.board[state.tutorial.step]
 
 // options
 

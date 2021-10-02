@@ -2,51 +2,16 @@ import curry from 'ramda/src/curry';
 import equals from 'ramda/src/equals';
 import range from 'ramda/src/range';
 import uniq from 'ramda/src/uniq';
-import { handleActions } from 'redux-actions';
 import { SQUARE_TYPES, BOARD_WIDTH } from '../../config';
 import { distance, rotate90Around, tween } from '../../vectors';
+import produce from "immer";
+import {getBoard} from "../selectors";
 
 export const defaultSelection = {
     squares: [],
     size: 0,
     hidden: false,
 };
-
-export const selectionReducers = handleActions({
-    START_GAME: () => {
-        return defaultSelection;
-    },
-    UPDATE_SELECTION: (selection, {payload: {board, start, end}}) => {
-        const newSelection = getSelection(board, start, end);
-
-        if (equals(newSelection.squares, selection.squares)) {
-            return selection;
-        }
-
-        return newSelection;
-    },
-    DISCARD_SELECTION: () => {
-        return defaultSelection;
-    },
-    HIDE_SELECTION: (selection) => {
-        if (selection.squares.length < 4) {
-            return defaultSelection;
-        }
-
-        return {
-            ...selection,
-            hidden: true,
-        };
-    },
-    REPLACE_SQUARES: () => {
-        return defaultSelection;
-    },
-    ADVANCE_TUTORIAL: () => {
-        return defaultSelection;
-    }
-}, defaultSelection);
-
-export default selectionReducers;
 
 const getSelection = (board, start, end) => ({
     ...defaultSelection,
@@ -68,3 +33,24 @@ const isValid = curry((board, {x, y}) =>
 const getType = (board, v) => board[toIndex(v)];
 const typeEquals = curry((board, type, v) => getType(board, v) === type);
 const isValidType = curry((board, v) => getType(board, v) < SQUARE_TYPES);
+
+export const createSelectionSlice = set => ({
+    selection: defaultSelection,
+    resetSelection: () => set(produce(state => {
+       state.selection = defaultSelection;
+    })),
+    updateSelection: (start, end) => set(produce((state) => {
+        const newSelection = getSelection(getBoard(state), start, end);
+
+        if (!equals(newSelection.squares, state.selection.squares)) {
+            state.selection = newSelection;
+        }
+    })),
+    hideSelection: () => set(produce(state => {
+        if (state.selection.squares.length < 4) {
+            state.selection = defaultSelection;
+        } else {
+            state.selection.hidden = true;
+        }
+    }))
+})

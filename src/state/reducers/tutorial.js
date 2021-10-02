@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import produce from 'immer';
 
 export const defaultTutorial = {
     board: [
@@ -43,19 +43,9 @@ export const defaultTutorial = {
     step: 0
 }
 
-const tutorialReducers = handleActions({
-    START_TUTORIAL: (tutorial) => {
-        return {
-            ...tutorial,
-            step: 0
-        };
-    },
-    ADVANCE_TUTORIAL: (tutorial) => {
-        return {
-            ...tutorial,
-            step: tutorial.step + 1
-        };
-    }
-}, defaultTutorial);
+export const createTutorialSlice = set => ({
+    tutorial: defaultTutorial,
+    startTutorial: () => set(produce(state => { state.tutorial.step = 0 })),
+    advanceTutorial: () => set(produce(state => { state.tutorial.step += 1 }))
+})
 
-export default tutorialReducers;

@@ -1,26 +1,27 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
     isGameActive as getIsGameActive,
     getScore,
-    getHighscore,
     getStreakType,
     getStreakCount,
-    getHues
+    getHues,
 } from '../state/selectors';
 import { OPTIONS_URL, IS_KAY_OS, TITLE_URL } from '../config';
 import { useKaiOsSoftwareKeys } from '../hooks';
 import BackLink from './BackLink';
+import {useStore} from "../state/store";
 
 function Menu() {
     const { refLeft, refRight } = useKaiOsSoftwareKeys();
-    const isGameActive = useSelector(getIsGameActive);
-    const highscore = useSelector(getHighscore);
-    const score = useSelector(getScore);
-    const streakCount = useSelector(getStreakCount);
-    const streakType = useSelector(getStreakType);
-    const hues = useSelector(getHues);
+    const { highscore, hues, isGameActive, score, streakCount, streakType } = useStore((state) => ({
+        highscore: state.highscore,
+        hues: getHues(state),
+        isGameActive: getIsGameActive(state),
+        score: getScore(state),
+        streakCount: getStreakCount(state),
+        streakType: getStreakType(state),
+    }))
 
     if (!isGameActive) {
         return null;
@@ -40,7 +41,7 @@ function Menu() {
                 <div block="stat" elem="title">Streak</div>
                 {streakCount > 0 && <>
                     <div block="stat" elem="square">
-                        <div block="square" mods={{type: streakType}} style={style}></div>
+                        <div block="square" mods={{type: streakType}} style={style} />
                     </div>
                     <div block="stat" elem="value">{streakCount}</div>
                 </>}

@@ -1,5 +1,5 @@
-import { handleActions } from 'redux-actions';
 import { SQUARE_TYPES, IS_KAY_OS } from '../../config';
+import produce from "immer";
 
 export const INPUT_MODE_TOUCH = 'TOUCH';
 export const INPUT_MODE_CLICK = 'CLICK';
@@ -11,31 +11,20 @@ export const defaultOptions = {
     inputMode: IS_KAY_OS ? INPUT_MODE_CLICK : INPUT_MODE_TOUCH
 };
 
-const optionsReducers = handleActions({
-    CHANGE_HUE: (options, { payload: { index, hue } }) => {
-        const hues = [...options.hues];
+export const createOptionsSlice = set => ({
+    options: defaultOptions,
+    changeHue: (index, hue) => set(produce(state => {
+        const hues = [...state.options.hues];
         hues[index] = hue;
 
-        return {
-            ...options,
-            hues
-        };
-    },
-    RESET_HUES: (options) => {
-        return {
-            ...options,
-            hues: defaultHues,
-        };
-    },
-    CHANGE_INPUT_MODE: (options) => {
-        return {
-            ...options,
-            inputMode:
-                options.inputMode === INPUT_MODE_CLICK
-                    ? INPUT_MODE_TOUCH
-                    : INPUT_MODE_CLICK
-        }
-    }
-}, defaultOptions);
-
-export default optionsReducers;
+        state.options.hues = hues;
+    })),
+    resetHues: () => set(produce(state => {
+        state.options.hues = defaultHues;
+    })),
+    changeInputMode: () => set(produce(state => {
+        state.options.inputMode = state.options.inputMode === INPUT_MODE_CLICK
+          ? INPUT_MODE_TOUCH
+          : INPUT_MODE_CLICK
+    })),
+})

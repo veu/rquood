@@ -1,9 +1,9 @@
-import { handleActions } from 'redux-actions';
+import produce from "immer";
+import {getScore} from "../selectors";
 
-const highscoreReducers = handleActions({
-    UPDATE_HIGHSCORE: (highscore, { payload: { score } }) => {
-        return Math.max(highscore, score);
-    }
-}, 0);
-
-export default highscoreReducers;
+export const createHighscoreSlice = set => ({
+    highscore: 0,
+    updateHighscore: () => set(produce((state) => {
+        state.highscore = Math.max(state.highscore, getScore(state))
+    }))
+})
