@@ -14,7 +14,7 @@ function Game() {
   useEffect(() => {
     assureGame();
     resetSelection();
-  }, []);
+  }, [assureGame, resetSelection]);
 
   if (!isActive) {
     return null;

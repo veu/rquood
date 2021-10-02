@@ -15,7 +15,7 @@ function Tutorial() {
   useEffect(() => {
     startTutorial();
     resetSelection();
-  }, []);
+  }, [resetSelection, startTutorial]);
 
   return (
     <>
