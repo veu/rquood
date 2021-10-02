@@ -5,7 +5,9 @@ const getStreak = (state) => state.game && state.game.streak;
 
 export const getGame = (state) => state.game;
 export const getBoard = (state) => {
-  return state.game && state.game.board;
+  return isTutorial(state)
+    ? getTutorialBoard(state)
+    : state.game && state.game.board;
 };
 export const getBucket = (state) => state.game && state.game.bucket;
 export const getScore = (state) => state.game && state.game.score;
@@ -52,15 +54,13 @@ export const isBoardLocked = createSelector(
   (hidden) => hidden
 );
 
-export const getSquare = (isTutorial, index) =>
+export const getSquare = (index) =>
   createSelector(
     getBoard,
-    getTutorialBoard,
     getSelectedSquares,
     isSelectionHidden,
-    (gameBoard, tutorialBoard, squares, hidden) => {
+    (board, squares, hidden) => {
       const active = squares.includes(index);
-      const board = isTutorial ? tutorialBoard : gameBoard;
 
       return {
         type: board && board[index],
@@ -79,6 +79,8 @@ export const getTutorialMessage = (state) =>
 
 export const getTutorialBoard = (state) =>
   state.tutorial.board[state.tutorial.step];
+
+export const isTutorial = (state) => state.tutorial.active;
 
 // options
 

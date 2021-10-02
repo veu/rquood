@@ -12,12 +12,12 @@ import GridClickOverlay from "./GridClickOverlay";
 import { useStore } from "../state/store";
 
 export default function Board({ isTutorial = false }) {
-  const { discardSelection, isBoardLocked, inputMode, match, updateSelection } =
+  const { isBoardLocked, inputMode, match, resetSelection, updateSelection } =
     useStore((state) => ({
-      discardSelection: state.discardSelection,
       isBoardLocked: getIsBoardLocked(state),
       inputMode: getInputMode(state),
       match: state.match,
+      resetSelection: state.resetSelection,
       updateSelection: state.updateSelection,
     }));
   const height = isTutorial ? BOARD_HEIGHT_TUTORIAL : BOARD_HEIGHT;
@@ -25,20 +25,20 @@ export default function Board({ isTutorial = false }) {
   const squares = range(0, height * BOARD_WIDTH).map((index) => {
     return (
       <div className="board__square" key={index}>
-        <Square index={index} isTutorial={isTutorial} />
+        <Square index={index} />
       </div>
     );
   });
 
   return (
-    <div className="board">
+    <div className={`board${isTutorial ? " board_tutorial" : ""}`}>
       {inputMode === INPUT_MODE_TOUCH && (
         <GridDraggingOverlay
           gridWidth={BOARD_WIDTH}
           gridHeight={height}
-          onDragEnd={() => match(isTutorial)}
+          onDragEnd={() => match()}
           onDragUpdate={(start, end) => updateSelection(start, end)}
-          onDragAbort={() => discardSelection()}
+          onDragAbort={() => resetSelection()}
           isLocked={isBoardLocked}
         />
       )}
@@ -46,11 +46,11 @@ export default function Board({ isTutorial = false }) {
         <GridClickOverlay
           gridWidth={BOARD_WIDTH}
           gridHeight={height}
-          onDragEnd={() => match(isTutorial)}
+          onDragEnd={() => match()}
           onDragUpdate={(start, end) => updateSelection(start, end)}
-          onDragAbort={() => discardSelection()}
+          onDragAbort={() => resetSelection()}
           isLocked={isBoardLocked}
-        ></GridClickOverlay>
+        />
       )}
 
       {squares}

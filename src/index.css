@@ -50,6 +50,11 @@ main {
     cursor: pointer;
 }
 
+.board_tutorial {
+    height: calc(480rem * 5 / 7);
+    padding-bottom: calc(100% * 5 / 7);
+}
+
 .board__square {
     float: left;
     height: calc(480rem / 7.01);

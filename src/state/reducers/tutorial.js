@@ -1,6 +1,7 @@
 import produce from "immer";
 
 export const defaultTutorial = {
+  active: false,
   board: [
     [
       3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3,
@@ -39,6 +40,13 @@ export const createTutorialSlice = (set) => ({
     set(
       produce((state) => {
         state.tutorial.step = 0;
+        state.tutorial.active = true;
+      })
+    ),
+  endTutorial: () =>
+    set(
+      produce((state) => {
+        state.tutorial.active = false;
       })
     ),
   advanceTutorial: () =>

@@ -5,7 +5,12 @@ import { devtools } from "zustand/middleware";
 import { createGameSlice } from "./reducers/game";
 import { createOptionsSlice } from "./reducers/options";
 import { createSelectionSlice } from "./reducers/selection";
-import { getBucket, isGameActive, isSelectionHidden } from "./selectors";
+import {
+  getBucket,
+  isGameActive,
+  isSelectionHidden,
+  isTutorial,
+} from "./selectors";
 import delay from "delay";
 import { BOARD_HEIGHT, BOARD_WIDTH } from "../config";
 import { configurePersist } from "zustand-persist";
@@ -44,7 +49,7 @@ export const useStore = create(
         ...createGameSlice(set, get),
         ...createOptionsSlice(set, get),
         ...createSelectionSlice(set, get),
-        match: async (isTutorial) => {
+        match: async () => {
           get().hideSelection();
 
           await delay(0);
@@ -55,7 +60,7 @@ export const useStore = create(
 
           await delay(500);
 
-          if (isTutorial) {
+          if (isTutorial(get())) {
             get().advanceTutorial();
           } else {
             const [values, bucket] = getRandom(getBucket(get()), 4);

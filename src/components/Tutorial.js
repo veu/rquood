@@ -6,16 +6,20 @@ import { useStore } from "../state/store";
 import { getTutorialMessage } from "../state/selectors";
 
 function Tutorial() {
-  const [message, resetSelection, startTutorial] = useStore((state) => [
-    getTutorialMessage(state),
-    state.resetSelection,
-    state.startTutorial,
-  ]);
+  const [endTutorial, message, resetSelection, startTutorial] = useStore(
+    (state) => [
+      state.endTutorial,
+      getTutorialMessage(state),
+      state.resetSelection,
+      state.startTutorial,
+    ]
+  );
 
   useEffect(() => {
     startTutorial();
     resetSelection();
-  }, [resetSelection, startTutorial]);
+    return endTutorial;
+  }, [endTutorial, resetSelection, startTutorial]);
 
   return (
     <>
