@@ -1,15 +1,13 @@
 import React from 'react';
 import range from 'ramda/src/range';
-import { SQUARE_TYPES, IS_KAY_OS, GAME_URL } from '../config';
+import { SQUARE_TYPES, GAME_URL } from '../config';
 import HueSlider from './HueSlider';
 import { getInputMode } from '../state/selectors';
-import { useKaiOsSoftwareKeys } from '../hooks';
 import { INPUT_MODE_TOUCH } from '../state/reducers/options';
 import BackLink from './BackLink';
 import {useStore} from "../state/store";
 
 function Options() {
-    const { refLeft, refRight } = useKaiOsSoftwareKeys();
     const { changeInputMode, inputMode, startGame, resetHues } = useStore(state => ({
         changeInputMode: state.changeInputMode,
         inputMode: getInputMode(state),
@@ -23,14 +21,12 @@ function Options() {
     return (
         <>
             <div block="menu">
-                {!IS_KAY_OS && (
-                    <div block="menu" elem="block">
-                        <div block="options-headline">Input Mode</div>
-                        <button block="action" onClick={() => changeInputMode()}>
-                            {inputMode === INPUT_MODE_TOUCH ? 'Touch' : 'Click'}
-                        </button>
-                    </div>
-                )}
+                <div block="menu" elem="block">
+                    <div block="options-headline">Input Mode</div>
+                    <button block="action" onClick={() => changeInputMode()}>
+                        {inputMode === INPUT_MODE_TOUCH ? 'Touch' : 'Click'}
+                    </button>
+                </div>
                 <div block="menu" elem="block">
                     <div block="options-headline">Square Colors</div>
                     {sliders}
@@ -41,13 +37,10 @@ function Options() {
             </div>
             <div block="main-menu">
                 <div block="main-menu" elem="action">
-                    <BackLink to={GAME_URL} innerRef={refLeft} />
-                </div>
-                <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
-                    SELECT
+                    <BackLink to={GAME_URL} />
                 </div>
                 <div block="main-menu" elem="action">
-                    <BackLink to={GAME_URL} innerRef={refRight} onClick={() => startGame()}>
+                    <BackLink to={GAME_URL} onClick={() => startGame()}>
                         Restart
                     </BackLink>
                 </div>

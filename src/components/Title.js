@@ -5,15 +5,12 @@ import {
     GAME_URL,
     TUTORIAL_URL,
     BOARD_HEIGHT,
-    BOARD_WIDTH,
-    IS_KAY_OS
+    BOARD_WIDTH
 } from '../config';
-import { useKaiOsSoftwareKeys } from '../hooks';
 import { getHues } from '../state/selectors';
 import { useStore } from "../state/store";
 
 function Title() {
-    const { refLeft, refRight } = useKaiOsSoftwareKeys();
     const hues = useStore(getHues);
     const squareStyle = {
         filter: `hue-rotate(${hues[1]}deg)`
@@ -26,7 +23,7 @@ function Title() {
                     block="square"
                     mods={{type: 1}}
                     style={squareStyle}
-                ></div>
+                />
             </div>
         );
     });
@@ -40,13 +37,10 @@ function Title() {
 
         <div block="main-menu">
             <div block="main-menu" elem="action">
-                <Link to={GAME_URL} innerRef={refLeft}>Play</Link>
-            </div>
-            <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
-                SELECT
+                <Link to={GAME_URL}>Play</Link>
             </div>
             <div block="main-menu" elem="action">
-                <Link to={TUTORIAL_URL} innerRef={refRight}>Tutorial</Link>
+                <Link to={TUTORIAL_URL}>Tutorial</Link>
             </div>
         </div>
     </>);

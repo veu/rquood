@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
 import Board from './Board';
-import { useKaiOsSoftwareKeys } from '../hooks';
-import { IS_KAY_OS, TITLE_URL } from '../config';
+import { TITLE_URL } from '../config';
 import BackLink from './BackLink';
 import {useStore} from "../state/store";
 import {getTutorialMessage} from "../state/selectors";
 
 function Tutorial() {
-    const { refLeft } = useKaiOsSoftwareKeys();
-
     const [message, resetSelection, startTutorial] = useStore(state => [
         getTutorialMessage(state),
         state.resetSelection,
@@ -27,10 +24,7 @@ function Tutorial() {
         </div>
         <div block="main-menu">
             <div block="main-menu" elem="action">
-                <BackLink to={TITLE_URL} innerRef={refLeft} />
-            </div>
-            <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
-                SELECT
+                <BackLink to={TITLE_URL} />
             </div>
             <div
                 block="main-menu"

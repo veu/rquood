@@ -1,4 +1,4 @@
-import { SQUARE_TYPES, IS_KAY_OS } from '../../config';
+import { SQUARE_TYPES } from '../../config';
 import produce from "immer";
 
 export const INPUT_MODE_TOUCH = 'TOUCH';
@@ -8,7 +8,7 @@ export const defaultHues = Array(SQUARE_TYPES).fill(0);
 
 export const defaultOptions = {
     hues: defaultHues,
-    inputMode: IS_KAY_OS ? INPUT_MODE_CLICK : INPUT_MODE_TOUCH
+    inputMode: INPUT_MODE_TOUCH
 };
 
 export const createOptionsSlice = set => ({

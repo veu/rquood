@@ -7,13 +7,11 @@ import {
     getStreakCount,
     getHues,
 } from '../state/selectors';
-import { OPTIONS_URL, IS_KAY_OS, TITLE_URL } from '../config';
-import { useKaiOsSoftwareKeys } from '../hooks';
+import { OPTIONS_URL, TITLE_URL } from '../config';
 import BackLink from './BackLink';
 import {useStore} from "../state/store";
 
 function Menu() {
-    const { refLeft, refRight } = useKaiOsSoftwareKeys();
     const { highscore, hues, isGameActive, score, streakCount, streakType } = useStore((state) => ({
         highscore: state.highscore,
         hues: getHues(state),
@@ -59,13 +57,10 @@ function Menu() {
         </div>
         <div block="main-menu">
             <div block="main-menu" elem="action">
-                <BackLink to={TITLE_URL} innerRef={refLeft} />
-            </div>
-            <div block="main-menu" elem="action" mods={{inactive: !IS_KAY_OS}}>
-                SELECT
+                <BackLink to={TITLE_URL} />
             </div>
             <div block="main-menu" elem="action">
-                <Link to={OPTIONS_URL} innerRef={refRight}>Options</Link>
+                <Link to={OPTIONS_URL}>Options</Link>
             </div>
         </div>
     </>);

@@ -8,11 +8,7 @@ and built with web technologies including HTML5, CSS3, React, and Redux.
 ## Install on KaiOS
 
 This game is optimized for KaiOS. You can sideload it onto your KaiOS phone assuming you have access to developer mode.
-
-1. Check out or download this repository.
-1. Run `npm install`.
-1. Run `npm run build`.
-1. Install the app from the `build` directory.
+Just download a KaiOS-compatible release under [releases](https://github.com/veu/rquood/releases) and install it on your device.
 
 ## Bugs
 
