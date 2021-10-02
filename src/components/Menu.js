@@ -31,35 +31,35 @@ function Menu() {
 
     function getStats() {
         return (<>
-            <div block="stat">
-                <div block="stat" elem="title">Score</div>
-                <div block="stat" elem="value">{score}</div>
+            <div className="stat">
+                <div className="stat__title">Score</div>
+                <div className="stat__value">{score}</div>
             </div>
-            <div block="stat">
-                <div block="stat" elem="title">Streak</div>
+            <div className="stat">
+                <div className="stat__title">Streak</div>
                 {streakCount > 0 && <>
-                    <div block="stat" elem="square">
-                        <div block="square" mods={{type: streakType}} style={style} />
+                    <div className="stat__square">
+                        <div className={`square square_type_${streakType}`} style={style} />
                     </div>
-                    <div block="stat" elem="value">{streakCount}</div>
+                    <div className="stat__value">{streakCount}</div>
                 </>}
             </div>
-            <div block="stat">
-                <div block="stat" elem="title">Highscore</div>
-                <div block="stat" elem="value">{highscore}</div>
+            <div className="stat">
+                <div className="stat__title">Highscore</div>
+                <div className="stat__value">{highscore}</div>
             </div>
         </>);
     }
 
     return (<>
-        <div block="menu">
+        <div className="menu">
             {getStats()}
         </div>
-        <div block="main-menu">
-            <div block="main-menu" elem="action">
+        <div className="main-menu">
+            <div className="main-menu__action">
                 <BackLink to={TITLE_URL} />
             </div>
-            <div block="main-menu" elem="action">
+            <div className="main-menu__action">
                 <Link to={OPTIONS_URL}>Options</Link>
             </div>
         </div>

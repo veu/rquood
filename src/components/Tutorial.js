@@ -19,19 +19,14 @@ function Tutorial() {
 
     return (<>
         <Board isTutorial={true} />
-        <div block="menu">
-            <div block="message">{message}</div>
+        <div className="menu">
+            <div className="message">{message}</div>
         </div>
-        <div block="main-menu">
-            <div block="main-menu" elem="action">
+        <div className="main-menu">
+            <div className="main-menu__action">
                 <BackLink to={TITLE_URL} />
             </div>
-            <div
-                block="main-menu"
-                elem="action"
-                mods={{inactive: true}}
-            >
-            </div>
+            <div className="main-menu__action main-menu__action_inactive" />
         </div>
     </>);
 }

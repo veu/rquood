@@ -8,5 +8,12 @@ export default function Square({index, isTutorial = false }) {
         filter: `hue-rotate(${hues[square.type]}deg)`
     };
 
-    return <button block="square" mods={square} style={style} />;
+    const block = 'square';
+    const mods = Object
+      .entries(square)
+      .filter(([_, value]) => value !== false)
+      .map(([name, val]) => `${block}_${name}${val === true ? '' : '_' + val}`);
+    const className = [block, ...mods].join(' ');
+
+    return <button className={className} style={style} />;
 }

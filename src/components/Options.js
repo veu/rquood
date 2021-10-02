@@ -20,26 +20,26 @@ function Options() {
 
     return (
         <>
-            <div block="menu">
-                <div block="menu" elem="block">
-                    <div block="options-headline">Input Mode</div>
-                    <button block="action" onClick={() => changeInputMode()}>
+            <div className="menu">
+                <div className="menu__block">
+                    <div className="options-headline">Input Mode</div>
+                    <button className="action" onClick={() => changeInputMode()}>
                         {inputMode === INPUT_MODE_TOUCH ? 'Touch' : 'Click'}
                     </button>
                 </div>
-                <div block="menu" elem="block">
-                    <div block="options-headline">Square Colors</div>
+                <div className="menu__block">
+                    <div className="options-headline">Square Colors</div>
                     {sliders}
-                    <button block="action" onClick={() => resetHues()}>
+                    <button className="action" onClick={() => resetHues()}>
                         Reset
                     </button>
                 </div>
             </div>
-            <div block="main-menu">
-                <div block="main-menu" elem="action">
+            <div className="main-menu">
+                <div className="main-menu__action">
                     <BackLink to={GAME_URL} />
                 </div>
-                <div block="main-menu" elem="action">
+                <div className="main-menu__action">
                     <BackLink to={GAME_URL} onClick={() => startGame()}>
                         Restart
                     </BackLink>

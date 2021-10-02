@@ -26,7 +26,7 @@ export default function Board({ isTutorial = false }) {
 
     const squares = range(0, height * BOARD_WIDTH).map((index) => {
         return (
-            <div block="board" elem="square" key={index}>
+            <div className="board__square" key={index}>
                 <Square
                     index={index}
                     isTutorial={isTutorial}
@@ -36,7 +36,7 @@ export default function Board({ isTutorial = false }) {
     });
 
     return (
-        <div block="board" mods={{ tutorial: isTutorial }}>
+        <div className="board">
             {inputMode === INPUT_MODE_TOUCH && <GridDraggingOverlay
                 gridWidth={BOARD_WIDTH}
                 gridHeight={height}

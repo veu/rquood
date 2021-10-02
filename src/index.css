@@ -50,11 +50,6 @@ main {
     cursor: pointer;
 }
 
-.board_tutorial {
-    height: calc(480rem * 5 / 7);
-    padding-bottom: calc(100% * 5 / 7);
-}
-
 .board__square {
     float: left;
     height: calc(480rem / 7.01);
@@ -146,28 +141,28 @@ main {
     color: #fff;
     cursor: pointer;
     display: inline;
-    flex-grow: 1;
+    flex-grow: 0;
     flex-basis: 33%;
     font-size: 35rem;
     font-weight: 600;
     text-align: center;
 }
 
-.main-menu:first-child {
+.main-menu__action:first-child {
     font-size: 29rem;
     text-align: left;
 }
 
-.main-menu:last-child {
+.main-menu__action:last-child {
     font-size: 29rem;
     text-align: right;
 }
 
-.main-menu_inactive {
+.main-menu__action_inactive {
     visibility: hidden;
 }
 
-.main-menu a {
+.main-menu__action a {
     color: inherit;
     text-decoration: none;
 }

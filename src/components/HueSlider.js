@@ -24,18 +24,18 @@ export default function HueSlider({index}) {
     }
 
     return (
-        <div block="slider">
-            <div block="slider" elem="square">
-                <div block="square" mods={{type: index}} style={style} />
+        <div className="slider">
+            <div className="slider__square">
+                <div className={`square square_type_${index}`} style={style} />
             </div>
-            <div block="slider" elem="bar-border">
+            <div className="slider__bar-border">
                 {inputMode === INPUT_MODE_TOUCH && <DraggingOverlay
                     onDragUpdate={onDragUpdate}
                 />}
                 {inputMode === INPUT_MODE_CLICK && <ClickOverlay
                     onClick={onClick}
                 />}
-                <div block="slider" elem="bar"
+                <div className="slider__bar"
                 style={{width: `${hue / 3.6}%`}}>
                 </div>
             </div>
