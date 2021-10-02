@@ -9,6 +9,8 @@
     "static/js/2.d4c9d2fc.chunk.js": "./static/js/2.d4c9d2fc.chunk.js",
     "static/js/2.d4c9d2fc.chunk.js.map": "./static/js/2.d4c9d2fc.chunk.js.map",
     "index.html": "./index.html",
+    "service-worker.js": "./service-worker.js",
+    "service-worker.js.map": "./service-worker.js.map",
     "static/css/2.679831fc.chunk.css.map": "./static/css/2.679831fc.chunk.css.map",
     "static/css/main.0394e594.chunk.css.map": "./static/css/main.0394e594.chunk.css.map",
     "static/js/2.d4c9d2fc.chunk.js.LICENSE.txt": "./static/js/2.d4c9d2fc.chunk.js.LICENSE.txt"
