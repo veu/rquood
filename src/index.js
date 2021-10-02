@@ -5,7 +5,7 @@ import { createHashHistory } from "history";
 import "pepjs";
 import "normalize.css";
 import "./index.css";
-import * as serviceWorker from "./serviceWorker";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import Game from "./components/Game";
 import Title from "./components/Title";
 import Tutorial from "./components/Tutorial";
@@ -15,18 +15,17 @@ import Options from "./components/Options";
 const history = createHashHistory();
 
 ReactDOM.render(
-  <Router history={history}>
-    <Switch>
-      <Route exact path={TITLE_URL} render={() => <Title />} />
-      <Route exact path={GAME_URL} render={() => <Game />} />
-      <Route exact path={TUTORIAL_URL} render={() => <Tutorial />} />
-      <Route exact path={OPTIONS_URL} render={() => <Options />} />
-    </Switch>
-  </Router>,
+  <React.StrictMode>
+    <Router history={history}>
+      <Switch>
+        <Route exact path={TITLE_URL} render={() => <Title />} />
+        <Route exact path={GAME_URL} render={() => <Game />} />
+        <Route exact path={TUTORIAL_URL} render={() => <Tutorial />} />
+        <Route exact path={OPTIONS_URL} render={() => <Options />} />
+      </Switch>
+    </Router>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.register();
+serviceWorkerRegistration.register();
