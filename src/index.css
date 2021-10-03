@@ -83,6 +83,7 @@ main {
     height: 100%;
     padding: 0;
     width: 100%;
+    image-rendering: crisp-edges;
     image-rendering: pixelated;
     opacity: .9;
     transition: transform 500ms, opacity 500ms;
