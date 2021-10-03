@@ -9,8 +9,15 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import Game from "./components/Game";
 import Title from "./components/Title";
 import Tutorial from "./components/Tutorial";
-import { TITLE_URL, GAME_URL, TUTORIAL_URL, OPTIONS_URL } from "./config";
+import {
+  TITLE_URL,
+  GAME_URL,
+  TUTORIAL_URL,
+  OPTIONS_URL,
+  ABOUT_URL,
+} from "./config";
 import Options from "./components/Options";
+import About from "./components/About";
 
 const history = createHashHistory();
 
@@ -22,6 +29,7 @@ ReactDOM.render(
         <Route exact path={GAME_URL} render={() => <Game />} />
         <Route exact path={TUTORIAL_URL} render={() => <Tutorial />} />
         <Route exact path={OPTIONS_URL} render={() => <Options />} />
+        <Route exact path={ABOUT_URL} render={() => <About />} />
       </Switch>
     </Router>
   </React.StrictMode>,

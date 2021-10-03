@@ -1,7 +1,13 @@
 import range from "ramda/src/range";
 import React from "react";
 import { Link } from "react-router-dom";
-import { GAME_URL, TUTORIAL_URL, BOARD_HEIGHT, BOARD_WIDTH } from "../config";
+import {
+  GAME_URL,
+  TUTORIAL_URL,
+  BOARD_HEIGHT,
+  BOARD_WIDTH,
+  ABOUT_URL,
+} from "../config";
 import { getHues } from "../state/selectors";
 import { useStore } from "../state/store";
 
@@ -30,6 +36,9 @@ function Title() {
       <div className="main-menu">
         <div className="main-menu__action">
           <Link to={GAME_URL}>Play</Link>
+        </div>
+        <div className="main-menu__action">
+          <Link to={ABOUT_URL}>About</Link>
         </div>
         <div className="main-menu__action">
           <Link to={TUTORIAL_URL}>Tutorial</Link>

@@ -149,18 +149,16 @@ main {
     display: inline;
     flex-grow: 0;
     flex-basis: 33%;
-    font-size: 35rem;
+    font-size: 29rem;
     font-weight: 600;
     text-align: center;
 }
 
 .main-menu__action:first-child {
-    font-size: 29rem;
     text-align: left;
 }
 
 .main-menu__action:last-child {
-    font-size: 29rem;
     text-align: right;
 }
 
@@ -192,6 +190,10 @@ main {
 
 .menu__block {
     flex-basis: 100%;
+}
+
+ .menu__block + .menu__block {
+    margin-top: 40rem;
 }
 
 .action {
@@ -250,6 +252,11 @@ main {
     color: #fff;
     font-size: 35rem;
     white-space: pre-line;
+}
+
+.message a {
+    text-decoration: none;
+    color: #8684ac;
 }
 
 .slider {
